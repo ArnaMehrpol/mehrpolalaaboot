@@ -1,0 +1,65 @@
+.gh_container{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.gh_container{
+  width: 80px;
+  height: 100px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+
+.gh_container hr{
+  padding: 0;
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.gh_Icon{
+  cursor: pointer;
+}
+
+.gh_Icon img{
+  width: 45px;
+}
+
+.gh_Icon i{
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.gh_fileName p{
+  padding: 0;
+  margin: 0;
+  margin-bottom: 3px;
+  font-size: 0.6rem;
+  cursor: pointer;
+}
+
+.gh_controller{
+  display: flex;
+  padding: 3px 5pX;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gh_controller input{
+  text-align: right;
+  cursor: pointer;
+}
+
+.gh_controller i{
+  cursor: pointer;
+  color: #a4161a;
+  text-align: left;
+}

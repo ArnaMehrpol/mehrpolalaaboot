@@ -1,0 +1,9 @@
+.panelProductContainer{
+  background-color: #ffffff;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px 10px;
+  border: 1px solid #999997;
+  border-radius: 15px;
+  margin: 0 10px;
+}

@@ -1,0 +1,17 @@
+/** start login page css By Miss Hosini**/
+   .right-content {
+    background-image: url("../public/assets/img/pic/login.svg") ;
+    @apply  bg-contain bg-center bg-no-repeat 
+   }
+   .right-content::before{
+    content: '';
+    background-image: url("../public/assets/img/pic/dot-white.svg") ;
+    @apply  w-32 h-32 bg-contain bg-center bg-no-repeat absolute
+   }
+   .right-content::after{
+    content: '';
+    background-image: url("../public/assets/img/pic/dot-white.svg") ;
+    @apply w-32 h-32 bg-contain bg-center bg-no-repeat absolute left-0 bottom-0
+   }
+ 
+    /** end login page css By Miss Hosini**/

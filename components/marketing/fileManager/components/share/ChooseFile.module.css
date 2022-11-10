@@ -1,0 +1,340 @@
+
+.gh_containerSpan{
+  content:' ';
+  background-color: #4b4b4b99;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 202;
+  perspective: 1000px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.gh_containerDiv{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  transform-origin: left;
+  perspective: 1000px;
+  max-width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  z-index: 1000;  
+  background-color:transparent;
+  align-items: center;
+  direction: rtl;
+}
+
+.gh_containerDiv{
+  width: 800px;
+  height: 500px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: none;
+  box-shadow: rbga(0,0,0,0.1) 0px 4px 12px;
+}
+
+.gh_headerPage {
+}
+
+.gh_headerPage header{
+  display: flex;
+  height: 80px;
+  font-size: 1rem;
+  justify-content: space-between;
+  padding: 10px 10px;
+  align-items: center;
+  margin: 0;
+}
+
+.gh_headerPage header h5{
+  margin: 0;
+  padding: 0;
+}
+
+.gh_headerPage header i{
+  color: #a4161a;
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.gh_mainPage{
+  height: 320px;
+  max-height: 320px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 10px 15px;
+  background-color: #f8edeb;
+}
+
+.gh_SendFileLoadingDiv{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  transform-origin: left;
+  perspective: 1000px;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 25px;
+  border: none;
+  border-radius: 10px;
+  background-color: #ffffff;
+  z-index: 11000;
+}
+
+.gh_mainPageRight{
+  height: 320px;
+  max-height: 320px;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  border-left: 2px solid #9b9898;
+  height: 100%;
+  margin-left: 10px;
+}
+
+.gh_mainPageRightLoadingDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.gh_mainPageRightLoadingDiv button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin: 10px auto;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  padding: 0;
+}
+
+.gh_mainPageRightLoadingDiv button:hover{
+  background-color: #686e79;
+  color: #ffffff;
+}
+
+.gh_mainPageRightLoadingDiv button i{
+  transform: translateY(5px);
+  text-align: center;
+  padding: 2.5px 5px;
+}
+
+.gh_mainPageRightLoadingDiv button i:hover{
+  transform: rotateZ(90deg) translateY(5px);
+}
+
+.gh_mainPageRightAddressBar{
+  position: absolute;
+  display: flex;
+  transform: translateX(1px) translateY(-25px);
+  
+}
+
+.gh_mainPageRightAddressBar ul{ 
+  display: flex;
+  text-decoration: none;
+  list-style: none;
+}
+
+.gh_mainPageRightAddressBar ul li{
+  padding: 3px 8px;
+  border: none;
+  border-left: 1px solid #686e79;
+  background-color: #9b9898;
+  font-size: .8rem;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.gh_mainPageRightAddressBar ul li:hover{
+  background-color: #878585;
+}
+
+.gh_mainPageRightAddressBar ul li:first-child{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.gh_mainPageRightAddressBar ul li:last-child{
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.gh_mainPageLeft{
+  width: 50%;
+  height: 320px;
+  max-height: 320px;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gh_mainPageLeftButtonsSend{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  transform: translateY(-30px);
+}
+
+.gh_mainPageLeftButtonsSend i{
+  border: none;
+  width: 40px;
+  height: 40px;
+  padding: 5px 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  text-align: center;
+  background-color: #3a86ff;
+  color: #ffffff;
+  font-size: 1.3rem;
+}
+
+.gh_mainPageLeftButtonsSend i:hover{
+  background-color: #4361ee;
+}
+
+.gh_mainPageLeftButtonsTrash{
+  position: absolute;
+  display: flex;
+  left: 20px;
+  text-align: center;
+  transform: translateY(-30px);
+}
+
+
+.gh_mainPageLeftButtonsTrash i{
+  border: none;
+  width: 40px;
+  height: 40px;
+  padding: 5px 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  text-align: center;
+  background-color: #ba181b;
+  color: #ffffff;
+  font-size: 1.3rem;
+}
+
+.gh_mainPageLeftButtonsTrash i:hover{
+  background-color: #a4161a;
+}
+
+.gh_divBottom{  
+  width: 100%;
+  position: fixed;
+  bottom: 20px;
+  z-index: 3;
+}
+
+.gh_divBottom footer{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
+}
+
+.gh_divBottom footer div{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.gh_addButton{
+  width: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px 5px;
+  background-color: #3a86ff;
+  color: #ffff;
+  border: none;
+  border-radius: 8px;
+  margin-left: 20px;
+}
+
+.gh_addFolderButton{
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px 5px;
+  background-color: #3a86ff;
+  color: #ffff;
+  border: none;
+  border-radius: 8px;
+  margin-left: 20px;
+}
+
+.gh_addButton:hover{
+  background-color: #4361ee;
+}
+
+.gh_delButton{
+  width: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px 5px;
+  background-color: #f07167;
+  color: #ffff;
+  border: none;
+  border-radius: 8px;
+}
+
+.gh_delButton:hover{
+  background-color: #fb5607;
+}
+
+
+.gh_uploadButtonDiv{
+  width: 180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px 7px;
+  background-color: transparent;
+  color: #3a86ff;
+  border: 2px solid #3a86ff;
+  border-radius: 8px;
+}
+
+.gh_uploadButtonDiv:hover{
+  color: #ffffff;
+  background-color: #3a86ff;
+}
+
+.gh_closeButton{
+  cursor: pointer;
+  padding: 10px 10px;
+  background-color: #ba181b;
+  color: #ffff;
+  border: none;
+  border-radius: 8px;
+}
+
+.gh_closeButton:hover{
+  background-color: #a4161a;
+}

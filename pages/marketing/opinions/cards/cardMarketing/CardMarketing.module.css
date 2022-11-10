@@ -1,0 +1,91 @@
+.gh_Container{
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.gh_Container hr{
+  border: 1px dashed;
+}
+
+.gh_QAAUp{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 25px;
+  align-items: center;
+}
+
+.gh_QAAUpImage{
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.gh_QAAImage{
+  text-align: center;
+  border: 1px solid #b8afaf;
+  border-radius: 50%;
+  margin: 20px 60px 10px 1200px;
+  
+}
+
+.gh_QAAUpImageDIV{
+  width: fit-content;
+  height: fit-content;
+  text-align: center;
+  border: 1px dashed #b8afaf;
+  border-radius: 50%;
+  padding: 2px;
+  display: flex;
+}
+
+.gh_QAAUpImageTitr h6:nth-child(1){
+  max-width: 160px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 10px;
+  color: #1b1b1b;
+  margin-bottom: 5px;
+}
+
+.gh_QAAUpImageTitr h6:nth-child(2){
+  max-width: 160px;
+  font-size: 10px;
+  margin-right: 10px;
+}
+
+.gh_QAAUpPrice{
+  display: flex;
+  font-size: 0.85rem;
+  text-decoration-line: line-through;
+  color: #999999
+}
+
+.gh_QAAUpPrice p:nth-child(1){
+  margin-left: 20px;
+}
+
+.gh_QAAUpPrice2{
+  display: flex;
+  color: #1b1b1b;
+}
+
+.gh_QAAUpPrice2 p:nth-child(1){
+  margin-left: 30px;
+}
+
+@media (min-width: 680px){
+
+  .gh_QAAUp{
+    display: flex;
+    flex-direction: row;
+  }
+
+
+  .gh_QAAUpImage{
+    margin: 0;
+  }
+
+}

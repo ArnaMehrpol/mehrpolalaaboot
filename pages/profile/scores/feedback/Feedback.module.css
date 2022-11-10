@@ -1,0 +1,257 @@
+#gh_mainbar {
+  direction: rtl;
+  padding: 30px;
+  width: 85%;
+  max-width: 950px;
+  background-color: #ffffff;
+  border-radius: 20px;  
+  -webkit-box-shadow: -4px 6px 10px -2px rgba(0,0,0,0.21); 
+  box-shadow: -4px 6px 10px -2px rgba(0,0,0,0.24);
+  margin: auto;
+}
+
+.gh_mainbarTitr{
+  margin-bottom: 50px;
+}
+
+.gh_mainbarTitr h3{
+
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* ################################ */
+.gh_accordions{
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 20px;
+}
+
+.gh_accordion{
+  width: 100%;
+  color: white;
+  overflow: hidden;
+
+}
+
+.gh_accLabel{
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+  background: #1363df;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.gh_accordion:first-child{
+  border-bottom: 1px solid;
+}
+
+.gh_accLabel::after{
+  content: '>';
+  width: 1 em;
+  height: 1em;
+  text-align: center;
+}
+
+.gh_accContent{
+  max-height: 0;
+  padding:  0 1em;
+  color: #2c3e50;
+  background: #d6e6ff;
+  transition: all 1s ease-out;
+  overflow-y: auto;
+}
+
+.gh_inputCardsQuestion{
+  position: absolute;
+  opacity: 1;
+  z-index: -1;
+}
+
+.gh_inputCardsQuestion:checked + .gh_accLabel::after{
+  transform: rotate(90deg);
+}
+
+.gh_inputCardsQuestion:checked ~ .gh_accContent{
+  max-height: 100vh;
+  padding: 1em;
+}
+
+
+.gh_Computer{
+  display: none;
+}
+
+/* ################################ */
+
+
+
+.gh_tabs li {
+  list-style: none;
+}
+
+#gh_tabs {
+  overflow: hidden;
+  z-index: 1;
+}
+
+.gh_tabs {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 50px;
+  z-index: 0;
+}
+
+.gh_tab:hover {
+  background: #999;
+}
+
+/* Tabs */
+
+.gh_tab {
+  font-size: 14px;
+  font-weight: 600;
+  background: #d6e6ff;
+  text-align: center;
+  border: none;
+  border-bottom: 0;
+  width: 130px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 8px;
+  padding-bottom: 3px;
+  border-top-right-radius: 20% 60%;
+  border-top-left-radius: 20% 60%;
+  border-left: rotate(50deg) solid;
+  margin-right: 0px;
+  height: 40px;
+  min-width: 4%;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+.gh_tab:hover:not(.active) {
+  background: #011e3d;
+  background: -moz-linear-gradient(top, #D1E2F3, #C8D9ED);
+  background: -webkit-linear-gradient(top, #D1E2F3, #C8D9ED);
+}
+
+/* Tabs */
+
+.gh_tab {
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+/* Main Content below Main Tab bar */
+
+.gh_mainContent {
+  top:170px;
+  direction: rtl;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: #BCCFE5;
+  border-top: 1px solid #4986cb;
+  z-index: 100;
+  border: none;
+  border-radius: 10px;
+  padding: 15px 5px;
+  width: 99%;
+  margin: 0 auto;
+  -webkit-box-shadow: -4px 6px 10px -2px rgba(0,0,0,0.21); 
+  box-shadow: -4px 6px 10px -2px rgba(0,0,0,0.21);
+}
+
+.gh_tab:active::before {
+  border-color: transparent #d6e6ff transparent transparent;
+}
+.gh_tab:active::before {
+  border-color: transparent transparent transparent #d6e6ff;
+}
+
+.gh_tab:hover::before {
+  border-color: transparent #C8D9ED transparent transparent;
+}
+.gh_tab:hover::after {
+  border-color:  transparent transparent transparent #C8D9ED;
+}
+
+.gh_tab:focus::after{
+  border-color:#d6e6ff  ;
+}
+/* 
+.tab:hover::before {
+  border-color :#d6e6ff;
+} */
+
+.gh_tab.active:after {
+  border-color : transparent transparent transparent white;
+}
+
+.active {
+  background: #d6e6ff;
+  
+  z-index: 8;
+}
+.active:not(.tab) {
+  top: 1px;
+}
+
+  @media (min-width: 380px){
+
+  .content { 
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    justify-content: center;
+    gap: 5px;
+  }
+
+}
+
+@media (min-width: 680px){
+
+  .content {
+    
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+  }
+
+}
+
+@media (min-width: 890px){
+
+  .content {
+    
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+  }
+
+  .gh_Computer{
+    display: block;
+  }
+
+  .gh_mobile{
+    display: none;
+  }
+
+}
+
+@media (min-width: 1200px){
+
+  .content {
+    
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+
+}

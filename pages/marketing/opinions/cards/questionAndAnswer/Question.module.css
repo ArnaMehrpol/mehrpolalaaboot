@@ -1,0 +1,53 @@
+.gh_Container{
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin: 10px 0;
+  font-size: 12px;
+  font-weight: 200;
+}
+
+.gh_QAADownUp{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 35px; 
+}
+
+.gh_QAADownDown{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+}
+
+.gh_QAADownUp p:nth-child(3){
+  padding: 5px 30px;
+}
+
+.gh_QAADownDown button{
+  background-color: #3b82f6;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 10px;
+  height: fit-content;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.gh_QAADownDown button:hover{
+  background-color: #60a5fa;
+}
+
+
+
+@media (min-width: 680px){
+
+  .gh_QAADownDown{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 35px;
+  }
+}

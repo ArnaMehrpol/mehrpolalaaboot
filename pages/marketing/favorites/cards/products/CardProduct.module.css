@@ -1,0 +1,108 @@
+.gh_productContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #ffffff;
+  width: 197px;
+  margin: 10px 5px;
+  border: 1px solid #999997;
+  border-radius: 10px;
+
+}
+
+.gh_productImageDIV{
+  width: fit-content;
+  height: fit-content;
+  text-align: center;
+  border: 1px solid #b8afaf;
+  border-radius: 10px;
+  margin: 20px 60px 10px 60px;
+}
+
+.gh_productImage{
+  
+}
+
+.gh_productText p{
+  margin: 0;
+  padding: 0;
+}
+
+.gh_productContainer hr{
+  border-color: #aeaeaeae;
+  margin:0;
+}
+
+.gh_productText p:nth-child(1){
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 5px;
+  word-wrap: break-word;
+}
+
+.gh_productText p:nth-child(2){
+  font-size: 0.7rem;
+  text-align: center;
+  margin-bottom: 5px;
+  text-decoration-line: line-through;
+  color: #b8afaf;
+}
+
+.gh_productText p:nth-child(3){
+  font-size: 0.8rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.gh_productIcons{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 0 5px 0;
+}
+
+.gh_productIconsTrash i{
+  color: #ce2424;
+  cursor: pointer;
+}
+
+.gh_productIconsShare i{
+  color: #867676;
+  cursor: pointer;
+}
+
+.gh_productIconsEye{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #666666;
+}
+
+.gh_productIconsEye i{
+  cursor: pointer;
+}
+
+.gh_productIconsEye h6{
+  margin-top: -4px;
+  font-size: 0.6rem;
+  margin-left: 3px;
+}
+
+.gh_productIconsHeart{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gh_productIconsHeart i{
+  color: #ce2424;
+  cursor: pointer;
+}
+
+.gh_productIconsHeart h6{
+  margin-top: -4px;
+  color: #666666;
+  font-size: 0.6rem;
+  margin-left: 3px;
+}

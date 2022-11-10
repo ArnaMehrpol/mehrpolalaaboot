@@ -1,0 +1,65 @@
+.gh_DeleteFileQuestionSpan{
+  content:' ';
+  background-color: #4b4b4b99;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1004;
+}
+
+.gh_DeleteFileQuestionDiv{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  transform-origin: left;
+  /* width: 1100px;
+  height: 750px; */
+  perspective: 1000px;
+  max-width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  z-index: 1005;  
+  background-color:transparent;
+  align-items: center;
+  direction: rtl;
+}
+
+.gh_DeleteFileQuestionDiv{
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 15px 25px;
+}
+
+.gh_DeleteQuestionButtonDiv{
+  text-align: right;
+}
+
+.gh_DeleteQuestionButtonDiv button{
+  border: none;
+  border-radius: 8px;
+  padding: 4px 20px;
+  width: 90px;
+}
+
+.gh_DeleteQuestionButtonDiv button:nth-child(1){
+  margin-left: 10px;
+  background-color: #3a86ff;
+  color: #ffffff;
+}
+
+.gh_DeleteQuestionButtonDiv button:nth-child(1):hover{
+  background-color: #4361ee;
+}
+
+.gh_DeleteQuestionButtonDiv button:nth-child(2){
+  margin-left: 10px;
+  background-color: #f07167;
+  color: #ffffff;
+}
+
+.gh_DeleteQuestionButtonDiv button:nth-child(2):hover{
+  background-color: #fb5607;
+}

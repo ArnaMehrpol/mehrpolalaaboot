@@ -1,0 +1,35 @@
+@import url('./vendor/fontiran.css');
+
+/* لینک فایلی که وظیفه بارگذاری فونت ها را برعهده دارد */
+
+body {
+    font-family: IRANSans !important;
+    font-weight: 300;
+    direction: rtl;
+    text-align: right;
+    background-color: #FeFeFe;
+    color: Black;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+textarea {
+    font-family: IRANSans !important;
+}
+
+* {
+    font-family: IRANSans;
+}
+
+:root {
+    scroll-behavior: smooth;
+}
+
+.content{
+    border-radius: 15px 50px 30px 5px;
+}

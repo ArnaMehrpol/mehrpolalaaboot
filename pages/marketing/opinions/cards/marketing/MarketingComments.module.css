@@ -1,0 +1,64 @@
+.gh_Container{
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin: 10px auto;
+  font-size: 12px;
+  font-weight: 200;
+}
+
+.gh_Container hr{
+  padding: 0;
+  margin: 0;
+}
+
+.gh_QAADownUp p{
+  padding: 0;
+  margin: 0;
+}
+
+.gh_QAADownUp{
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 35px; 
+}
+
+.gh_QAADownDown{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 35px;
+}
+
+.gh_QAADownUp p:nth-child(3){
+  padding: 5px 30px;
+}
+
+.gh_QAADownDownComments p{
+  width: 70%;
+  padding: 20px 0;
+}
+
+.gh_QAADownDownLikeDislike{
+  display: flex;
+  justify-content: space-around;
+}
+
+.gh_QAADownDownLikeDislike div{
+  display: flex;
+}
+
+.gh_QAADownDownLikeDislike div:nth-child(1){
+  color: #3c82f4;
+}
+
+.gh_QAADownDownLikeDislike div:nth-child(2){
+  color: #6b6b6b;
+  margin-right: 40px;
+}
+
+.gh_QAADownDownLikeDislike {
+  margin: 20px 0;
+}
+

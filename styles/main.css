@@ -1,0 +1,2559 @@
+/* ********* My Public Classes ********* */
+
+@font-face {
+  font-family: 'IranSanse';
+  src: url('../public/assets/fonts/fonts/IRANSansWeb.eot') format('eot'),
+  url('../public/assets/fonts/fonts/IRANSansWeb.ttf') format('ttf'),
+  url('/public/assets/fonts/fonts/IRANSansWeb.woff') format('woff'),
+  url('../public/assets/fonts/fonts/IRANSansWeb.woff2') format('woff2');
+}
+/* .buttonOffOthers */
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button{
+  -webkit-appearance: none;
+}
+/* .buttonOffMozila */
+input[type="number"]{
+  -moz-appearance: textfield;
+}
+.slideContainer{
+  /* width: 500vh !important; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  /* flex-flow: row; */
+  
+}
+.silideScale{
+  width:20vh;
+  height:12vh;  
+}
+.mySlideCard{
+  margin: 5px;
+  border-radius: 10px;
+}
+.mySpan{
+  width: 10vh;
+  
+}
+.myButtons{
+  width: 125px !important;  
+}
+.myBg{
+  background-color: #f6f0f0;
+}
+.zIndex{
+  position: relative;
+  z-index: 0;
+}
+.zIndexModal{
+  position: relative;
+  z-index: 100;
+}
+.loadingModal{
+  position: absolute;
+  width: 50% !important;
+  height: 30% ;
+  background-color: rgba(47, 49, 50, 0.7);
+  margin: 0 auto;
+  z-index: 100001;
+  justify-content: center;
+  align-items: center;  
+  display: flex;
+  flex-direction: column;
+  border-radius: 100%;
+}
+.loadingModalText{
+ /* margin-top: 20vh; */
+ color: white;
+ font-size: 2rem;
+}
+loadingModalSpinner{
+  width: 2rem !important;
+  height: 2rem !important;
+  border-radius: 100% !important;
+}
+.AddressModal{
+  position: absolute;
+  display: flex;  
+  z-index: 10002;
+  width: 100% ;
+  justify-content: center;
+  text-align: center;
+  left: 0;
+  max-height: 170vh;
+  overflow-y: scroll;
+
+}
+.deleteModalForAddress{
+  display: flex;
+  align-items: center;
+  margin-top: 20vh;
+  
+
+}
+.xxx{
+  width: 100% !important;
+  
+}
+
+.iranNastaliq{
+  font-family: 'irannastaliq';
+}
+.IranSanse{
+  font-family: 'IranSanse';
+
+}
+.font5{
+  font-size: 5px !important;
+}
+.font8{
+  font-size: 8px !important;
+}
+.font10{
+  font-size: 10px !important;
+}
+.font11{
+  font-size: 11px !important;
+}
+.font12{
+  font-size: 12px !important;
+}
+.font13{
+  font-size: 13px !important;
+}
+.font14{
+  font-size: 14px !important;
+}
+.body{
+  font-family: 'IranSanse';
+}
+.red1{
+  background-color:#ce2424 !important;
+  
+}
+.width100{
+  width: 185px !important;
+}
+.height185{
+  height: 48px;
+}
+.dotblack{
+  
+  width: 650px;
+  height: 60px;
+  background-repeat: repeat;
+  background-size: contain;
+  
+
+  
+}
+
+.theBlue{
+  background-color: rgb(7, 90, 134);
+  border-radius: 5px;
+  color: white;
+}
+.searchParent{
+  display: flex;
+  justify-content: space-between;
+
+}
+.searchInput{
+  height: 5vh;
+  border-radius: 25px;
+  width: 75vh;     
+  background: white;      
+  color: #cac7ff; 
+  position: absolute;  
+  z-index: 0; 
+  
+}
+.searchButton{
+  position:relative;
+  width: 7vh;
+  height: 10vh; 
+  z-index: 1;
+  margin-right: 70vh; 
+  margin-top: 1vh;  
+}
+
+
+/* ********* End My Public Classes ********* */
+
+
+.noStyleLink{
+    color: rgb(0, 0, 0) !important;
+    cursor: auto;
+}
+.noStyleLink:hover{
+    text-decoration: none !important;
+    font-weight: normal !important;
+
+}
+.my-w100{
+  width: 100%;
+}
+.my-w50{
+  width: 50%;
+}
+
+
+
+/* ********* Navbar ********* */
+.myNavbar{
+  background-color:#f3f4f6;
+  position: relative;
+  z-index: 1000;
+}
+.myNavbar a {
+    color: rgb(0, 0, 0) ;
+    text-decoration: none;
+    border-radius: 15px;
+    font-family: 'IranSanse';
+    font-weight: bold;
+
+   
+  }
+ .myNavbar a:hover{
+    background-color: red !important;
+    border-radius: 15px;
+    font-weight: bold;
+    color: black !important;
+    
+  }
+  /* .startTab{
+    background-color: #2b22d4;
+    color: snow !important;
+    border-radius: 10px;
+  } */
+.divideNavbar{
+    justify-content: space-between;
+}
+.my-badge{
+    border-radius: 100%;
+    background-color: red;
+    font-family: 'IranSanse';
+}
+
+
+
+
+
+
+
+/* ************** Landing Page ************** */
+
+
+
+.alignItemsCenter{
+    display: flex;
+    align-items: center !important;
+    height: auto;
+    justify-content: center;
+    width: 700px;
+}
+.myFont{
+    font-family: 'iranyekan';
+   color:rgb(0, 0, 0);
+   
+    
+}
+.mySearchBtn{
+    border-radius: 100%;
+    padding: 10px 18px;
+    border: 0;
+    position: relative;
+    color: rgb(170, 168, 168); 
+
+}
+.search-bar-form{
+    width: 500px !important;    
+    display: flex;
+    align-items: center;
+    border-radius: 60px;
+    padding: 10px 20px;
+}
+.LandingPageContainer{
+    margin-top: 180px;
+    /* background-color: rgba(31, 32, 32, 0.7)!important; */
+    padding: 30px;
+    border-radius: 15px;
+    
+}
+.searchNavbaar a{
+    color: rgb(78, 78, 78);
+    /* background-color: rgb(0, 0, 0); */
+    padding: 10px;
+    border-radius: 15px;
+    margin-left: 7px;
+}
+.searchNavbaar a:hover{
+    font-weight: bold;
+    color: red;
+
+}
+
+
+/* ******* Part 2 Landing Page ******* */
+.section2{
+  margin-top: 500px;
+}
+
+
+.part2{
+  display: flex;
+  justify-content: space-between;
+  
+}
+.part2-1{
+  flex: 1;
+
+}
+.part2-2{
+  flex: 3;
+  
+}
+.part2-sidebar{
+  flex: 1;
+  height: 420px;
+  /* overflow-y: scroll; */
+  justify-content: center;
+  background-color: snow;
+  margin-left: 10px;
+  border-radius: 10px;
+  
+  
+}
+.part2-sidebar ul>li {
+  text-align: right ;
+  justify-content: start ;
+  background-color: transparent;
+  border: none;
+ 
+ 
+}
+.part2-sidebar ul{
+  right: 0;
+}
+.part2-sidebar-photos{
+  width: 40px;
+  height: 40px;
+  margin-left: 5px;
+  
+}
+.part2-main-container{
+  display: flex;
+  flex-direction: row;
+}
+.part2-main{
+  flex: 4;
+  height: 289px;
+  margin-bottom: 10px;
+  background-image: url('../public/assets/img/banners/2.jpg');
+  background-repeat: no-repeat;
+  background-size: auto;
+  
+
+  border-radius: 10px;
+}
+.part2-main-1{
+  flex: 1;
+  display: flex;
+  color: snow;  
+  height: 120px;
+  border-radius: 10px;
+  margin-left: 10px;
+  text-align: right;
+  align-items: center;
+  padding: 10px;
+  background-color: blue;
+  background-image: linear-gradient(to right,rgb(140, 200, 248), rgb(45, 112, 212));
+  
+}
+.part2-main-1-B{
+  font-size: 25px;
+  margin-right: 7px;
+}
+
+.part2-main-2{
+  flex: 2;
+  display: flex;
+  color: snow;
+  height: 120px;
+  border-radius: 10px;
+  margin-left: 10px;
+  text-align: right;
+  align-items: center;
+  padding: 10px;
+  background-color: orange;  
+  background-image: linear-gradient(to right, rgb(236, 196, 121),orange);
+}
+.part2-main-3{
+  flex: 2;
+  display: flex;
+  color: snow;
+  height: 120px;
+  border-radius: 10px;
+  
+  text-align: right;
+  align-items: center;
+  padding: 10px;
+  background-color: rgb(219, 14, 110);  
+  background-image: linear-gradient(to right,rgb(212, 130, 168),rgb(219, 14, 110));
+}
+.part2-main-3-A{
+  font-size: .90rem;
+  margin-right: 7px;
+}
+
+
+
+
+
+/* ******* End Part 2 Landing Page ******* */
+/* ********* End of Landing Page ********* */
+
+/* ********* Start Products Page ********* */
+.my-products-container{
+  margin-top: 100px;
+}
+.my-productPage{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.my-sidebar{
+    
+flex:1;
+margin-left: 10px;
+border: 1px solid gray;
+border-radius: 10px;
+font-family: 'B nazanin';
+font-weight: bold;
+align-items: center;
+
+}
+.dastebandi{
+    
+    margin-bottom: -11px;
+     
+   
+}
+.mahdodehGheymat{    
+    margin-bottom: -11px;
+   
+}
+.my-products-category{
+    display: flex;
+    flex-direction: column;
+    max-height: 195px;
+    overflow-y: scroll;
+    
+}
+
+.my-mainbar{
+    flex: 3;
+    border: 1px solid gray;
+    border-radius: 10px;  
+    
+    
+}
+.az-ta-price input{
+    width: 220px;
+    margin-right: 10px;
+    margin-left: 15px;
+}
+.az-ta-price p {
+    text-align: center;
+    margin-top: 5px;
+}
+.kalahaye-mojood{
+    display: flex;
+    justify-content: space-between;
+   
+}
+/* **** Toggle Button **** */
+ /* The switch - the box around the slider */
+ .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #000000;
+  }
+  
+  /* input:focus + .slider {
+    box-shadow: 0 0 1px #000000;
+  } */
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  } 
+/* **** End Toggle Button **** */
+
+/* ********** Start Cart Animation ********** */
+@keyframes CartAnimation {
+    0% {
+      transform: scale(0.1);
+    }
+    60% { 
+      transform: scale(1.2);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+    }
+}
+div {
+  animation-duration: 2s;
+  animation-name: bounceIn;
+}
+
+/* ********** End Cart Animation ********** */
+
+/* **** Mehr Pol Logo Animation **** */
+
+
+/* **** End Mehr Pol Logo Animation **** */
+
+
+
+/******************** Start all css By Miss Hosini*************/
+/* start info page */
+
+body{
+  direction: rtl !important;
+}
+
+/**Start Footer**/
+footer{
+  position: relative;
+}
+.footer-top-container{
+  background-color: #1f2937;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  
+}
+.info_list{
+  color: hwb(210 59% 39%) !important;
+}
+.info_list a , .membership >small { 
+  color: hwb(210 59% 39%) !important;
+  text-decoration: none !important;
+  font-size: 14px;
+}
+.info_list a:hover {
+  color: white !important;
+}
+.email-box-input{
+  position: relative;
+}
+.email-box-input i{
+  position: absolute;
+  top:6px;
+}
+.email-box-input input {
+  border-radius: 3px;
+  direction: rtl;
+}
+
+.email-box{
+  position: relative;
+}
+.email-box button{
+  border-radius: 3px;
+  font-size: 12px; 
+  position: absolute;
+  left: 8px;
+  top:4px;
+}
+.footer-down{
+  background-image: url('/public/assets/img/pattern.png');
+  background-color: #4b5362;
+  background-position: center;
+  background-repeat: repeat;
+  background-size: contain;
+  height: 250px;
+  opacity:0.9;
+  height: 200px;
+  margin-top: -100px;
+  overflow: hidden;
+}
+.footer-down-flex{
+  height: 300px;
+}
+.social-icons a{
+  border-radius: 50%;
+}
+.social-icons a {
+  width: 28px !important;
+  height: 28px !important;
+}
+.social small{
+  font-size: 12px !important;
+}
+
+ /**End Footer**/
+/**Start products**/
+.my-productPage{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.my-sidebar {
+flex:1;
+margin-left: 10px;
+font-family: 'B nazanin';
+align-items: center;
+}
+
+.my-products-categories{
+    display: flex;
+    flex-direction: column;
+    max-height: 195px;
+    overflow-y: scroll;
+}
+.my-products-category label {
+  font-size: 13px !important;
+}
+.mainbar{
+  font-family: 'B nazanin';
+    flex: 3; 
+}
+.product-navbar-collapse {
+   flex-grow: 0 !important;   
+}
+.az-ta-price input{
+    width: 220px;
+    margin-right: 10px;
+    margin-left: 15px;
+}
+
+.kalahaye-mojood{
+    display: flex;
+    justify-content: space-between;
+   
+}
+.product-nav-item span ,.product-nav-item a{
+  font-size: 13px;
+}
+.product-count span{
+  font-size: 13px;
+}
+  .product-insert{
+      position: absolute;
+      top: 10px;
+      right:10px;
+  }
+  .product-insert a{
+      width: 23px;
+      height: 23px;
+      color:blue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+  }
+
+  /**Start card componenet**/
+  .product-card:hover{
+      border: 1px solid hsl(222, 9%, 79%);
+      transition: all;
+  }
+  .inner-main-img-add {
+      position: absolute;
+      top: 10px;
+      left: 18px;
+      font-size: 26px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  .product-card-title{
+      font-size: 12px;
+      margin-bottom: 1rem;
+  }
+ 
+  .card-body{
+      background: #f3f3f3;
+  }
+  .btn-offer{
+      width: 20px;
+      height: 10px;
+      background-color: red;
+      padding: 3px;
+  
+  }
+  .price-offer{
+      font-size: 12px;
+  }
+  .product-score i{
+      font-size: 13px;
+  }
+  .price-unity{
+      position: relative;
+  }
+  .price-unity small{
+      font-size: 14px;
+  }
+  .price-unity span{
+      position: absolute;
+      bottom: 28px;
+      left: -3px;
+  }
+  /**End card componenet**/
+
+  /**start addresssbar component**/
+  .header-main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+     }
+     .header-main-form {
+      padding-right: 36px;
+     }
+     .header-main-form input::placeholder{
+      font-size: 0.8em;
+     }
+     .header-main-search-icone{
+          position: absolute;
+          top: 41px;
+          left: 62px;
+     }
+     .home-address ,.product-address{
+      font-size: 14px;
+     }
+  
+/**end addresssbar component**/
+/**start best seller component**/
+.bese-seller-row{
+  background-color: #f3f3f3;
+}
+/**end best seller component**/
+/** start Brand component**/
+.swiper-image{
+  width: 110px;
+  height: 110px;
+  border-radius: 110px;
+}
+.swiper-row{
+  background-color: #f3f3f3;
+}
+/** end Brand component**/
+/** start magazin component**/
+.mag-body{
+  background: #f3f3f3;
+}
+.mag-body-text{
+  font-size: 14px;
+}
+.mag-body-flex-link{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mag-body-flex-link span {
+  font-size: 12px;
+}
+/**profile page component**/
+@media screen and (min-width:992px) {
+  .navbar-profile .navbar-profile-container ,.navbar-profile-expand-lg.profile-navbar-collapse ,.navbar-profile-expand-lg .profile-navbar-nav {
+      flex-direction:column;
+      width: 100%;
+  }
+  .navbar-profile{
+      align-items:flex-star;
+  }
+  .navbar-brand{
+      display: flex;
+      justify-content: flex-start;
+  }
+  .top-nav-price{
+      width: 100%;
+  }
+  .profile-sidebar{
+      flex:1;
+      margin-left: 10px;
+      font-family: 'B nazanin';
+      align-items: center;
+      }
+      .profile-mainbar{
+          flex:3;
+      }
+      .profile-mainbar-flex {
+          flex-direction: row;
+      }
+            
+}
+
+ .custom-toggler.navbar-toggler {
+  border-color: #f3f3f3;
+}
+.profile-breadcrumb-item{
+  font-size: 13px;
+}
+.navbar-img img{
+  border:2px solid #f3f3f3;
+  border-radius: 50px;
+}
+.top-nav-info p{
+  margin-bottom: 5px !important;
+}
+.top-nav-price-flex{
+  margin-bottom: 0px;
+}
+.increase-price a {
+  font-size: 12px;
+
+}
+.price-unity-profile{
+  position: relative;
+}
+.price-unity-profile small{
+  font-size: 14px;
+}
+.price-unity-profile span{
+  position: absolute;
+  bottom: 14px;
+  left: -1px;
+}
+.profile-nav-link{
+ @apply text-sm
+}
+.profile-nav-link:hover{
+  color: #0d6efd !important;
+}
+.nav-item-flex i:hover{
+  color: #0d6efd !important;
+}
+.last-orders-icone i{
+  font-size: 25px;
+}
+.last-orders-icone a:hover{
+  color: red;
+}
+.profile-mainbar-title h6::after ,.last-view-title h6::after {
+  content: '';
+  width: 70px;
+ height: 3px;
+ position: absolute;
+  top: 20%;
+  right:27% ;
+  background: blue;
+}
+.profile-home-comments {
+  @apply grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-3 space-y-0
+}
+
+.profile-home-comments .comment {
+  @apply col-span-3 md:col-span-1
+}
+
+.profile-home-comments .comment .comment-text {
+  @apply text-xs
+}
+.mainTitle div{
+  width: 14%;
+  margin-top: 6px;
+}
+.mainTitle-small div{
+  width: 8%;
+  margin-top: 6px;
+}
+
+/**End profile page component**/
+
+  /**start Slider for profile page component**/
+  .mySwiper .custom-swiper-tools .swiper-pagination-custom .swiper-pagination-bullet{
+      background-color:black !important;
+  }
+  .mySwiper .custom-swiper-tools .swiper-pagination-custom .swiper-pagination-bullet-active{
+      width: 22px;
+      height: 8px;
+      border-radius: 10px;
+  }
+
+  /**end Slider for profile page component**/
+
+   /**start profile(orders) component**/
+   
+   .order-image img{
+      width: 12%;
+      height: 10%;
+   }
+   .order-image img:nth-child(1){
+      margin-right: 0;
+   }
+   .order-image img{
+      margin-right: -10px;
+   }
+ 
+   .profile-breadcrumb-item-mainbar a{
+      font-size: 12px;
+   }
+   .profile-breadcrumb-item-mainbar a span:hover{
+      color: blue;   
+   }
+   /**end profile(orders) component**/
+   
+   /**profile comment page css**/
+.comments {
+  @apply w-full space-y-3
+}
+
+.comment {
+  @apply w-full p-3 border border-gray-200/70 rounded-md
+}
+
+.comment-reply {
+  width: calc(100% - 3rem);
+  @apply mr-12 relative
+}
+
+.comment-reply-arrow {
+  @apply absolute w-6 -top-12 rtl:-right-8 -rotate-[110deg] text-gray-400
+}
+
+.comment-header {
+  @apply w-full flex items-center justify-between
+}
+
+.comment-header-info {
+  @apply flex items-center text-xs 
+}
+
+.comment-header-date {
+  @apply relative mr-4 
+}
+
+.comment-header-date:before {
+  content: '•';
+  @apply ltr:mr-3 rtl:ml-3 text-gray-300  ml-[12px]
+}
+
+.comment-header-date:after {
+  content: '•';
+  @apply ltr:ml-3 rtl:mr-3 text-gray-300  mr-[12px]
+}
+
+.comment-header-rate {
+  @apply py-0.5 px-1 flex items-center justify-center bg-blue-100 text-blue-500 font-semibold rounded-md
+}
+
+.comment-header-rate i{
+  @apply relative -top-px text-[10px] ml-1 
+}
+
+.comment-header-rate.down {
+  @apply bg-rose-100 text-rose-500
+}
+
+.comment-header-rate.middle {
+  @apply bg-orange-100 text-orange-500
+}
+
+.comment-header-name {
+  @apply font-semibold
+}
+
+.comment-header-date {
+  @apply text-gray-500
+}
+
+.comment-header-buyer {
+  @apply py-1 px-2 flex items-center justify-center bg-gray-100 text-gray-400 rounded-md mr-4
+}
+
+.comment-header-suggest {
+  @apply flex items-center text-xs space-x-1.5 rtl:space-x-reverse text-gray-400
+}
+
+.comment-header-suggest.ok {
+  @apply text-blue-400 
+}
+
+.comment-header-suggest.nok {
+  @apply text-rose-400
+}
+
+.comment-text {
+  @apply w-full text-sm text-gray-900 mt-4
+}
+
+.comment-footer {
+  @apply w-full border-t border-gray-200/70 mt-3 pt-3 flex items-center justify-between
+}
+
+.comment-footer-attrs {
+  @apply flex items-center
+}
+.comment-footer-attr:nth-child(1){
+@apply border-l border-slate-300
+}
+.comment-footer-attr:nth-child(2){
+  @apply mr-2
+  }
+.comment-footer-attr {
+  @apply flex items-center justify-center space-x-1.5 rtl:space-x-reverse text-xs text-gray-400
+}
+
+.comment-footer-attr + .comment-footer-attr {
+  @apply ltr:pl-3 rtl:pr-3
+}
+.page-numbers{
+  @apply my-5
+}
+/**profile address page **/
+.addresses {
+  @apply w-full flex flex-col space-y-2 text-sm text-gray-900
+}
+
+.address {
+  @apply transition-all w-full flex flex-col space-y-3 p-3 border border-gray-200/70 rounded-md hover:bg-blue-50 hover:border-blue-500/20 cursor-pointer
+}
+
+.address.current {
+  @apply bg-blue-50 border-blue-500/20
+}
+
+.address-receiver {
+  @apply w-full flex items-center justify-between
+}
+
+.address-receiver-name {
+  @apply flex items-center space-x-1.5 rtl:space-x-reverse
+}
+
+.address-button-edit {
+  @apply transition-all flex items-center justify-center w-7 h-7 hover:bg-blue-500 text-gray-400 hover:text-blue-50 text-xs rounded-full
+}
+
+.address.current .address-button-edit, .address:hover .address-button-edit {
+  @apply bg-blue-100 hover:bg-blue-500 text-blue-500 hover:text-blue-50
+}
+
+.address-info {
+  @apply flex items-center space-x-6 rtl:space-x-reverse
+}
+
+.address-info-row {
+  @apply flex items-center 
+}
+.address-info-row  strong{
+  @apply ml-5
+}
+.address-text {
+  @apply w-full flex items-center space-x-1.5 rtl:space-x-reverse
+}
+
+.address-receiver-name span, .address-info span, .address-text span {
+  @apply transition-all text-gray-400
+}
+
+.address.current .address-receiver-name span, .address.current .address-info span, .address.current .address-text span, .address:hover .address-receiver-name span, .address:hover .address-info span, .address:hover .address-text span {
+  @apply text-blue-500
+}
+
+.add-address {
+  @apply transition-all w-full flex items-center justify-center space-x-1.5 rtl:space-x-reverse p-3 text-sm border border-dashed border-gray-300 rounded-md hover:bg-blue-500 hover:text-blue-50 hover:border-blue-500 cursor-pointer
+}
+/**info page css**/
+.profile-info-box {
+  @apply w-full grid grid-cols-3 gap-3 bg-white p-4 border border-gray-200/70 rounded-lg
+}
+
+.profile-info {
+  @apply flex flex-col space-y-1.5 
+}
+
+.radio-box {
+  @apply w-full flex items-center space-x-4 rtl:space-x-reverse border border-dashed border-gray-300 rounded-md py-1.5 px-2
+}
+
+.profile-info-button {
+  @apply transition-all inline-flex items-center justify-center space-x-1.5 rtl:space-x-reverse text-sm py-3 px-4 rounded-md bg-blue-500 hover:bg-blue-600 text-blue-50
+}
+/* ***** Start main Card ***** */
+.discountTheBest{
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  border-radius:100% ;
+  justify-content: center;
+  margin-left: -5px;
+ 
+  overflow-y: hidden;
+  position: absolute;
+}
+.MainCardPrice{
+  display: flex;
+  justify-content: center;
+  font-family: 'IranSanse';
+  font-weight: bolder;
+}
+.cornerDiscount{
+  background-color: #f43f5e;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -10px;
+  margin-top: -10px;
+}
+/* End main Card  */
+/**start favorit page for profile**/
+
+/**end favorit page for profile**
+/**media query**/
+@media (max-width: 576px){
+  .dastebandi{
+      margin-bottom: 0;
+  }
+  .my-productsPage{
+      display: flex;
+      flex-direction: column;
+  }
+  .header-main-search{
+      width: 100% ;
+      padding-top: 12px!important;
+  }
+  .header-main-form{
+      padding-right: 0!important;
+  }
+  .header-main-search-icone a:nth-child(2){
+      margin-right:10px;
+      margin-left:10px;
+  }
+  .product-col{
+      margin-bottom: 10px;
+  }
+  .mainbar .navbar ,  .bese-seller-row .bese-seller-col , .magazine-row .magazine-col{
+      margin-top: 24px;
+  }
+  .bese-seller-row {
+      padding: 0!important;
+  }
+  .bese-seller-title-main , .magazine-main-title ,.brand-main-title {
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+  }
+  .bese-seller-button span ,.magazine-ttie-button span {
+      font-size: 11px !important;
+  }
+  .magazine-icone .brand-icone{
+      font-size: 15px;
+  }
+  /**profile page query**/
+  .profile-content{
+      margin-top: 50px;
+  }
+  .profile-mainbar-col{
+      margin-bottom: 20px;
+  }
+}
+@media (min-width: 576px) {
+  
+  .footer-down{
+      background-image: url('/public/assets/img/pattern.png');
+      background-color: #4b5362;
+      background-position: center;
+      background-repeat: repeat;
+      background-size: contain;
+      height: 250px;
+      margin-top: -30px;
+      overflow: hidden;
+  }
+  .footer-down-flex{
+     flex-direction: column;
+     align-items: center;
+  }
+  .social{
+      margin-top: 50px;
+      margin-bottom: 20px;
+  }
+  .social-icons a {
+      width: 36px !important;
+      height: 36px !important;
+  }
+  .email-box button {
+      border-radius: 3px;
+      font-size: 12px;
+      position: absolute;
+      left: 45%;
+      top: 4px;
+  }
+  .my-productsPage{
+      display: flex;
+      flex-direction: column;
+  }
+  .header-main-search{
+      width: 100% ;
+      padding-top: 12px!important;
+  }
+  .header-main-form{
+      padding-right: 0!important;
+  }
+  .header-main-search-icone a:nth-child(2){
+      margin-right:10px;
+      margin-left:10px;
+  }
+  .profile-mainbar-flex {
+      display: flex;
+      flex-direction: column;
+  }
+  .product-col{
+      margin-bottom: 10px;
+  }
+  .mainbar .navbar ,  .bese-seller-row .bese-seller-col , .magazine-row .magazine-col{
+      margin-top: 24px;
+  }
+  .bese-seller-row {
+      padding: 0px!important;
+  }
+  /**profile page query**/
+  .profile-content{
+      margin-top: 50px;
+  }
+}
+@media (min-width: 768px) {
+  .dastebandi{
+      margin-bottom: 0;
+  }
+  .email-box button {
+      border-radius: 3px;
+      font-size: 12px;
+      position: absolute;
+      left: 13%;
+      top: 4px;
+  }
+  .header-main-search-icone a:nth-child(2){
+      margin-right:10px;
+      margin-left:10px;
+  }
+  .product-col{
+      margin-bottom: 10px;
+  }
+  .mainbar .navbar{
+      margin-top: 24px;
+  }
+  .mainbar .navbar ,  .bese-seller-row .bese-seller-col , .magazine-row .magazine-col{
+      margin-top: 24px;
+  }
+  .bese-seller-row {
+      padding: 0px!important;
+  }
+  /**profile page query**/
+  .profile-content{
+      margin-top: 50px;
+  }
+}
+@media (min-width: 992px) {
+  .dastebandi{
+      margin-bottom: -11px;
+  }
+  .footer-down{
+      background-image: url('/public/assets/img/pattern.png');
+      background-color: #4b5362;
+      background-position: center;
+      background-repeat: repeat;
+      background-size: contain;
+      height: 250px;
+      margin-top: -100px;
+      overflow: hidden;
+  }
+  .footer-down-flex{
+      flex-direction: row;
+      align-items: between;
+   }
+  .email-box-input input::placeholder {
+      text-align: right;
+      font-size: 8px;
+  
+  }
+  .email-box button {
+      border-radius: 3px;
+      font-size: 10px;
+      position: absolute;
+      left: 4%;
+      top: 6px;
+  }
+  .header-main-search-icone{
+      position: absolute !important;
+      top: 17px !important;
+      left: 62px !important;
+ }
+ .my-productsPage{
+  display: flex;
+  flex-direction: row;
+}
+.header-main-search{
+  width: 72% !important;
+}
+.mainbar .navbar ,  .bese-seller-row .bese-seller-col , .magazine-row .magazine-col{
+  margin-top: 0 !important;
+}
+/**profile page query**/
+.profile-content{
+  margin-top:0;
+}
+
+}
+@media (min-width: 1200px) {
+  .dastebandi{
+      margin-bottom: -11px;
+  }
+  .email-box-input input::placeholder {
+      text-align: right;
+      font-size: 13px;
+  
+  }
+  .my-productsPage{
+      display: flex;
+      flex-direction: row;
+  }
+  .header-main-search{
+      width: 72% !important;
+  }
+  .mainbar .navbar ,  .bese-seller-row .bese-seller-col , .magazine-row .magazine-col{
+      margin-top: 0 !important;
+  }
+  /**profile page query**/
+.profile-content{
+  margin-top:0;
+}
+  
+ }
+
+
+
+
+  /******************** End all css By Miss Hosini*************/
+  /* start Captcha CSS  */
+  
+
+::selection{
+  color: #fff;
+  background: #4db2ec;
+}
+
+.wrapper{
+  max-width: 485px;
+  width: 100%;
+  background: #fff;
+  padding: 22px 30px 40px;
+  border-radius: 10px;
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.05);
+}
+
+.wrapper header{
+  color: #4db2ec;
+  font-size: 33px;
+  font-weight: 500;
+  text-align: center;
+}
+.wrapper .captcha-area{
+  display: flex;
+  height: 65px;
+  margin: 30px 0 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+.captcha-area .captcha-img{
+  height: 100%;
+  width: 345px;
+  user-select: none;
+  background: #000;
+  border-radius: 5px;
+  position: relative;
+}
+.captcha-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  opacity: 0.95;
+}
+.captcha-img .captcha{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  color: #fff;
+  font-size: 35px;
+  text-align: center;
+  letter-spacing: 10px;
+  transform: translate(-50%, -50%);
+  text-shadow: 0px 0px 2px #b1b1b1;
+  font-family: "IranSanse";
+}
+.wrapper button{
+  outline: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  background: #4db2ec;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+.wrapper button:hover{
+  background: #2fa5e9;
+}
+.captcha-area .reload-btn{
+  width: 75px;
+  height: 100%;
+  font-size: 25px;
+}
+.captcha-area .reload-btn i{
+  transition: transform 0.3s ease;
+}
+.captcha-area .reload-btn:hover i{
+  transform: rotate(15deg);
+}
+.wrapper .input-area{
+  height: 60px;
+  width: 100%;
+  position: relative;
+}
+.input-area input{
+  width: 100%;
+  height: 100%;
+  outline: none;
+  padding-right: 20px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: 1px solid #bfbfbf;
+}
+.input-area input:is(:focus, :valid){
+  padding-left: 19px;
+  border: 2px solid #4db2ec;
+}
+.input-area input::placeholder{
+  color: #bfbfbf;
+}
+.input-area .check-btn{
+  position: absolute;
+  left: 7px;
+  top: 50%;
+  font-size: 17px;
+  height: 45px;
+  padding: 0 20px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+.input-area input:valid + .check-btn{
+  opacity: 1;
+  pointer-events: auto;
+}
+.wrapper .status-text{
+  display: none;
+  font-size: 18px;
+  text-align: center;
+  margin: 20px 0 -5px;
+}
+
+@media (max-width: 506px){
+  body{
+    padding: 0 10px;
+  }
+  .wrapper{
+    padding: 22px 25px 35px;
+  }
+  .wrapper header{
+    font-size: 25px;
+  }
+  .wrapper .captcha-area{
+    height: 60px;
+  }
+  .captcha-area .captcha{
+    font-size: 28px;
+    letter-spacing: 5px;
+  }
+  .captcha-area .reload-btn{
+    width: 60px;
+    margin-left: 5px;
+    font-size: 20px;
+  }
+  .wrapper .input-area{
+    height: 55px;
+  }
+  .input-area .check-btn{
+    height: 40px;
+  }
+  .wrapper .status-text{
+    font-size: 15px;
+  }
+  .captcha-area .captcha-img{
+    width: 250px;
+  }
+}
+
+  /* End Captcha CSS  */
+  /* ******* Login & Register ******** */
+.registerBody{
+  font-family: 'IranSanse';
+  background-repeat: repeat;
+  background-size: contain;
+  background-image: url('../public/assets/img/patterns/6.webp') ;  
+  width: 99% !important;
+  display: flex;
+  
+}
+.registerPhotoRight{
+flex: 2;
+}
+.registerContentLeft{
+flex: 3;
+}
+.rememberMe{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.captchaIcon{
+  color:rgb(45, 95, 233) ;
+  font-size: 30px;
+  cursor: pointer;
+  display: flex;
+  background-color: snow !important;
+  border-radius: 100%;
+  padding:2px;
+  
+}
+.captcha{
+  display: flex;
+  flex-flow: row;
+}
+.myFontNazanin{
+  font-family: 'IranSanse';
+}
+.IranSanse{
+  font-family: 'IranSanse';
+}
+
+.form-card{
+  border: 1 solid #000000 !important;
+  border-radius: 15px;
+  margin-top: 170px;
+  margin-bottom: 170px;
+  padding: 60px;
+  width: 500px;
+  font-family: 'IranSanse' !important;  
+  
+}
+.myFormControl{
+  border-radius: 15px !important;
+}
+.gettingCode{
+  display: flex;
+  justify-content: space-between;
+}
+.gettingCodeButton{
+  
+}
+.sendingAgainCode{
+  
+}
+.thePassword{
+  display: flex;
+  justify-content: space-between; 
+  
+}
+.thePasswordLogin{
+  /* display: flex;
+  justify-content: space-between;  */
+  
+}
+
+.gettingRight{
+  display: flex;
+  justify-content: flex-start !important;
+  align-items: baseline;
+
+}
+.gettingLeft{
+  display: flex;
+  justify-content: flex-end;
+}
+/* .my-circle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px; 
+  border-radius: 100%;
+  width: 135px;
+  height: 135px;
+  border-color: rgb(45, 95, 233);
+  border-style: dashed;
+  
+  
+} */
+.my-circle-parent{
+  display: flex;
+  justify-content: center;
+}
+.my-phone-icon{
+   font-size: 50px;
+  color:rgb(45, 95, 233) ;
+}
+
+.logoAnsFlash{
+display: flex;
+justify-content: space-between;
+}
+.fotgottenBody{
+  display: flex;  
+  justify-content: center;
+  align-items: center;
+  min-height: 45vh;
+  margin-top: 23vh;
+  background-color: white;
+  border-radius: 10px;
+  width: 72vh;
+  margin-bottom: 17vh;
+}
+.emptyBox{
+  width: 100px;
+  height: 105px;
+}
+.flash{
+  font-size: 4vh;
+  display: flex;
+  align-items: center;
+  margin-top: 4vh;
+
+}
+.flash a{
+  color: #1f2937;
+
+}
+.myForgattenForm{
+  width: 55vh;
+  margin-bottom: 7vh;
+}
+.myEye{
+  display: flex !important;
+  justify-content: end !important;
+  cursor: pointer;
+}
+.progressBars{
+  display: flex;
+  justify-content: space-between;
+}
+.myProgress{
+  height: 3px;
+  width: 13vh;
+  margin-bottom: 2vh;
+  margin-top: 2vh;
+}
+.myProgressRegister{
+  height: 3px;
+  width: 9vh;
+  margin-bottom: 2vh;
+  margin-top: 2vh;
+}
+
+
+progress {
+  accent-color: hsl(39, 100%, 40%);
+}
+.myUl{
+  list-style-type: disc;
+  margin-right: 2vh;
+}
+.myUl2{
+  list-style-type: disc;
+  margin-right: 2vh;
+  font-size: .8rem;
+  text-align: right !important;
+}
+
+
+.myForgatenCard{
+  width: 80vh !important;
+  /* height: 60vh !important;  */
+}
+.forgatenpass{
+   color: #000000;
+   text-decoration: none;
+   font-family: 'IranSanse';
+   
+}
+.forgatenpass:hover{
+  color:red
+}
+.forgattenLogo{
+  margin-top: 20px;
+}
+.forgatenform{
+  display: flex;
+  justify-content: center;
+  align-self: center;
+
+  
+  /* margin-top: 27vh;
+  margin-bottom: 27vh; */
+
+  
+}
+
+.loginBody{
+  background-image: url('/public/assets/img/patterns/6.webp');
+  background-repeat: repeat;
+  background-size: cover;
+  
+}
+
+/* ************ Register Responsive ************* */
+@media (max-width: 500px){
+ 
+}
+
+
+
+/* ************ End Register Responsive ************* */
+
+
+
+/* ******* End Login & Register ******** */
+
+/* ******* Start Landingpage2 ******* */
+.part2{
+  display: flex;
+  justify-content: center;
+}
+
+
+
+
+
+
+/* ******* End LandingPage2 ******* */
+
+/* ******* Start LandingPage3 ******* */
+
+.Landing3-header{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+/* ******* End LandingPage3 ******* */
+
+
+/* ******* Carousel in LandingPage3 ******* */
+.carouselContainer{
+  width: 100% !important;
+  height: 330px;
+  background-color: rgb(244, 63, 94);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+.myIndicatorButton{
+  background-color: #f4abb9;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  margin-right: 5px;
+  margin-top: 5px;
+  
+}
+
+.myIndicatorButton2{
+  background-color: #ce2424;
+  width: 60px;
+  height: 20px;
+  border-radius: 100%;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+.myIndicatorButton3{
+  background-color: rgb(126,192,227);
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+
+
+.myButonAnfIndicator{
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+
+
+/* ******* End Carousel in LandingPage3 ******* */
+/* ***** Start Card ***** */
+.cardStyle{
+  width: 255px;
+  height: 300px; 
+  border-radius: 8px;
+  margin: 5px;
+  font-size: .75rem;
+  overflow: hidden;
+}
+.cardStyle img{
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.discountTheBest{
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  border-radius:100% ;
+  justify-content: center;
+  margin-left: -5px;
+ 
+  overflow-y: hidden;
+  position: absolute;
+}
+.cardPrice{
+  display: flex;
+  justify-content: center;
+  
+  
+  font-family: 'IranSanse';
+  font-weight: bolder;
+}
+.card-font{
+  font-size: 18px;
+  font-family: 'IranSanse';
+  text-align: right;
+}
+.cornerDiscount{
+  background-color: #f43f5e;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -10px;
+  margin-top: -10px;
+}
+/* ***** End Card ***** */
+
+
+
+
+/* ***** Start L4 ***** */
+.L4-container{
+  width: 100%;
+  background-color: rgb(243, 244, 246);
+}
+.L4-body{ 
+  margin-right: 10px;
+}
+.headBlock{
+  background-color: snow;
+  display: flex;
+  justify-content: flex-start;
+  /* margin-right: 5px; */
+  align-items: center;
+}
+.headBlock p {
+font-size: .75em;
+}
+
+
+.L4-card-parent{
+width: 320px;
+border-radius: 10px;
+}
+
+.logoKadr{
+  width: 65px;
+  height: 65px;
+  border-radius: 100%;
+  border: 1px dashed rgb(107, 109, 113);  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+.logoKadr img {
+  width: 55px;
+  height: 55px;
+  border-radius: 100%;
+ 
+}
+.storeName{
+  margin-right: 5px;
+  margin-top: 9px;
+}
+.description{
+  font-size: .75em;
+
+}
+.cardJadidtarin{
+  width: 8rem;
+  /* background-color: rgb(183, 185, 189); */
+  border-radius: 10px;
+  margin: 7px;
+  font-size: .5rem;
+
+}
+.cardJadidtarin img{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-top: 20px;
+}
+.cardPriceJadidtarin{
+  display: flex;
+  justify-content:center;
+  /* text-align: left;   */
+  font-family: 'iranyekan';
+  /* font-weight: bolder; */
+  font-size: 1.2em;
+  margin-top: 5px;
+}
+.card-fontJadidtarin{
+  font-size: 1rem;
+  font-family: 'B Nazanin';
+  text-align: right;
+}
+
+.twocard{
+  display: flex;
+  justify-content: center;
+
+}
+.allBoxContainer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+/* ***** End L4 ***** */
+
+/* ***** Start L5 => Pishnahad.js ***** */
+.right-part{
+  width: 50%;
+  background-image: url('../public/assets/img/Background/transport.png');
+   background-repeat: no-repeat;
+   background-size: contain;
+   background-position: center;
+  
+
+}
+.left-part{
+  width: 50%;
+}
+.moratabkon{
+  display: flex;
+  justify-content: space-around;
+}
+.ersal-btn{
+  display: flex;
+  justify-content: end !important;
+  margin-top: 45px;
+}
+
+
+.round-10{
+  border-radius: 10px;
+}
+
+/* ***** End L5 => Pishnahad.js ***** */
+
+
+/**Start Footer**/
+footer{
+  position: relative;
+}
+.footer-top-container{
+  background-color: #1f2937;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  
+}
+.info_list{
+  color: hwb(210 59% 39%) !important;
+}
+.info_list a , .membership >small { 
+  color: hwb(210 59% 39%) !important;
+  text-decoration: none !important;
+  font-size: 14px;
+}
+.info_list a:hover {
+  color: white !important;
+}
+.email-box-input{
+  position: relative;
+}
+.email-box-input i{
+  position: absolute;
+  top:6px;
+}
+.email-box-input input {
+  border-radius: 3px;
+  direction: rtl;
+}
+
+.email-box{
+  position: relative;
+}
+.email-box button{
+  border-radius: 3px;
+  font-size: 12px; 
+  position: absolute;
+  left: 8px;
+  top:4px;
+}
+.footer-down{
+  background-image: url('/public/assets/img/pattern.png');
+  background-color: #4b5362;
+  background-position: center;
+  background-repeat: repeat;
+  background-size: contain;
+  height: 250px;
+  opacity:0.9;
+  height: 200px;
+  margin-top: -100px;
+  overflow: hidden;
+}
+.footer-down-flex{
+  height: 300px;
+}
+.social-icons a{
+  border-radius: 50%;
+}
+.social-icons a {
+  width: 28px !important;
+  height: 28px !important;
+}
+.social small{
+  font-size: 12px !important;
+}
+@media (min-width: 576px) {
+  .footer-down{
+      background-image: url('/public/assets/img/pattern.png');
+      background-color: #4b5362;
+      background-position: center;
+      background-repeat: repeat;
+      background-size: contain;
+      height: 250px;
+      margin-top: -30px;
+      overflow: hidden;
+  }
+  .footer-down-flex{
+     flex-direction: column;
+     align-items: center;
+  }
+  .social{
+      margin-top: 50px;
+      margin-bottom: 20px;
+  }
+  .social-icons a {
+      width: 36px !important;
+      height: 36px !important;
+  }
+  .email-box button {
+      border-radius: 3px;
+      font-size: 12px;
+      position: absolute;
+      left: 45%;
+      top: 4px;
+  }
+}
+@media (min-width: 768px) {
+  .email-box button {
+      border-radius: 3px;
+      font-size: 12px;
+      position: absolute;
+      left: 13%;
+      top: 4px;
+  }
+}
+@media (min-width: 992px) {
+  .footer-down{
+      background-image: url('/public/assets/img/pattern.png');
+      background-color: #4b5362;
+      background-position: center;
+      background-repeat: repeat;
+      background-size: contain;
+      height: 250px;
+      margin-top: -100px;
+      overflow: hidden;
+  }
+  .footer-down-flex{
+      flex-direction: row;
+      align-items: between;
+   }
+  .email-box-input input::placeholder {
+      text-align: right;
+      font-size: 8px;
+  
+  }
+  .email-box button {
+      border-radius: 3px;
+      font-size: 10px;
+      position: absolute;
+      left: 4%;
+      top: 6px;
+  }
+
+}
+@media (min-width: 1200px) {
+  .email-box-input input::placeholder {
+      text-align: right;
+      font-size: 13px;
+  
+  }
+ }
+ /**End Footer**/
+
+  /* ********** Start svg wave *********** */
+  
+  /* ********** End svg wave *********** */
+
+  /* **************** Dashboard ***************** */
+  .dash-wrapper{
+    display: flex;
+    
+  }
+.dash-sidebar{
+  flex: 1;
+
+  flex-direction: column;
+
+}
+.mySidebarNavbar{
+ background-color: #cac7ff;
+ background-image: linear-gradient(#cac7ff,snow);
+ 
+ margin-top: 6px; 
+}
+.mySidebarNavbar a{
+  color: #000000;
+  
+  font-family: 'B Nazanin';
+  font-weight: bold;
+}
+.ul-sidebar{
+ list-style: none;; 
+
+}
+.sidebar-bg-color{
+  background-color: rgb(159, 217, 211);
+}
+
+
+/* *************************** Main *************************** */
+.dash-main{
+  flex: 5;
+  background-color: rgb(172, 186, 184);
+  background-image: linear-gradient(gray,rgb(226, 218, 218));
+  margin-right: 5px;
+}
+.main-part3-cards-parent{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: 'B nazanin';
+  
+}
+.main-part3-cards{
+  margin-right: 5px;
+}
+  /* **************** End Dashboard ***************** */
+  /* **************** Strat Sabad ***************** */
+.sabad-body{
+display: flex;
+justify-content: space-between;
+}
+.sabad-right{
+flex: 3;
+background-color: white;
+margin-left: 10px;
+border-radius: 10px;
+}
+.sabad-left{
+flex: 1;
+background-color: transparent;
+border-radius: 10px;
+}
+.myAlert{
+  width: 600px;
+}
+.myNahveAlert{
+  height: 50px !important;
+}
+.sabad-part1{
+  display: flex;
+  justify-content: flex-start;
+  margin-right: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.imgAndplusmines{
+  display: flex;
+  margin-left: 30px;
+  align-items: center;
+  
+}
+.sabad-img{
+  display: flex;
+  flex-direction: column;
+  
+}
+.sabad-img-img{
+  width: 80px;
+  height: 80px;
+  margin-right: 25px;
+}
+.sabad-tedad-input{
+  width:100px;
+  position: absolute;
+  text-align: center;
+  padding-right: 35px;
+}
+.sabab-plus-mines-input{
+  display: flex;
+  justify-content: space-between;
+  width: 120px;
+}
+.sabad-btn-plus-mines{
+  position: relative;
+  width: 30px;
+  text-align: center;
+}
+.product-att{
+  display: flex;  
+  margin-bottom: 10px;
+}
+.product-att-bg-color{
+  margin-left: 25px;
+  background-color: #b0afc0;
+  padding: 5px;
+  border-radius: 5px;
+}
+.product-price{
+  display: flex;
+  justify-content: space-between;
+  width: 550px;
+}
+.product-priceansicons{
+  display: flex;
+
+}
+/* *************** Left **************** */
+.part1-left{
+  border-radius: 10px;
+}
+
+.product-price-left{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.product-info-left{
+width: 100px;
+}
+.sabad-img-img-left{
+  width: 60px;
+  height: 60px;
+ 
+ 
+}
+/* .ghab{
+  
+}
+.imgAndplusmines-left{
+  
+} */
+.sabad-part3-left{
+  width: 100%;
+  margin-left: 0;
+}
+/* .sabab-img-left{
+   */
+/* } */
+.sabad-img-img-left{
+  width: 40px;
+  height: 40px;
+}
+.allNahve{
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 10px;
+}
+.allNahve2{
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 10px;
+  justify-content: center;
+}
+.DargahCard{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sabad-left-page3{
+  width: 360px;
+background-color: transparent;
+border-radius: 10px;
+
+}
+
+  /* **************** End Sabad ***************** */
+
+  /* **************** Start Success Page ***************** */
+.successLogo{
+  font-size: 40px; 
+  color: blue;  
+  margin-bottom: 20px;
+  
+}
+.successIcon{
+  background-color: #ccc;
+  border-radius: 100%;
+  padding: 0px 15px;
+  align-items: center;  
+}
+.unsuccessIcon{
+  background-color: #ccc;
+  border-radius: 100%;
+  padding: 0px 15px;
+  color: red;
+}
+.sefareshInfo{
+  width: 190px;
+  margin-top: 30px;
+  
+}
+.sefareshInfo hr{
+  color: blue;
+  
+}
+.mySuccesspay{
+  background-color: rgb(106, 241, 106);
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  
+}  
+  /* **************** End Success Page ***************** */
+
+
+/* ************* Favorits ************** */
+
+.favoritsBody{
+  width: 100%;
+  border-end-start-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  
+  background-image: url('../public/assets/img/aIcons/5.svg');
+  display: flex;
+}
+.blueSheet{
+  background:rgb(70, 90, 134,.9); 
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.sidebarFavorit{
+display: flex;
+justify-content: center;
+flex-direction: column;
+flex: 1;
+}
+.sidebarFavoritImage{
+  border-end-start-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+.mainFavorit{
+flex: 4;
+}
+/* .FavoritImageSidebar{
+  margin-bottom: -25px !important;
+  margin-top: -25px !important;
+} */
+
+
+/* *** Favorit Main *** */
+.mainFavorit{
+  background-color: white;
+  margin: 10px 0 10px 10px;
+  /* display: flex;
+  flex-wrap: wrap; */
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  
+
+}
+.picFrame{
+width: 130;
+height: 130;
+border-radius: 15px !important ;
+box-shadow: -4px 5px 8px 2px rgb(144, 143, 143) !important;
+display: flex;
+flex-direction: row;
+/* background-color: red !important; */
+
+}
+.picFrame image{
+  border-radius: 15px;
+}
+.td{
+  margin: 5px;
+ display: flex;
+ flex-wrap: wrap;
+ width:auto;
+  
+}
+
+/* ************* End Favorits ************** */
+
+/* ************* Start Timer ************* */
+.base-timer {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.base-timer__svg {
+  transform: scaleX(-1);
+}
+
+.base-timer__circle {
+  fill: none;
+  stroke: none;
+}
+
+.base-timer__path-elapsed {
+  stroke-width: 7px;
+  stroke: grey;
+}
+
+.base-timer__path-remaining {
+  stroke-width: 7px;
+  stroke-linecap: round;
+  transform: rotate(90deg);
+  transform-origin: center;
+  transition: 1s linear all;
+  fill-rule: nonzero;
+  stroke: currentColor;
+}
+
+.base-timer__path-remaining.green {
+  color: rgb(65, 184, 131);
+}
+
+.base-timer__path-remaining.orange {
+  color: orange;
+}
+
+.base-timer__path-remaining.red {
+  color: red;
+}
+
+.base-timer__label {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+/* ************* End Timer ************* */
+
+
+
+/* ************* Start Modal ************* */
+
+.modal1{
+  position: absolute;
+  width: 70% !important;
+  z-index: 10000;
+  background-color:rgb(233, 230, 230);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px #eee;
+  padding: 15px;
+  margin: -20vh auto;
+}
+@media(max-width:500px){
+  .modal{
+    width: 500px;
+    left: calc(50%-250px);
+  }
+}
+
+
+
+
+
+/* ************* End Modal ************* */
+
+
+
+
+
+
+
+
+
+

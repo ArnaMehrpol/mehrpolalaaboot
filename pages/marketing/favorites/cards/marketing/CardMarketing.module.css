@@ -1,0 +1,125 @@
+.gh_marketingContainer{
+  background-color: #ffffff;
+  width: 200px;
+  max-width: 230px;
+  margin: 10px 5px;
+  border: 1px solid #999997;
+  border-radius: 10px;
+  padding: 20px 0px 5px 0px;
+}
+
+.gh_marketingTop{
+  padding: 0 10px;
+  display: grid;
+  grid-template-columns: 0.5fr 1fr;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.gh_marketingImageDIV{
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border: 1px dashed #b8afaf;
+  border-radius: 50%;
+  margin-left: 10px;
+  
+}
+
+.gh_marketingImage{
+  border-radius: 50%;
+}
+
+.gh_marketingTopTitr h4{
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.gh_marketingTopTitr h6{
+  font-size: 10px;
+  font-weight: 300;
+}
+
+.gh_marketingText{
+  padding: 0 10px;
+}
+
+.gh_marketingText p{
+  margin: 0;
+  padding: 0;
+}
+
+.gh_marketingContainer hr{
+  border-color: #aeaeaeae;
+  margin:0;
+}
+
+.gh_marketingText p:nth-child(1){
+  font-size: 0.7rem;
+  margin-bottom: 15px;
+}
+
+.gh_marketingText p:nth-child(2){
+  font-size: 0.6rem;
+  margin-bottom: 5px;
+}
+
+.gh_marketingText p:nth-child(3){
+  font-size: 0.6rem;
+  margin-bottom: 10px;
+}
+
+.gh_marketingIcons{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 0 0 0;
+}
+
+.gh_marketingIconsTrash i{
+  color: #ce2424;
+  cursor: pointer;
+}
+
+.gh_marketingIconsShare i{
+  color: #867676;
+  cursor: pointer;
+
+}
+
+.gh_marketingIconsEye{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #666666;
+}
+
+.gh_marketingIconsEye i{
+  cursor: pointer;
+}
+
+.gh_marketingIconsEye h6{
+  margin-top: -4px;
+  font-size: 0.6rem;
+  margin-left: 3px;
+}
+
+.gh_marketingIconsHeart{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gh_marketingIconsHeart i{
+  color: #ce2424;
+  cursor: pointer;
+}
+
+.gh_marketingIconsHeart h6{
+  margin-top: -4px;
+  color: #666666;
+  font-size: 0.6rem;
+  margin-left: 3px;
+}

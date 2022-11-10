@@ -1,0 +1,59 @@
+.gh_detailScoreContainer{
+  background-color: #ffffff;
+  padding: 20px 40px 60px 40px;
+  border-radius: 20px;
+  max-width: 950px;
+  width: 85%;
+  font-size: 12px;
+  margin: 80px auto;
+  -webkit-box-shadow: -4px 6px 10px -2px rgba(0,0,0,0.21); 
+  box-shadow: -4px 6px 10px -2px rgba(0,0,0,0.24);
+}
+
+.gh_detailScoreTitr{
+  margin-bottom: 50px;
+}
+
+.gh_detailScoreTitr h2{
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.gh_detailScoreProduct{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 50px;
+  margin-bottom: 20px;
+}
+
+.gh_detailScoreProductRight{
+  display: flex;
+  font-size: 16px;
+}
+
+.gh_detailScoreProductRight p:nth-child(1){
+  margin-left: 60px;
+  font-weight: 500;
+}
+
+.gh_detailScoreProductLeft{
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.gh_detailScoreProductStars{
+  margin-left: 10px;
+}
+
+@media (min-width: 680px){
+
+  .gh_detailScoreProductLeft{
+    display: flex;
+    flex-direction: row;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}

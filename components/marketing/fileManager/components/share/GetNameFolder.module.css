@@ -1,0 +1,77 @@
+.gh_containerSpan{
+  content:' ';
+  background-color: #4b4b4b99;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1001;
+}
+
+.gh_NameFolderContainer{
+  position: relative;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  transform-origin: left;
+  perspective: 1000px;
+  max-width: 100%;
+  max-height: 100%;
+  z-index: 1001;  
+  background-color:#edede9;
+  align-items: center;
+}
+
+.gh_NameFolderContainer{
+  padding: 25px 15px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.gh_NameFolderInputDiv{
+  margin-bottom: 15px;
+}
+
+.gh_NameFolderInputDiv input{
+  border: none;
+  box-shadow: -1px 2px 13px 7px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  padding: 4px 10px;
+  outline: none;
+}
+
+.gh_NameFolderButtonDiv{
+  text-align: right;
+}
+
+.gh_NameFolderButtonDiv button{
+  border: none;
+  border-radius: 8px;
+  padding: 4px 20px;
+  width: 90px;
+}
+
+.gh_NameFolderButtonDiv button:nth-child(1){
+  margin-left: 10px;
+  background-color: #3a86ff;
+  color: #ffffff;
+}
+
+.gh_NameFolderButtonDiv button:nth-child(1):hover{
+  background-color: #4361ee;
+}
+
+.gh_NameFolderButtonDiv button:nth-child(2){
+  margin-left: 10px;
+  background-color: #f07167;
+  color: #ffffff;
+}
+
+.gh_NameFolderButtonDiv button:nth-child(2):hover{
+  background-color: #fb5607;
+}

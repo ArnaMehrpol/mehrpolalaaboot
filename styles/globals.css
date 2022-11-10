@@ -1,0 +1,950 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url(./style.css);
+body{
+  direction: rtl !important;
+  font-family: "IranSanse", -apple-system,  sans-serif;
+  background-color: #f3f4f6 !important;
+}
+
+/**Start Footer**/
+footer{
+  position: relative;
+}
+.footer-top-container{
+  background-color: #1f2937;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  
+}
+.info_list{
+  color: hwb(210 59% 39%) !important;
+}
+.info_list a , .membership >small { 
+  color: hwb(210 59% 39%) !important;
+  text-decoration: none !important;
+  font-size: 14px;
+}
+.info_list a:hover {
+  color: white !important;
+}
+.email-box-input{
+  position: relative;
+}
+.email-box-input i{
+  position: absolute;
+  top:6px;
+}
+.email-box-input input {
+  border-radius: 3px;
+  direction: rtl;
+}
+
+.email-box{
+  position: relative;
+}
+.email-box button{
+  border-radius: 3px;
+  font-size: 12px; 
+  position: absolute;
+  left: 8px;
+  top:4px;
+}
+.footer-down{
+  background-image: url('/public/assets/img/pattern.png');
+  background-color: #4b5362;
+  background-position: center;
+  background-repeat: repeat;
+  background-size: contain;
+  height: 250px;
+  opacity:0.9;
+  height: 200px;
+  margin-top: -100px;
+  overflow: hidden;
+}
+.footer-down-flex{
+  height: 300px;
+}
+.social-icons a{
+  border-radius: 50%;
+}
+.social-icons a {
+  width: 28px !important;
+  height: 28px !important;
+}
+.social small{
+  font-size: 12px !important;
+}
+
+ /**End Footer**/
+/**Start products**/
+.my-productPage{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.my-sidebar {
+flex:1;
+margin-left: 10px;
+font-family: 'B nazanin';
+align-items: center;
+}
+
+.my-products-categories{
+    display: flex;
+    flex-direction: column;
+    max-height: 195px;
+    overflow-y: scroll;
+}
+.my-products-category label {
+  font-size: 13px !important;
+}
+.mainbar{
+  font-family: 'B nazanin';
+    flex: 3; 
+}
+.product-navbar-collapse {
+   flex-grow: 0 !important;   
+}
+.az-ta-price input{
+    width: 220px;
+    margin-right: 10px;
+    margin-left: 15px;
+}
+
+.kalahaye-mojood{
+    display: flex;
+    justify-content: space-between;
+   
+}
+.product-nav-item span ,.product-nav-item a{
+  font-size: 13px;
+}
+.product-count span{
+  font-size: 13px;
+}
+  .product-insert{
+      position: absolute;
+      top: 10px;
+      right:10px;
+  }
+  .product-insert a{
+      width: 23px;
+      height: 23px;
+      color:blue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+  }
+
+  /**Start card componenet**/
+  .product-card:hover{
+      border: 1px solid hsl(222, 9%, 79%);
+      transition: all;
+  }
+  .inner-main-img-add {
+      position: absolute;
+      top: 10px;
+      left: 18px;
+      font-size: 26px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  .product-card-title{
+      font-size: 12px;
+      margin-bottom: 1rem;
+  }
+ 
+  .card-body{
+      background: #f3f3f3;
+  }
+  .btn-offer{
+      width: 20px;
+      height: 10px;
+      background-color: red;
+      padding: 3px;
+  
+  }
+  .price-offer{
+      font-size: 12px;
+  }
+  .product-score i{
+      font-size: 13px;
+  }
+  .price-unity{
+      position: relative;
+  }
+  .price-unity small{
+      font-size: 14px;
+  }
+  .price-unity span{
+      position: absolute;
+      bottom: 28px;
+      left: -3px;
+  }
+  /**End card componenet**/
+
+  /**start addresssbar component**/
+  .header-main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+     }
+     .header-main-form {
+      padding-right: 36px;
+     }
+     .header-main-form input::placeholder{
+      font-size: 0.8em;
+     }
+     .header-main-search-icone{
+          position: absolute;
+          top: 41px;
+          left: 62px;
+     }
+     .home-address ,.product-address{
+      font-size: 14px;
+     }
+  
+/**end addresssbar component**/
+/**start best seller component**/
+.bese-seller-row{
+  background-color: #f3f3f3;
+}
+/**end best seller component**/
+/** start Brand component**/
+.swiper-image{
+  width: 110px;
+  height: 110px;
+  border-radius: 110px;
+}
+.swiper-row{
+  background-color: #f3f3f3;
+}
+/** end Brand component**/
+/** start magazin component**/
+.mag-body{
+  background: #f3f3f3;
+}
+.mag-body-text{
+  font-size: 14px;
+}
+.mag-body-flex-link{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mag-body-flex-link span {
+  font-size: 12px;
+}
+/**profile page component**/
+@media screen and (min-width:992px) {
+  .navbar-profile .navbar-profile-container ,.navbar-profile-expand-lg.profile-navbar-collapse ,.navbar-profile-expand-lg .profile-navbar-nav {
+      flex-direction:column;
+      width: 100%;
+  }
+  .navbar-profile{
+      align-items:flex-star;
+  }
+  .navbar-brand{
+      display: flex;
+      justify-content: flex-start;
+  }
+  .top-nav-price{
+      width: 100%;
+  }
+  .profile-sidebar{
+      flex:1;
+      margin-left: 10px;
+      font-family: 'B nazanin';
+      align-items: center;
+      }
+      .profile-mainbar{
+          flex:3;
+      }
+      .profile-mainbar-flex {
+          flex-direction: row;
+      }
+            
+}
+
+ .custom-toggler.navbar-toggler {
+  border-color: #f3f3f3;
+}
+.profile-breadcrumb-item{
+  font-size: 13px;
+}
+.navbar-img img{
+  border:2px solid #f3f3f3;
+  border-radius: 50px;
+}
+.top-nav-info p{
+  margin-bottom: 5px !important;
+}
+.top-nav-price-flex{
+  margin-bottom: 0px;
+}
+.increase-price a {
+  font-size: 12px;
+
+}
+.price-unity-profile{
+  position: relative;
+}
+.price-unity-profile small{
+  font-size: 14px;
+}
+.price-unity-profile span{
+  position: absolute;
+  bottom: 14px;
+  left: -1px;
+}
+.profile-nav-link{
+ @apply text-sm
+}
+.profile-nav-link:hover{
+  color: #0d6efd !important;
+}
+.nav-item-flex i:hover{
+  color: #0d6efd !important;
+}
+.last-orders-icone i{
+  font-size: 25px;
+}
+.last-orders-icone a:hover{
+  color: red;
+}
+.profile-mainbar-title h6::after ,.last-view-title h6::after {
+  content: '';
+  width: 70px;
+ height: 3px;
+ position: absolute;
+  top: 20%;
+  right:27% ;
+  background: blue;
+}
+.profile-home-comments {
+  @apply grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-3 space-y-0
+}
+
+.profile-home-comments .comment {
+  @apply col-span-3 md:col-span-1
+}
+
+.profile-home-comments .comment .comment-text {
+  @apply text-xs
+}
+.mainTitle div{
+  width: 14%;
+  margin-top: 6px;
+}
+.mainTitle-small div{
+  width: 8%;
+  margin-top: 6px;
+}
+
+/**End profile page component**/
+
+  /**start Slider for profile page component**/
+  .mySwiper .custom-swiper-tools .swiper-pagination-custom .swiper-pagination-bullet{
+      background-color:black !important;
+  }
+  .mySwiper .custom-swiper-tools .swiper-pagination-custom .swiper-pagination-bullet-active{
+      width: 22px;
+      height: 8px;
+      border-radius: 10px;
+  }
+
+  /**end Slider for profile page component**/
+
+   /**start profile(orders) component**/
+   
+   .order-image img{
+      width: 12%;
+      height: 10%;
+   }
+   .order-image img:nth-child(1){
+      margin-right: 0;
+   }
+   .order-image img{
+      margin-right: -10px;
+   }
+ 
+   .profile-breadcrumb-item-mainbar a{
+      font-size: 12px;
+   }
+   .profile-breadcrumb-item-mainbar a span:hover{
+      color: blue;   
+   }
+   /**end profile(orders) component**/
+   
+   /**profile comment page css**/
+.comments {
+  @apply w-full space-y-3
+}
+
+.comment {
+  @apply w-full p-3 border border-gray-200/70 rounded-md
+}
+
+.comment-reply {
+  width: calc(100% - 3rem);
+  @apply mr-12 relative
+}
+
+.comment-reply-arrow {
+  @apply absolute w-6 -top-12 rtl:-right-8 -rotate-[110deg] text-gray-400
+}
+
+.comment-header {
+  @apply w-full flex items-center justify-between
+}
+
+.comment-header-info {
+  @apply flex items-center text-xs 
+}
+
+.comment-header-date {
+  @apply relative mr-4 
+}
+
+.comment-header-date:before {
+  content: '•';
+  @apply ltr:mr-3 rtl:ml-3 text-gray-300  ml-[12px]
+}
+
+.comment-header-date:after {
+  content: '•';
+  @apply ltr:ml-3 rtl:mr-3 text-gray-300  mr-[12px]
+}
+
+.comment-header-rate {
+  @apply py-0.5 px-1 flex items-center justify-center bg-blue-100 text-blue-500 font-semibold rounded-md
+}
+
+.comment-header-rate i{
+  @apply relative -top-px text-[10px] ml-1 
+}
+
+.comment-header-rate.down {
+  @apply bg-rose-100 text-rose-500
+}
+
+.comment-header-rate.middle {
+  @apply bg-orange-100 text-orange-500
+}
+
+.comment-header-name {
+  @apply font-semibold
+}
+
+.comment-header-date {
+  @apply text-gray-500
+}
+
+.comment-header-buyer {
+  @apply py-1 px-2 flex items-center justify-center bg-gray-100 text-gray-400 rounded-md mr-4
+}
+
+.comment-header-suggest {
+  @apply flex items-center text-xs space-x-1.5 rtl:space-x-reverse text-gray-400
+}
+
+.comment-header-suggest.ok {
+  @apply text-blue-400 
+}
+
+.comment-header-suggest.nok {
+  @apply text-rose-400
+}
+
+.comment-text {
+  @apply w-full text-sm text-gray-900 mt-4
+}
+
+.comment-footer {
+  @apply w-full border-t border-gray-200/70 mt-3 pt-3 flex items-center justify-between
+}
+
+.comment-footer-attrs {
+  @apply flex items-center
+}
+.comment-footer-attr:nth-child(1){
+@apply border-l border-slate-300
+}
+.comment-footer-attr:nth-child(2){
+  @apply mr-2
+  }
+.comment-footer-attr {
+  @apply flex items-center justify-center space-x-1.5 rtl:space-x-reverse text-xs text-gray-400
+}
+
+.comment-footer-attr + .comment-footer-attr {
+  @apply ltr:pl-3 rtl:pr-3
+}
+.page-numbers{
+  @apply my-5
+}
+/**profile address page **/
+.addresses {
+  @apply w-full flex flex-col space-y-2 text-sm text-gray-900
+}
+
+.address {
+  @apply transition-all w-full flex flex-col space-y-3 p-3 border border-gray-200/70 rounded-md hover:bg-blue-50 hover:border-blue-500/20 cursor-pointer
+}
+
+.address.current {
+  @apply bg-blue-50 border-blue-500/20
+}
+
+.address-receiver {
+  @apply w-full flex items-center justify-between
+}
+
+.address-receiver-name {
+  @apply flex items-center space-x-1.5 rtl:space-x-reverse
+}
+
+.address-button-edit {
+  @apply transition-all flex items-center justify-center w-7 h-7 hover:bg-blue-500 text-gray-400 hover:text-blue-50 text-xs rounded-full
+}
+
+.address.current .address-button-edit, .address:hover .address-button-edit {
+  @apply bg-blue-100 hover:bg-blue-500 text-blue-500 hover:text-blue-50
+}
+
+.address-info {
+  @apply flex items-center space-x-6 rtl:space-x-reverse
+}
+
+.address-info-row {
+  @apply flex items-center 
+}
+.address-info-row  strong{
+  @apply ml-5
+}
+.address-text {
+  @apply w-full flex items-center space-x-1.5 rtl:space-x-reverse
+}
+
+.address-receiver-name span, .address-info span, .address-text span {
+  @apply transition-all text-gray-400
+}
+
+.address.current .address-receiver-name span, .address.current .address-info span, .address.current .address-text span, .address:hover .address-receiver-name span, .address:hover .address-info span, .address:hover .address-text span {
+  @apply text-blue-500
+}
+
+.add-address {
+  @apply transition-all w-full flex items-center justify-center space-x-1.5 rtl:space-x-reverse p-3 text-sm border border-dashed border-gray-300 rounded-md hover:bg-blue-500 hover:text-blue-50 hover:border-blue-500 cursor-pointer
+}
+/**info page css**/
+.profile-info-box {
+  @apply w-full grid grid-cols-3 gap-3 bg-white p-4 border border-gray-200/70 rounded-lg
+}
+
+.profile-info {
+  @apply flex flex-col space-y-1.5 
+}
+
+.radio-box {
+  @apply w-full flex items-center space-x-4 rtl:space-x-reverse border border-dashed border-gray-300 rounded-md py-1.5 px-2
+}
+
+.profile-info-button {
+  @apply transition-all inline-flex items-center justify-center space-x-1.5 rtl:space-x-reverse text-sm py-3 px-4 rounded-md bg-blue-500 hover:bg-blue-600 text-blue-50
+}
+/* ***** Start main Card ***** */
+.discountTheBest{
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  border-radius:100% ;
+  justify-content: center;
+  margin-left: -5px;
+ 
+  overflow-y: hidden;
+  position: absolute;
+}
+.MainCardPrice{
+  display: flex;
+  justify-content: center;
+  font-family: 'IranSanse';
+  font-weight: bolder;
+}
+.cornerDiscount{
+  background-color: #f43f5e;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -10px;
+  margin-top: -10px;
+}
+/* End main Card  */
+/**start favorit page for profile**/
+
+/**end favorit page for profile**
+/**media query**/
+@media (max-width: 576px){
+  .dastebandi{
+      margin-bottom: 0;
+  }
+  .my-productsPage{
+      display: flex;
+      flex-direction: column;
+  }
+  .header-main-search{
+      width: 100% ;
+      padding-top: 12px!important;
+  }
+  .header-main-form{
+      padding-right: 0!important;
+  }
+  .header-main-search-icone a:nth-child(2){
+      margin-right:10px;
+      margin-left:10px;
+  }
+  .product-col{
+      margin-bottom: 10px;
+  }
+  .mainbar .navbar ,  .bese-seller-row .bese-seller-col , .magazine-row .magazine-col{
+      margin-top: 24px;
+  }
+  .bese-seller-row {
+      padding: 0!important;
+  }
+  .bese-seller-title-main , .magazine-main-title ,.brand-main-title {
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+  }
+  .bese-seller-button span ,.magazine-ttie-button span {
+      font-size: 11px !important;
+  }
+  .magazine-icone .brand-icone{
+      font-size: 15px;
+  }
+  /**profile page query**/
+  .profile-content{
+      margin-top: 50px;
+  }
+  .profile-mainbar-col{
+      margin-bottom: 20px;
+  }
+}
+@media (min-width: 576px) {
+  
+  .footer-down{
+      background-image: url('/public/assets/img/pattern.png');
+      background-color: #4b5362;
+      background-position: center;
+      background-repeat: repeat;
+      background-size: contain;
+      height: 250px;
+      margin-top: -30px;
+      overflow: hidden;
+  }
+  .footer-down-flex{
+     flex-direction: column;
+     align-items: center;
+  }
+  .social{
+      margin-top: 50px;
+      margin-bottom: 20px;
+  }
+  .social-icons a {
+      width: 36px !important;
+      height: 36px !important;
+  }
+  .email-box button {
+      border-radius: 3px;
+      font-size: 12px;
+      position: absolute;
+      left: 45%;
+      top: 4px;
+  }
+  .my-productsPage{
+      display: flex;
+      flex-direction: column;
+  }
+  .header-main-search{
+      width: 100% ;
+      padding-top: 12px!important;
+  }
+  .header-main-form{
+      padding-right: 0!important;
+  }
+  .header-main-search-icone a:nth-child(2){
+      margin-right:10px;
+      margin-left:10px;
+  }
+  .profile-mainbar-flex {
+      display: flex;
+      flex-direction: column;
+  }
+  .product-col{
+      margin-bottom: 10px;
+  }
+  .mainbar .navbar ,  .bese-seller-row .bese-seller-col , .magazine-row .magazine-col{
+      margin-top: 24px;
+  }
+  .bese-seller-row {
+      padding: 0px!important;
+  }
+  /**profile page query**/
+  .profile-content{
+      margin-top: 50px;
+  }
+}
+@media (min-width: 768px) {
+  .dastebandi{
+      margin-bottom: 0;
+  }
+  .email-box button {
+      border-radius: 3px;
+      font-size: 12px;
+      position: absolute;
+      left: 13%;
+      top: 4px;
+  }
+  .header-main-search-icone a:nth-child(2){
+      margin-right:10px;
+      margin-left:10px;
+  }
+  .product-col{
+      margin-bottom: 10px;
+  }
+  .mainbar .navbar{
+      margin-top: 24px;
+  }
+  .mainbar .navbar ,  .bese-seller-row .bese-seller-col , .magazine-row .magazine-col{
+      margin-top: 24px;
+  }
+  .bese-seller-row {
+      padding: 0px!important;
+  }
+  /**profile page query**/
+  .profile-content{
+      margin-top: 50px;
+  }
+}
+@media (min-width: 992px) {
+  .dastebandi{
+      margin-bottom: -11px;
+  }
+  .footer-down{
+      background-image: url('/public/assets/img/pattern.png');
+      background-color: #4b5362;
+      background-position: center;
+      background-repeat: repeat;
+      background-size: contain;
+      height: 250px;
+      margin-top: -100px;
+      overflow: hidden;
+  }
+  .footer-down-flex{
+      flex-direction: row;
+      align-items: between;
+   }
+  .email-box-input input::placeholder {
+      text-align: right;
+      font-size: 8px;
+  
+  }
+  .email-box button {
+      border-radius: 3px;
+      font-size: 10px;
+      position: absolute;
+      left: 4%;
+      top: 6px;
+  }
+  .header-main-search-icone{
+      position: absolute !important;
+      top: 17px !important;
+      left: 62px !important;
+ }
+ .my-productsPage{
+  display: flex;
+  flex-direction: row;
+}
+.header-main-search{
+  width: 72% !important;
+}
+.mainbar .navbar ,  .bese-seller-row .bese-seller-col , .magazine-row .magazine-col{
+  margin-top: 0 !important;
+}
+/**profile page query**/
+.profile-content{
+  margin-top:0;
+}
+
+}
+@media (min-width: 1200px) {
+  .dastebandi{
+      margin-bottom: -11px;
+  }
+  .email-box-input input::placeholder {
+      text-align: right;
+      font-size: 13px;
+  
+  }
+  .my-productsPage{
+      display: flex;
+      flex-direction: row;
+  }
+  .header-main-search{
+      width: 72% !important;
+  }
+  .mainbar .navbar ,  .bese-seller-row .bese-seller-col , .magazine-row .magazine-col{
+      margin-top: 0 !important;
+  }
+  /**profile page query**/
+.profile-content{
+  margin-top:0;
+}
+  
+ }
+/* *********************** Start Business Panel ********************************* */
+@media screen and (min-width:992px) {
+  .navbar-business .navbar-business-container ,.navbar-business-expand-lg.business-navbar-collapse ,.navbar-business-expand-lg .business-navbar-nav {
+      flex-direction:column;
+      width: 100%;
+  }
+  .navbar-business{
+      align-items:flex-start;
+  }
+  .navbar-brand{
+      display: flex;
+      justify-content: flex-start;
+  }
+}
+
+.business-nav-item-active span::before , .business-nav-item-upload-active span::before{
+  content: '';
+  width: 3px;
+  height: 68px;
+  background-color: #93c5fd;
+  position: absolute;
+  right: 18px;
+  top: 40px;
+}
+.business-nav-item-upload-active span::before , .business-nav-item-upload-inactive span::before{
+height: 38px !important;
+}
+.business-nav-item-inactive span::before , .business-nav-item-upload-inactive span::before{
+  content: '';
+  width: 3px;
+  height: 68px;
+  background-color: white;
+  position: absolute;
+  right: 18px;
+  top: 40px;
+}
+
+.form-select-text-style {
+  display: block;
+  width: 100%;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #94A3B8;
+  background-color: #fff;
+  background-image: url("../public/assets/img/pic/arrow.png");
+  background-repeat: no-repeat;
+  background-position: left .75rem center;
+  background-size: 11px 9px;
+  border: 1px solid #ced4da;
+  border-radius: .375rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+}
+/* .business-panel-mainbar::before{
+  content: '';
+  background-image: url("../public/assets/img/bg/6.svg");
+  @apply w-full h-full bg-contain bg-center bg-repeat opacity-5 absolute
+} */
+.all-input-group input::placeholder ,.agreement-input-group input::placeholder , .info-input-group input::placeholder , .domain-input-group input::placeholder , .email-input-group input::placeholder ,.all-input-group input::placeholder ,.panel-code-input-group input::placeholder ,.panel-address-input-group input::placeholder ,.social-input-group input::placeholder  , .name-input::placeholder{
+  @apply text-slate-400 text-xs 
+}
+.alls-input-group input::placeholder{
+  @apply text-slate-400 text-xs text-center
+}
+.info-form-control {
+  display: block !important;
+  width: 100% !important;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem !important;
+  font-weight: 400 !important;
+  line-height: 1.91 !important;
+  color: gray !important;
+  background-color: #fff !important;
+  background-clip: padding-box !important;
+  border: 1px solid #ced4da !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  border-radius: 0.375rem ;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.social-dropdown-toggle::after {
+display: inline-block;
+margin-right: 0.255em;
+vertical-align: 0.255em;
+border-top: 0.3em solid;
+border-left: 0.3em solid transparent;
+border-bottom: 0;
+border-right: 0.3em solid transparent;
+}
+/**start business panel info page css **/
+.domain-title span::before{
+  content: 'راهنما !';
+  @apply text-[8px] text-white flex justify-center items-center py-1 scroll-px-1
+}
+ /**end business panel info page css **/
+
+/* *********************** End Business Panel ********************************* */
+
+/* *********************** Start For input numbers ********************************** */
+/* With this class we can off the number buttons in inputs that type is number */
+
+
+
+
+
+
+
+
+
+/* *********************** End For input numbers ********************************** */
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

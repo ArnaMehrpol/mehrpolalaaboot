@@ -1,0 +1,263 @@
+
+#gh_mainbar {
+  direction: rtl;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 20px;  
+  -webkit-box-shadow: -4px 6px 10px -2px rgba(0,0,0,0.21); 
+  box-shadow: -4px 6px 10px -2px rgba(0,0,0,0.21);
+  margin: auto;
+}
+
+.gh_mainbarTitr{
+  margin-bottom: 50px;
+}
+
+.gh_mainbarTitr h3{
+
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.gh_accordions{
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 20px;
+}
+
+.gh_accordion{
+  width: 100%;
+  color: white;
+  overflow: hidden;
+
+}
+
+.gh_accLabel{
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+  background: #1363df;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.gh_accordion:first-child{
+  border-bottom: 1px solid;
+}
+
+.gh_accLabel::after{
+  content: '>';
+  transform: rotate(-90deg);
+  width: 1.6rem;
+  height: 1.6rem;
+  font-size: 1.6rem;
+  text-align: center;
+  margin-right: 10px;
+  color: #ffffff;
+}
+
+.gh_accContent{
+  max-height: 0;
+  padding:  0 1em;
+  color: #2c3e50;
+  background: #d6e6ff;
+  transition: all 1s ease-out;
+  overflow-y: auto;
+}
+
+.gh_inputCardsQuestion{
+  position: absolute;
+  opacity: 1;
+  z-index: -1;
+}
+
+.gh_inputCardsQuestion:checked + .gh_accLabel::after{
+  transform: rotate(90deg);
+}
+
+.gh_inputCardsQuestion:checked ~ .gh_accContent{
+  max-height: 100vh;
+  padding: 1em;
+}
+
+.gh_Computer{
+  display: none;
+}
+
+.gh_tabs li {
+  list-style: none;
+}
+
+#gh_tabs {
+  overflow: hidden;
+  z-index: 1;
+}
+
+.gh_tabs {
+  display: flex;
+  
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 50px;
+  z-index: 0;
+}
+
+.gh_tab:hover {
+  background: #999;
+}
+
+.gh_tab:before {
+  border-color: transparent #888 transparent transparent;
+}
+.gh_tab:after {
+  border-color: transparent transparent transparent #888;
+}
+
+.gh_tab:hover:before {
+  border-color: transparent #999 transparent transparent;
+}
+.gh_tab:hover:after {
+  border-color: transparent transparent transparent #999;
+}
+
+ .gh_tab.active:before {
+  border-color: transparent white transparent transparent;
+}
+ .gh_tab.active:after {
+  border-color: transparent transparent transparent white;
+}
+
+.gh_tab:hover:after {
+  border-color: transparent transparent transparent #D1E2F3;
+}
+.gh_tab:hover:before {
+  border-color: transparent #D1E2F3 transparent transparent;
+}
+
+.gh_tab.active:before{
+  border-color : transparent white transparent transparent;
+}
+
+.gh_tab.active:after {
+  border-color : transparent transparent transparent white;
+}
+
+/* Tabs */
+
+.gh_tab {
+  font-size: 14px;
+  font-weight: 500;
+  background: #d6e6ff;
+  text-align: center;
+  border: none;
+  border-bottom: 0;
+  width: 160px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 8px;
+  padding-bottom: 3px;
+  border-top-right-radius: 20% 60%;
+  border-top-left-radius: 20% 60%;
+  border-left: rotate(50deg) solid;
+  margin-right: -5px;
+  height: 40px;
+  min-width: 4%;
+  position: relative;
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+.gh_tab:hover:not(.active) {
+  background: #011e3d;
+  background: -moz-linear-gradient(top, #D1E2F3, #C8D9ED);
+  background: -webkit-linear-gradient(top, #D1E2F3, #C8D9ED);
+}
+
+/* Tabs */
+
+.gh_tab {
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+/* Main Content below Main Tab bar */
+
+.gh_mainContent {
+  top:170px;
+  align-items: flex-start;
+  background-color: #BCCFE5;
+  z-index: 100;
+  border: none;
+  border-radius: 20px;
+  /* width: 99%; */
+  margin: 0 auto;
+  -webkit-box-shadow: -4px 6px 10px -2px rgba(0,0,0,0.21); 
+  box-shadow: -4px 6px 10px -2px rgba(0,0,0,0.21);
+}
+
+.active {
+  background: white;
+  background: -moz-linear-gradient(top, white, #f0f0f0);
+  background: -webkit-linear-gradient(top, white, #f0f0f0);
+  z-index: 8;
+}
+.active:not(.tab) {
+  top: 1px;
+}
+
+
+
+/* @media (min-width: 380px){
+
+  .content {
+    
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    justify-content: center;
+    gap: 5px;
+  }
+
+} */
+
+@media (min-width: 680px){
+
+  .content {
+    
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+  }
+
+  .gh_Computer{
+    display: block;
+  }
+
+  .gh_mobile{
+    display: none;
+  }
+
+}
+
+/* @media (min-width: 890px){
+
+  .content {
+    
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+  }
+
+}
+
+@media (min-width: 1200px){
+
+  .content {
+    
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+
+} */

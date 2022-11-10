@@ -1,0 +1,31 @@
+.gh_ScoreContainer{
+  background-color: #ffffff;
+  width: 298px;
+  font-size: 12px;
+  font-weight: 300;
+  border-bottom: 1px dashed #979797;
+  padding-top: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.gh_ScoreAvatar{
+  display: flex;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.gh_ScoreAvatarText h6{
+  margin-left: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.gh_ScoreAvatarImageDIV{
+  margin: 0 10px 0 15px;
+  padding: 8px;
+  border: 1px solid #999997;
+  border-radius: 5px;
+  width: 100px;
+}

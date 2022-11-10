@@ -1,0 +1,71 @@
+.gh_ScoreContainer{
+  background-color: #ffffff;
+  padding: 10px 0;
+  width: 260px;
+  font-size: 12px;
+}
+
+.gh_ScoreContainer hr{
+  border: 1px dashed #999997;
+}
+
+.gh_ScoreTop{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0px 0 15px;
+}
+
+.gh_ScoreAvatar{
+  display: flex;
+  width: 200px;
+}
+
+.gh_ScoreAvatarText h6{
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.gh_ScoreAvatarImageDIV{
+  margin: 0 10px;
+  padding: 5px;
+  border: 1px solid #999997;
+  border-radius: 5px;
+  width: 100px;
+}
+
+.gh_ScoreMiddel{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px;
+
+}
+
+.gh_ScoreMiddelPercent{
+  width: 150px;
+}
+
+.gh_ScoreMiddelPercent div{
+  display: flex;
+  justify-content: space-between;
+}
+
+.gh_ScoreMiddelPercent div:last-child{
+  margin-top: 10px;
+}
+
+.gh_ScoreMiddelLeft{
+  text-align: center;
+  font-size: 12px;
+}
+
+.gh_ScoreLeftStars{
+  direction: ltr;
+}
+
+.gh_ScoreBottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px 0 20px; 
+}
