@@ -6,6 +6,7 @@ import MarketingInfoHeader from "../../../components/marketing/marketingHeader/M
 import { useState } from "react";
 import MainRoot from "../../../components/marketing/fileManager/components/MainRoot";
 import DeleteSlide from "../../../components/marketing/fileManager/components/DeleteSlide";
+import { useEffect } from "react";
 
 const slides = () => {
   const [show, setShow] = useState(false);
@@ -21,7 +22,7 @@ const slides = () => {
 
   const InsertIntoSlides = (e) => {
     e.preventDefault();
-    alert("Hi");
+
     for (var i = 0; i < slideId.length; i++) {
       console.log(slideId);
     }
@@ -31,14 +32,18 @@ const slides = () => {
     setrootFilesAddress(rootFilesAddress);
   };
   console.log(rootFilesAddress);
+
   const chooseFileFromMainRootFunc = (chooseFile) => {
     setChooseFiles(chooseFile);
-    // setSlideId(chooseFile.id);
   };
 
-  console.log(chooseFiles);
-  // console.log(slideId);
-
+  const setter = () => {
+    for (var i = 0; i < chooseFiles.length; i++) {
+      console.log(chooseFiles[i].id);
+      // setSlideId(chooseFiles[0].id);
+    }
+  };
+  setter();
   return (
     <div>
       {show && (
@@ -68,6 +73,8 @@ const slides = () => {
                 <div className="slides-flex flex flex-col">
                   <div className="btn-add inline-flex">
                     <button
+                      id="add"
+                      name="add"
                       onClick={() => {
                         setShow(true);
                       }}
@@ -76,6 +83,9 @@ const slides = () => {
                       افزودن اسلاید
                       <i className="bi bi-cloud-arrow-up fs-5 mr-2"></i>
                     </button>
+                    {/* <button onClick={IdSetter} className="btn btn-warning">
+                      Test
+                    </button> */}
                   </div>
 
                   <div className=" slideContainer items-center">
