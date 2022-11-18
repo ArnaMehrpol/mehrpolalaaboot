@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Switch from "./Switch";
+
 import { HandleSubmitSocial } from "./social";
 import Modal from "../../../components/Modal";
 

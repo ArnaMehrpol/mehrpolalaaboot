@@ -28,10 +28,16 @@ input[type="number"]{
   width:20vh;
   height:12vh;  
 }
+.catologScale{
+  width:12vh;
+  height:20vh;
+ 
+}
 .mySlideCard{
   margin: 5px;
   border-radius: 10px;
 }
+
 .mySpan{
   width: 10vh;
   
@@ -2524,25 +2530,26 @@ flex-direction: row;
 
 /* ************* Start Modal ************* */
 
-.modal1{
-  position: absolute;
-  width: 70% !important;
+
+.theModal{
+  position: fixed;
   z-index: 10000;
   background-color:rgb(233, 230, 230);
+  width: 70% !important;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 1px 1px 1px 1px #eee;
   padding: 15px;
-  margin: -20vh auto;
+  left: 15%;
+  top: 30%;
+  transition: all 0.3s ease-out;
 }
 @media(max-width:500px){
-  .modal{
+  .theModal{
     width: 500px;
     left: calc(50%-250px);
   }
 }
-
-
 
 
 

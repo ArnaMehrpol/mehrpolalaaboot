@@ -114,7 +114,7 @@ const Navbar = memo(() => {
                   <Link href="/profile/dashboard">
                     <a className="nav-link startTab " aria-current="page">
                       <i className="bi bi-person-circle"></i>
-                      {userName.includes("null") ? "کابر" : userName}
+                      {userName.includes("null") ? "کاربر" : userName}
                       {/* علیرضا بهرام زادگان خوش آمدید */}
                     </a>
                   </Link>

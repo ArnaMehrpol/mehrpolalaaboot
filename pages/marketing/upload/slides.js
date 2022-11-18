@@ -1,49 +1,164 @@
-import Link from "next/link";
-import Image from "next/image";
 import React from "react";
 import MarketingUploadSide from "../../../components/marketing/layout/MarketingUploadSide";
 import MarketingInfoHeader from "../../../components/marketing/marketingHeader/MarketingInfoHeader";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import MainRoot from "../../../components/marketing/fileManager/components/MainRoot";
-import DeleteSlide from "../../../components/marketing/fileManager/components/DeleteSlide";
-import { useEffect } from "react";
+import axios from "axios";
+import Cookies from "universal-cookie";
+import { toast } from "react-toastify";
+import Modal from "../../../components/Modal";
+import ModalSoftDelete from "../../../components/ModalSoftDelete";
 
 const slides = () => {
+  const [url, seturl] = useState("https://dfgsdfgsdfgj32gsdg.mehrpol.com/");
   const [show, setShow] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [rootFilesAddress, setrootFilesAddress] = useState();
   const [chooseFiles, setChooseFiles] = useState([]);
-  const [slideId, setSlideId] = useState([]);
+  const [slideId, setSlideId] = useState();
   const [Type, setType] = useState("slider");
+  const [error, setError] = useState(false);
+  const [counter, setCounter] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [deleteLoading, setDeLeteLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [allSlide, setAllSlide] = useState([]);
+  const [dbSlideId, setDbSlideId] = useState(null);
+  const [softDeleteModal, setSoftDeleteModal] = useState(false);
+
+  const cookies = new Cookies();
   const closeMainRoot = () => {
     setShow(false);
     setShowDelete(false);
   };
 
-  const InsertIntoSlides = (e) => {
+  const InsertIntoPermission = async (e) => {
     e.preventDefault();
-
-    for (var i = 0; i < slideId.length; i++) {
-      console.log(slideId);
+    setLoading(true);
+    for (var i = 0; i < chooseFiles.length; i++) {
+      setCounter(chooseFiles.length);
+      axios
+        .post(
+          url + "api/businesses/" + cookies.get("b-Id") + "/documents",
+          {
+            type: "slider",
+            filemanager_item_id: chooseFiles[i].id,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${cookies.get("token")}`,
+            },
+          }
+        )
+        .then(function (response) {
+          if ([i] >= counter) {
+            gettingSlides();
+            softDeleteModalHandler2();
+            toast.success(`اسلاید با موفقیت ذخیره شد!`);
+            setLoading(false);
+          } else {
+            console.log("عملیات با مشکل مواجه شد");
+            console.log([i]);
+            console.log(chooseFiles.length);
+            setLoading(false);
+          }
+        })
+        .catch(function (error) {
+          toast.error("عملیات انجام نشد. لطفا دوباره سعی نمایید");
+          setError(true);
+          console.log(error.message);
+          setLoading(false);
+        });
     }
   };
+
+  const slideIdSetter = () => {
+    slideId(file.id);
+  };
+  const gettingSlides = () => {
+    axios
+      .get(
+        url + "api/businesses/" + cookies.get("b-Id") + "/documents",
+
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.get("token")}`,
+          },
+        }
+      )
+      .then(function (response) {
+        setAllSlide(response.data.data);
+        console.log(response.status);
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
+  };
+  console.log(allSlide.full_link);
 
   const rootFilesAddressFunc = (rootFilesAddress) => {
     setrootFilesAddress(rootFilesAddress);
   };
-  console.log(rootFilesAddress);
 
   const chooseFileFromMainRootFunc = (chooseFile) => {
     setChooseFiles(chooseFile);
   };
-
-  const setter = () => {
-    for (var i = 0; i < chooseFiles.length; i++) {
-      console.log(chooseFiles[i].id);
-      // setSlideId(chooseFiles[0].id);
-    }
+  useEffect(() => {
+    gettingSlides();
+  }, []);
+  const modalHandler = () => {
+    setShowModal(!showModal);
+    setDeLeteLoading(false);
   };
-  setter();
+  const DeleteHandler = () => {
+    console.log(slideId);
+    setDeLeteLoading(true);
+    axios
+      .post(
+        url +
+          "api/businesses/" +
+          cookies.get("b-Id") +
+          "/documents/" +
+          dbSlideId,
+        {
+          _method: "DELETE",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.get("token")}`,
+          },
+        }
+      )
+      .then(function (response) {
+        if (response) {
+          toast.success("تصویر مورد نظر با موفقیت پاک شد!");
+          setDeLeteLoading(false);
+          gettingSlides();
+          setShowModal(false);
+        } else {
+          toast.error("عملیات انجام نشد. مجددا سعی نمایید!");
+          setDeLeteLoading(false);
+        }
+      })
+      .catch(function (error) {
+        toast.error("متاسفانه سرور جواب نمی دهد!");
+        console.log(error.message);
+        setDeLeteLoading(false);
+      });
+  };
+  const showSoftDeleteModal = () => {
+    setSoftDeleteModal(!softDeleteModal);
+  };
+  const softDeleteModalHandler = () => {
+    setChooseFiles(null);
+    setSoftDeleteModal(!softDeleteModal);
+  };
+  const softDeleteModalHandler2 = () => {
+    setChooseFiles(null);
+  };
+
   return (
     <div>
       {show && (
@@ -53,7 +168,20 @@ const slides = () => {
           chooseFileFromMainRoot={chooseFileFromMainRootFunc}
         />
       )}
-      {showDelete && <DeleteSlide closeMainRoot={closeMainRoot} />}
+
+      {showModal && (
+        <Modal
+          modalHandler={modalHandler}
+          delete={DeleteHandler}
+          deleteLoading={deleteLoading}
+        />
+      )}
+      {softDeleteModal && (
+        <ModalSoftDelete
+          modalHandler={showSoftDeleteModal}
+          delete={softDeleteModalHandler}
+        />
+      )}
       <div className="business-panel-container">
         <div className="business-panel-cols flex grid-cols- bg-slate-100 ">
           <div>
@@ -61,7 +189,7 @@ const slides = () => {
           </div>
           <div className="business-panel-mainbar w-100 lg:col-span- col-span- shadow-lg shadow-slate-100 relative overflow-hidden">
             <MarketingInfoHeader />
-            <section className="slides-container max-w-screen-lg mx-auto px-12 flex justify-center items-center relative z-[] mt-[85px]">
+            <section className="slides-container max-w-screen-lg mx-auto px-12 flex justify-center items-center relative  mt-[85px]">
               <div className=" bg-red overflow-hidden rounded-lg shadow-md px-3">
                 <div className="slides-title flex flex-col my-4">
                   <h5 className="text-base font-semibold">اسلایدها</h5>
@@ -73,8 +201,6 @@ const slides = () => {
                 <div className="slides-flex flex flex-col">
                   <div className="btn-add inline-flex">
                     <button
-                      id="add"
-                      name="add"
                       onClick={() => {
                         setShow(true);
                       }}
@@ -83,35 +209,60 @@ const slides = () => {
                       افزودن اسلاید
                       <i className="bi bi-cloud-arrow-up fs-5 mr-2"></i>
                     </button>
-                    {/* <button onClick={IdSetter} className="btn btn-warning">
-                      Test
-                    </button> */}
                   </div>
 
                   <div className=" slideContainer items-center">
-                    {/* slides-text */}
-                    {/* ******************************************************************************************************************************** */}
-
-                    {/* <div className="slides-cols grid grid-cols-12 gap-3 mt-4"> */}
-                    {/* <div className=" slide-col lg:col-span-3 col-span-12"> */}
                     {chooseFiles &&
                       chooseFiles.map((file) => (
-                        <div className="   m-1">
-                          <div className="mySlideCard overflow-hidden silideScale">
+                        <>
+                          <div
+                            id="myElement"
+                            key={file.id}
+                            className="m-1 relative"
+                          >
+                            <div
+                              onClick={showSoftDeleteModal}
+                              className="absolute mr-2 mt-2"
+                            >
+                              <i class="bi bi-x-circle text-danger"></i>
+                            </div>
+                            <div className="mySlideCard overflow-hidden silideScale ">
+                              <img
+                                onChange={(e) => {
+                                  setSlideId(file.id);
+                                }}
+                                src={`${rootFilesAddress}/${file.name}`}
+                                className="rounded-md  "
+                              />
+                            </div>
+                          </div>
+                        </>
+                      ))}
+
+                    {allSlide &&
+                      allSlide.map((slide) => (
+                        <div key={slide.id} className="m-1 relative">
+                          <div
+                            onClick={() => {
+                              setDbSlideId(slide.id);
+                              modalHandler();
+                            }}
+                            className="absolute mr-2 mt-2"
+                          >
+                            <i className="bi bi-trash text-danger"></i>
+                          </div>
+                          <div className="mySlideCard overflow-hidden silideScale ">
                             <img
                               onChange={(e) => {
-                                setSlideId(file.id);
+                                setDbSlideId(slide.id);
                               }}
-                              src={`${rootFilesAddress}/${file.name}`}
+                              src={slide.full_link}
                               className="rounded-md  "
-                              // id={setSlideId(file.id)}
                             />
                           </div>
                         </div>
                       ))}
                   </div>
-                  {/* </div> */}
-                  {/* </div> */}
 
                   {/* ******************************************************************************************************************************** */}
                   <div className=" row z-1  bg-salt-400">
@@ -124,19 +275,28 @@ const slides = () => {
                     </p>
                   </div>
                 </div>
-                <div className="next-btn mb-2 w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center">
+                <div className="next-btn mb-2 w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center ">
+                  {loading && (
+                    <>
+                      <span className="ml-2 text-primary">...Loading</span>
+                      <div
+                        className="spinner-grow text-primary ml-2"
+                        role="status"
+                      ></div>
+                    </>
+                  )}
                   <button
-                    onClick={(e) => {
-                      InsertIntoSlides;
-                    }}
-                    className="text-white btn btn-primary text-xs font-semibold ml-2"
+                    onClick={InsertIntoPermission}
+                    className="text-white bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse  font-bold ml-2 "
+                    type="submit"
                   >
                     ثبت
                   </button>
-                  <button className="text-white btn btn-primary text-xs font-semibold">
+                  <button className="text-white bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse  font-bold ml-2">
                     مرحله بعد
                   </button>
                 </div>
+                {/* ************* */}
               </div>
             </section>
           </div>

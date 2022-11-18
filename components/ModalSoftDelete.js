@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-const Modal = (props) => {
+const ModalSoftDelete = (props) => {
   return (
     <>
       <div
@@ -67,4 +67,4 @@ const Modal = (props) => {
   );
 };
 
-export default Modal;
+export default ModalSoftDelete;
