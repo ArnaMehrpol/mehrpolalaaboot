@@ -44,7 +44,7 @@ const certificate = () => {
         .post(
           url + "api/businesses/" + cookies.get("b-Id") + "/documents",
           {
-            type: "slider",
+            type: "certificate",
             filemanager_item_id: chooseFiles[i].id,
           },
           {
@@ -75,14 +75,16 @@ const certificate = () => {
     }
   };
 
-  const slideIdSetter = () => {
-    slideId(file.id);
-  };
+  // const slideIdSetter = () => {
+  //   slideId(file.id);
+  // };
   const gettingSlides = () => {
     axios
       .get(
         url + "api/businesses/" + cookies.get("b-Id") + "/documents",
-
+        {
+          type: "certificate",
+        },
         {
           headers: {
             Authorization: `Bearer ${cookies.get("token")}`,

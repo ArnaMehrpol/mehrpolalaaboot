@@ -44,7 +44,7 @@ const consent = () => {
         .post(
           url + "api/businesses/" + cookies.get("b-Id") + "/documents",
           {
-            type: "slider",
+            type: "satisfaction",
             filemanager_item_id: chooseFiles[i].id,
           },
           {
@@ -75,13 +75,16 @@ const consent = () => {
     }
   };
 
-  const slideIdSetter = () => {
-    slideId(file.id);
-  };
+  // const slideIdSetter = () => {
+  //   slideId(file.id);
+  // };
   const gettingSlides = () => {
     axios
       .get(
         url + "api/businesses/" + cookies.get("b-Id") + "/documents",
+        {
+          type: "satisfaction",
+        },
 
         {
           headers: {

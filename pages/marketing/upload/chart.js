@@ -44,7 +44,7 @@ const slides = () => {
         .post(
           url + "api/businesses/" + cookies.get("b-Id") + "/documents",
           {
-            type: "slider",
+            type: "chart",
             filemanager_item_id: chooseFiles[i].id,
           },
           {
@@ -75,13 +75,14 @@ const slides = () => {
     }
   };
 
-  const slideIdSetter = () => {
-    slideId(file.id);
-  };
+  // const slideIdSetter = () => {
+  //   slideId(file.id);
+  // };
   const gettingSlides = () => {
     axios
       .get(
         url + "api/businesses/" + cookies.get("b-Id") + "/documents",
+        { type: "chart" },
 
         {
           headers: {

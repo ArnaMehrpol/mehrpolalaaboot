@@ -75,13 +75,16 @@ const images = () => {
     }
   };
 
-  const slideIdSetter = () => {
-    slideId(file.id);
-  };
+  // const slideIdSetter = () => {
+  //   slideId(file.id);
+  // };
   const gettingSlides = () => {
     axios
       .get(
         url + "api/businesses/" + cookies.get("b-Id") + "/documents",
+        {
+          type: "working_picture",
+        },
 
         {
           headers: {

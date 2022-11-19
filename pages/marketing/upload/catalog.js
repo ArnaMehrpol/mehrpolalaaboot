@@ -44,7 +44,7 @@ const Permission = () => {
         .post(
           url + "api/businesses/" + cookies.get("b-Id") + "/documents",
           {
-            type: "slider",
+            type: "catolog",
             filemanager_item_id: chooseFiles[i].id,
           },
           {
@@ -82,7 +82,9 @@ const Permission = () => {
     axios
       .get(
         url + "api/businesses/" + cookies.get("b-Id") + "/documents",
-
+        {
+          type: "catalog",
+        },
         {
           headers: {
             Authorization: `Bearer ${cookies.get("token")}`,
