@@ -26,7 +26,7 @@ export const MyProvider = ({ children }) => {
 
   useEffect(() => {
     setToken(cookies.get("token"));
-    console.log('when load this:',token);
+    console.log("when load this:", token);
   }, []);
   //Register
 
@@ -51,9 +51,6 @@ export const MyProvider = ({ children }) => {
           document.cookie = `token=${token}; path=/; Secure; max-age=${
             60 * 60 * 24 * 1
           };   `;
-          document.cookie = `userData=${userData}; path=/; Secure; max-age=${
-            60 * 60 * 24 * 1
-          };`;
 
           router.push("/");
           setuser(response.data);
@@ -82,12 +79,11 @@ export const MyProvider = ({ children }) => {
     let chk = document.getElementById("remmemberme").checked;
 
     const data = await res.json();
-    console.log({data})
+    console.log({ data });
     setuser(`${data.user}`);
 
     if (res.ok) {
       if (chk === true) {
-        console.log('کوکی اجرا میشه')
         document.cookie = `token=${data.token}; path=/; Secure; max-age=${
           60 * 60 * 24 * 30
         }; `;
@@ -95,31 +91,31 @@ export const MyProvider = ({ children }) => {
           60 * 60 * 24 * 30
         };`;
       } else {
-        console.log('کوکی اجرا میشه')
-        cookies.set('token', data.token , { path: '/' }, {maxAge: (60 * 60 * 24 * 1)});
+        cookies.set(
+          "token",
+          data.token,
+          { path: "/" },
+          { maxAge: 60 * 60 * 24 * 1 }
+        );
         document.cookie = `token=${data.token}; path=/; Secure; max-age=${
           60 * 60 * 24 * 1
         }; `;
-        cookies.set('dataUser', data.user , { path: '/' }, {maxAge: (60 * 60 * 24 * 1)});
-        document.cookie = `userData=${data.user}; path=/; Secure; max-age=${
-          60 * 60 * 24 * 1
-        };`;
-        
-        // console.log('this is myCookiData', cookies.get('dataUser'))
-        // console.log('this is myCookiToken', cookies.get('token'))
+        cookies.set(
+          "dataUser",
+          data.user,
+          { path: "/" },
+          { maxAge: 60 * 60 * 24 * 1 }
+        );
 
         const showCookie = cookies.get("userData");
         if (showCookie !== "") {
-          console.log(showCookie);
-
-          console.log(JSON.stringify(showCookie));
         }
       }
-      console.log('this is data: ', data.user)
+      console.log("this is data: ", data.user);
       setmytoken(data.token);
       const myT = data.token;
-      console.log({myT})
-      console.log({cookies})
+      console.log({ myT });
+      console.log({ cookies });
       toast.success("شما با موفقیت وارد شدید!");
       router.push("/");
     } else {
@@ -143,9 +139,7 @@ export const MyProvider = ({ children }) => {
 
     if (res.ok) {
       setuser(null);
-      // setmycookie(
-      //   (document.cookie = `token=''; path=/; Secure; expires= ${new Date(0)} `)
-      // );
+
       cookies.set("token", "");
       toast.success("شما با موفقیت از سایت خارج شدید!");
       router.push("/");
