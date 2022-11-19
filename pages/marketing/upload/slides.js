@@ -73,19 +73,40 @@ const slides = () => {
     }
   };
 
-  // const slideIdSetter = () => {
-  //   slideId(file.id);
-  // };
   const gettingSlides = () => {
+    // const config = {
+    //   headers: {
+    //     Authorization: `Bearer 117|blR67u8lgACCRZivaqhyXoISakENf36HCOWt57w1`,
+    //   },
+    // };
+    // axios
+    //   .get(
+    //     url + "api/businesses/6/documents",
+    //     {
+    //       data: {
+    //         name: "sdfas",
+    //       },
+    //     },
+    //     config
+    //   )
+    //   .then(({ data: isData }) => {
+    //     console.log(isData);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
     axios
       .get(
-        url + "api/businesses/" + cookies.get("b-Id") + "/documents",
+        url + "api/businesses/6/documents",
         {
           type: "slider",
         },
         {
           headers: {
-            Authorization: `Bearer ${cookies.get("token")}`,
+            Accept: "application/json",
+            "Content-Type": "application/json; charset= UTF-8",
+            Authorization: `Bearer 117|blR67u8lgACCRZivaqhyXoISakENf36HCOWt57w1`,
           },
         }
       )
@@ -99,6 +120,7 @@ const slides = () => {
       });
   };
   console.log(allSlide.full_link);
+  console.log(allSlide);
 
   const rootFilesAddressFunc = (rootFilesAddress) => {
     setrootFilesAddress(rootFilesAddress);
@@ -163,6 +185,9 @@ const slides = () => {
 
   return (
     <div>
+      <button onClick={gettingSlides} className="btn btn-danger">
+        Test
+      </button>
       {show && (
         <MainRoot
           closeMainRoot={closeMainRoot}

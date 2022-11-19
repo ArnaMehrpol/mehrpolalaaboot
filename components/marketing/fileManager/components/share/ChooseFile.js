@@ -25,6 +25,8 @@ const rootData = []
 const selectedFiles = []
 const chilrenContent = []
 const chooseFileForShowInChooseFile = []
+const parentFolder = []
+const filesSelectedForAction=[]
 
 const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesRoot}) => {
  // document.body.style.overflowY = 'auto'
@@ -32,9 +34,9 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
   const [doFileSend, setDoFileSend] = useState(false);
   const [doCreateFolder,setDoCreateFolder] = useState(false);
   const [doDeleteItem, setDoDeleteItem] = useState(false);
-  const [chosenFiles, setChosenFile] = useState();
+  const [chosenFiles, setChosenFiles] = useState();
   const [getFiles, setGetFiles] = useState(false);
-  const [filesSelectedForAction, setFilesSelectedForAction] = useState();
+  //const [filesSelectedForAction, setFilesSelectedForAction] = useState();
   const [getDataBaseFiles, setGetDataBaseFiles] = useState();
   const [showGetNameFolderComponent, setShowGetNameFolderComponent] = useState(false);
   const [loadFiles, setLoadFiles] = useState(false);
@@ -46,7 +48,7 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
   const [dataReloading, setDataReloading] = useState(false);
   
   const dispatch = useDispatch();
-  const dataFiles  =  useSelector( state => state.loadData);
+  let dataFiles  =  useSelector( state => state.loadData);
   const createFolder = useSelector(state => state.postCreateFolder);
   const deleteFilesAndFolders = useSelector(state => state.deleteFilesAndFolder);
   //const sendFiles = useSelector(state => state.sendFilesToDataBase)
@@ -58,10 +60,11 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
   
   useEffect(()=>{
     dispatch(fetchData());
-    chooseFileForShowInChooseFile = []  
+    chooseFileForShowInChooseFile = null
   },[])
 
   useEffect(()=>{
+    console.log({dataReloading})
     if(dataReloading === true){
       console.log('this is Reloading useeffect')
       dispatch(fetchData());
@@ -79,7 +82,7 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
 
   useEffect(()=>{
     if(doFileSend === true){
-      // console.log('this is send File useeffect')
+      console.log('this is send File useeffect')
       dispatch(fetchData());
       setDoDeleteItem(false);
     }
@@ -99,6 +102,11 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
     addressFilesRoot(dataFiles.data.root)
   },[dataFiles.data])
   
+  useEffect(()=>{
+    filesSelectedForAction = []
+  },[chosenFiles])
+  
+
   console.log({dataFiles})
   console.log({createFolder})
   console.log({filesRoot})
@@ -107,22 +115,17 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
     setShowGetNameFolderComponent(false)
   }
   
-  const sendFilesClickHandler = () =>{
-    console.log('chosenFile:', chosenFiles)
-    console.log(dataFiles.data.root)
-    
-  }
-
   const filesSelectedForActionFunc = (filesSelected) =>{
-    setFilesSelectedForAction(filesSelected)
-    console.log({filesSelected})
+    filesSelectedForAction = filesSelected
+    console.log({filesSelectedForAction})
   }
 
   const selectedFolderFunc = (selectedFolder) =>{
     //React.createElement('button', {}, selectedFolder.name)
     setFolderName(Array.from(selectedFolder))
+
     setTurnBackFolder(false)
-    console.log('folllderrrnnnname: ',selectedFolder.file_name)
+    console.log('folllderrrnnnname: ',selectedFolder)
     setChosenAnyFolder(true)
     let lastFolder = Object.values(selectedFolder).pop()
     let temp = []
@@ -185,6 +188,7 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
   const chooseFileForShowFunc = (chooseFileForShow) =>{
     chooseFileForShowInChooseFile = chooseFileForShow
   }
+
   console.log({chooseFileForShowInChooseFile})
   console.log({folderName});
   return (
@@ -203,7 +207,6 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
             <h5>مدیریت فایل ها</h5>
             <i className="bi bi-x-square-fill"
                 onClick={(e)=>{closeChooseFile()
-                                chooseFileForSendInMainRoot(chooseFileForShowInChooseFile)
                 }}></i>
           </header>
           <hr/>
@@ -256,11 +259,14 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
             }
           </div>
           <div className={styleChooseFile.gh_mainPageLeft}>
-            <div className={styleChooseFile.gh_mainPageLeftButtonsSend}>
-              <i hidden={filesSelectedForAction == 0} onClick={()=>setSendFiles(true)} title='ارسال فایل' className="bi bi-send"></i>
+            <div className={`${styleChooseFile.gh_mainPageLeftButtonsSend}`}>
+              <i onClick={()=>{setSendFiles(true)
+                reloadDataFunc()
+                }} 
+                title='ارسال فایل' className="bi bi-send "></i>
             </div>
             <div className={styleChooseFile.gh_mainPageLeftButtonsTrash}>
-              <i hidden={filesSelectedForAction == 0} title='حذف فایل انتخاب شده' className="bi bi-trash"></i>
+              <i title='حذف فایل انتخاب شده' className="bi bi-trash"></i>
             </div>
             
             {
@@ -280,8 +286,12 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
               </div>
               <div>
                 <button 
-                  onClick={sendFilesClickHandler}
-                  className={styleChooseFile.gh_addButton}>بازکردن
+                  className={styleChooseFile.gh_addButton}
+                  onClick={(e)=>{closeChooseFile()
+                    chooseFileForSendInMainRoot(chooseFileForShowInChooseFile)
+                  }}>
+                    
+                    بازکردن
                 </button>
               </div>
               <div>
@@ -311,7 +321,7 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
                   <input hidden 
                     onChange={(event)=>{
                       if (event.target.files && event.target.files[0]) {
-                        setChosenFile(Array.from(event.target.files));
+                        setChosenFiles(Array.from(event.target.files));
                         setGetFiles(prevFiles => prevFiles = true)
                         console.log(event.target.files)
                       }

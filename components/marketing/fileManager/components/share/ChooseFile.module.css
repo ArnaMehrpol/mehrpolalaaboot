@@ -102,6 +102,7 @@
   border-left: 2px solid #9b9898;
   height: 100%;
   margin-left: 10px;
+  padding-top: 20px;
 }
 
 .gh_mainPageRightLoadingDiv{
@@ -145,8 +146,7 @@
 .gh_mainPageRightAddressBar{
   position: absolute;
   display: flex;
-  transform: translateX(1px) translateY(-25px);
-  
+  transform: translateX(1px) translateY(-45px);
 }
 
 .gh_mainPageRightAddressBar ul{ 
@@ -186,27 +186,24 @@
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
+  padding-top: 20px;
+  padding-right: 10px;
 }
 
 .gh_mainPageLeftButtonsSend{
   position: absolute;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  transform: translateY(-30px);
+  transform: translateY(-45px);
 }
 
 .gh_mainPageLeftButtonsSend i{
   border: none;
-  width: 40px;
-  height: 40px;
   padding: 5px 5px;
   border-radius: 50%;
   cursor: pointer;
   text-align: center;
   background-color: #3a86ff;
   color: #ffffff;
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 
 .gh_mainPageLeftButtonsSend i:hover{
@@ -215,24 +212,21 @@
 
 .gh_mainPageLeftButtonsTrash{
   position: absolute;
-  display: flex;
   left: 20px;
   text-align: center;
-  transform: translateY(-30px);
+  transform: translateY(-45px);
 }
 
 
 .gh_mainPageLeftButtonsTrash i{
   border: none;
-  width: 40px;
-  height: 40px;
   padding: 5px 5px;
   border-radius: 50%;
   cursor: pointer;
   text-align: center;
   background-color: #ba181b;
   color: #ffffff;
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 
 .gh_mainPageLeftButtonsTrash i:hover{
@@ -241,6 +235,7 @@
 
 .gh_divBottom{  
   width: 100%;
+  font-size: 12px;
   position: fixed;
   bottom: 20px;
   z-index: 3;
@@ -260,7 +255,6 @@
 
 .gh_addButton{
   width: 90px;
-  display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
@@ -309,8 +303,9 @@
 
 
 .gh_uploadButtonDiv{
-  width: 180px;
+  width: 140px;
   display: flex;
+  font-size: 12px;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;

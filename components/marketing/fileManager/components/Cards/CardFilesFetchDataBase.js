@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchDeleteFilesAndFolder } from '../../redux/deleteFilesAndFolder/DeleteFilesAndFolderAction';
+import { iconFileFileManager } from '../../utils/iconFilesFilemanager';
 import DeleteFileQuestion from '../share/DeleteFileQuestion';
 
 import styleCardFiles from './CardFilesFetchDataBase.module.css'
@@ -21,6 +22,9 @@ const CardFilesFetchDataBase = (props) => {
   const [imageInDatabase,setImageInDatabase ] = useState()
   const [showDeleteItemQuestion, setShowDeleteItemQuestion] = useState(false);
 
+  useEffect(()=>{
+    chooseFile=[]
+  },[])
   const doubleClickHandler = () =>{
     console.log('Hi doubleClick')
     if(getTurnBackFolder === true){
@@ -71,8 +75,7 @@ const CardFilesFetchDataBase = (props) => {
       chooseFile = temp.filter(file=> file.id !== files.id)
       chooseFileForShow(chooseFile)
     }
-    console.log({chooseFile})
-    console.log({chooseFileForShow})
+    
   }
   return (
     <>
@@ -95,39 +98,19 @@ const CardFilesFetchDataBase = (props) => {
           }
         </div>
       </div>
-      <hr/>
+      {/* <hr/> */}
       <div className={styleCardFiles.gh_Icon} onDoubleClick={doubleClickHandler}>
         {
           files.type.search('folder') !== -1 ?
-            <i className="bi bi-folder"></i> :
-          files.name.search(".png") !== -1 || files.name.search(".jpeg") !== -1 ||
-          files.name.search(".jpg") !== -1 || files.name.search(".svg") !== -1 || 
-          files.name.search(".svg") !== -1 ?
-              <img src={`${rootData}/${files.name}`} alt={files.name}/> 
+            <i className="bi bi-folder-fill text-[22px] text-cyan-500 bg-white"></i> :
+          iconFileFileManager(files.name) === 'image' ?
+            <img src={`${rootData}/${files.name}`} alt={files.name}/> 
             :
-            // <i className="bi bi-file-earmark-ppt"></i> : 
-          files.name.search(".doc") !== -1 || files.name.search(".docx") !== -1 ||
-          files.name.search(".dot") !== -1 || files.name.search(".dotx") !== -1 ?
-            <i className="bi bi-file-earmark-word"></i>: 
-          files.name.search(".xlsx") !== -1 || files.name.search(".xml") !== -1 ||
-          files.name.search(".xls") !== -1 || files.name.search(".xla") !== -1 ?
-            <i className="bi bi-file-earmark-excel"></i> : 
-          files.name.search(".pdf") !== -1 ?
-            <i className="bi bi-file-earmark-pdf"></i> : 
-          files.name.search(".mp3") !== -1 ?
-            <i className="bi bi-file-earmark-music"></i> : 
-          files.name.search(".mp4") !== -1 ?
-            <i className="bi bi-filetype-mp4"></i> : 
-          files.name.search(".exe") !== -1 ?
-            <i className="bi bi-filetype-exe"></i> :
-          files.name.search(".txt") !== -1 ?
-            <i className="bi bi-filetype-txt"></i> :
-          files.name.search(".html") !== -1 ?
-            <i className="bi bi-filetype-html"></i> : ''
+            iconFileFileManager(files.name)
         }
       </div>      
       <div className={styleCardFiles.gh_fileName} onDoubleClick={doubleClickHandler}>
-        <p>{files.name}</p>
+        <p title={files.name}>{`${files.name.slice(0, 10)}...`}</p>
       </div>
     </div>
     </>

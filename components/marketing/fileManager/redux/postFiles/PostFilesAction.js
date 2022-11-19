@@ -24,12 +24,13 @@ const fetchPostFilesFailure = error => {
 const fetchPostFiles = (file,folder_id) =>{
   const cookies = new Cookies();
   const tokenId = cookies.get('token')
-  
+  const businessId = cookies.get('b-Id')
+
   return async (dispatch) =>{
     dispatch(fetchPostFilesRequest())
     await axios({
       method: 'post',
-      url: `${config.api_url}/user/filemanager/upload-file`,
+      url: `${config.api_url}/businesses/${businessId}/filemanager/upload-file`,
       data: {
         file: file,
         folder_id: folder_id

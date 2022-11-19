@@ -25,12 +25,14 @@ const fetchPostFolderFailure = error => {
 const fetchPostFolder = (nameFolder, parent_id) =>{
   const cookies = new Cookies();
   const tokenId = cookies.get('token')
+  const businessId = cookies.get('b-Id')
+
   return async (dispatch) =>{
     console.log('folderID:', parent_id)
     dispatch(fetchPostFolderRequest())
     await axios({
       method: 'post',
-      url: `${config.api_url}/user/filemanager/create-folder`,
+      url: `${config.api_url}/businesses/${businessId}/filemanager/create-folder`,
       data: {
         name: nameFolder,
         folder_id: parent_id,

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPostFiles} from '../../redux/postFiles/PostFilesAction'
+import { iconFileFileManager } from '../../utils/iconFilesFilemanager';
 
 import CropImage from '../share/CropImage/CropImage'
 // import TUIImageEditor from '../share/TUIImageEditor';
@@ -18,6 +19,10 @@ const CardFiles = (props) => {
  
   const dispatch = useDispatch();
   const sendFiles = useSelector(state => state.sendFilesToDataBase)
+
+  useEffect(()=>{
+    filesSelected = []
+  },[])
 
   useEffect(()=>{
     const sendFilesAction = async () =>{
@@ -54,12 +59,21 @@ const CardFiles = (props) => {
       filesSelected = [...filesSelected, files]
     }
     else if(refCheckBox.current.checked === false){
-      console.log('falssse')
       let indexOfNameFile = filesSelected.indexOf(files.name)
       console.log({indexOfNameFile})
       filesSelected.splice(indexOfNameFile,1)
     }
-    console.log({filesSelected})
+    filesSelectedForAction(filesSelected)
+  }
+
+  const checkedFilesChangeHandler = (e) =>{
+    if(e.target.checked === true){
+      filesSelected = [...filesSelected, files]
+    }else if(e.target.checked === false){
+      let indexOfNameFile = filesSelected.indexOf(files.name)
+      console.log({indexOfNameFile})
+      filesSelected.splice(indexOfNameFile,1)
+    }
     filesSelectedForAction(filesSelected)
   }
 
@@ -74,7 +88,7 @@ const CardFiles = (props) => {
       </div>
       <div className={styleCardFiles.gh_container}>
         <div className={styleCardFiles.gh_controller}>
-          <input ref={refCheckBox} id='checkBoxSelectFile' type='checkbox'/>
+          <input onClick={checkedFilesChangeHandler} ref={refCheckBox} id='checkBoxSelectFile' type='checkbox'/>
           <i onClick={()=>{
             setShowEditor(true)
           }} class="bi bi-pencil-square"></i>
@@ -82,33 +96,15 @@ const CardFiles = (props) => {
         </div>
         <div className={styleCardFiles.gh_Icon} onClick={selectFileClickHandler} >
           {
-            files.name.search(".png") !== -1 || files.name.search(".jpeg") !== -1 ||
-            files.name.search(".jpg") !== -1 || files.name.search(".svg") !== -1 || 
-            files.name.search(".svg") !== -1 ?
+            iconFileFileManager(files.name) === 'image' ?
+            
                 <Image src={URL.createObjectURL(files)} width='45' height='45' alt={files.name}/> 
                :
-            files.name.search(".doc") !== -1 || files.name.search(".docx") !== -1 ||
-            files.name.search(".dot") !== -1 || files.name.search(".dotx") !== -1 ?
-              <i className="bi bi-file-earmark-word"></i>: 
-            files.name.search(".xlsx") !== -1 || files.name.search(".xml") !== -1 ||
-            files.name.search(".xls") !== -1 || files.name.search(".xla") !== -1 ?
-              <i className="bi bi-file-earmark-excel"></i> : 
-            files.name.search(".pdf") !== -1 ?
-              <i className="bi bi-file-earmark-pdf"></i> : 
-            files.name.search(".mp3") !== -1 ?
-              <i className="bi bi-file-earmark-music"></i> : 
-            files.name.search(".mp4") !== -1 ?
-              <i className="bi bi-filetype-mp4"></i> : 
-            files.name.search(".exe") !== -1 ?
-              <i className="bi bi-filetype-exe"></i> :
-            files.name.search(".txt") !== -1 ?
-              <i className="bi bi-filetype-txt"></i> :
-            files.name.search(".html") !== -1 ?
-              <i className="bi bi-filetype-html"></i>: ''
+                iconFileFileManager(files.name)
           }
         </div>      
         <div className={styleCardFiles.gh_fileName} onClick={selectFileClickHandler}>
-          <p>{files.name}</p>
+          <p title={files.name}>{`${files.name.slice(0, 10)}...`}</p>
         </div>
       </div>
     </>
@@ -117,15 +113,3 @@ const CardFiles = (props) => {
 
 export default CardFiles
 
-
-// <i className="bi bi-file-earmark-ppt"></i>
-// <i className="bi bi-folder"></i>
-// <i className="bi bi-folder2"></i>
-// <i className="bi bi-folder2-open"></i>
-// <i className="bi bi-filetype-sql"></i>
-// <i className="bi bi-filetype-mov"></i>
-// <i className="bi bi-folder-fill"></i>
-// <i className="bi bi-x-square-fill"></i>
-// <i className="bi bi-x-square"></i>
-// <i className="bi bi-trash-fill"></i>
-// <i className="bi bi-trash"></i>

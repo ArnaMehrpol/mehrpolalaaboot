@@ -10,7 +10,7 @@ import { Navigation, Pagination } from "swiper";
 
 import LandingPage from "./landingpage";
 
-import Navbar from "../components/mainpage/navbar/Navbar";
+import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/mainpage/footer/Footer";
 import MainPage from "../components/mainpage/MainPage";
 // import Navbar from "../components/Navbar";
