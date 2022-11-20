@@ -81,10 +81,10 @@ const consent = () => {
   const gettingSlides = () => {
     axios
       .get(
-        url + "api/businesses/" + cookies.get("b-Id") + "/documents",
-        {
-          type: "satisfaction",
-        },
+        url +
+          "api/businesses/" +
+          cookies.get("b-Id") +
+          "/documents?type=satisfaction",
 
         {
           headers: {

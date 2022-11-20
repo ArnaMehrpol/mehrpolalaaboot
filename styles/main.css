@@ -4,7 +4,7 @@
   font-family: 'IranSanse';
   src: url('../public/assets/fonts/fonts/IRANSansWeb.eot') format('eot'),
   url('../public/assets/fonts/fonts/IRANSansWeb.ttf') format('ttf'),
-  url('/public/assets/fonts/fonts/IRANSansWeb.woff') format('woff'),
+  url('../public/assets/fonts/fonts/IRANSansWeb.woff') format('woff'),
   url('../public/assets/fonts/fonts/IRANSansWeb.woff2') format('woff2');
 }
 /* .buttonOffOthers */
@@ -102,6 +102,22 @@ loadingModalSpinner{
   width: 100% !important;
   
 }
+
+.movieInLoadFile{
+  display: flex;
+  overflow: hidden;
+  justify-content: end;
+  margin-top:11vh;
+  min-width: 50vh;
+}
+.movieInLoadFileLoading{
+  /* width: 5vh; */
+  display: flexbox;
+
+}
+
+
+
 
 .iranNastaliq{
   font-family: 'irannastaliq';

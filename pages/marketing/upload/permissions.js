@@ -81,10 +81,10 @@ const permissions = () => {
   const gettingSlides = () => {
     axios
       .get(
-        url + "api/businesses/" + cookies.get("b-Id") + "/documents",
-        {
-          type: "contract",
-        },
+        url +
+          "api/businesses/" +
+          cookies.get("b-Id") +
+          "/documents?type=contract",
 
         {
           headers: {

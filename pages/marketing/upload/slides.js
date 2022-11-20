@@ -74,39 +74,16 @@ const slides = () => {
   };
 
   const gettingSlides = () => {
-    // const config = {
-    //   headers: {
-    //     Authorization: `Bearer 117|blR67u8lgACCRZivaqhyXoISakENf36HCOWt57w1`,
-    //   },
-    // };
-    // axios
-    //   .get(
-    //     url + "api/businesses/6/documents",
-    //     {
-    //       data: {
-    //         name: "sdfas",
-    //       },
-    //     },
-    //     config
-    //   )
-    //   .then(({ data: isData }) => {
-    //     console.log(isData);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-
     axios
       .get(
-        url + "api/businesses/6/documents",
-        {
-          type: "slider",
-        },
+        url +
+          "api/businesses/" +
+          cookies.get("b-Id") +
+          "/documents?type=slider",
+
         {
           headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json; charset= UTF-8",
-            Authorization: `Bearer 117|blR67u8lgACCRZivaqhyXoISakENf36HCOWt57w1`,
+            Authorization: `Bearer ${cookies.get("token")}`,
           },
         }
       )
@@ -117,15 +94,14 @@ const slides = () => {
       })
       .catch(function (error) {
         console.log(error.message);
+        console.log(cookies.get("b-Id"));
       });
   };
   console.log(allSlide.full_link);
   console.log(allSlide);
-
   const rootFilesAddressFunc = (rootFilesAddress) => {
     setrootFilesAddress(rootFilesAddress);
   };
-
   const chooseFileFromMainRootFunc = (chooseFile) => {
     setChooseFiles(chooseFile);
   };
@@ -185,9 +161,6 @@ const slides = () => {
 
   return (
     <div>
-      <button onClick={gettingSlides} className="btn btn-danger">
-        Test
-      </button>
       {show && (
         <MainRoot
           closeMainRoot={closeMainRoot}

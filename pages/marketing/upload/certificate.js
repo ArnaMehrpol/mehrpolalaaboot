@@ -81,10 +81,11 @@ const certificate = () => {
   const gettingSlides = () => {
     axios
       .get(
-        url + "api/businesses/" + cookies.get("b-Id") + "/documents",
-        {
-          type: "certificate",
-        },
+        url +
+          "api/businesses/" +
+          cookies.get("b-Id") +
+          "/documents?type=certificate",
+
         {
           headers: {
             Authorization: `Bearer ${cookies.get("token")}`,

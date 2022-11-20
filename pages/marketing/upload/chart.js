@@ -81,8 +81,7 @@ const slides = () => {
   const gettingSlides = () => {
     axios
       .get(
-        url + "api/businesses/" + cookies.get("b-Id") + "/documents",
-        { type: "chart" },
+        url + "api/businesses/" + cookies.get("b-Id") + "/documents?type=chart",
 
         {
           headers: {

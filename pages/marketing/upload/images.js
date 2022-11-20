@@ -81,10 +81,10 @@ const images = () => {
   const gettingSlides = () => {
     axios
       .get(
-        url + "api/businesses/" + cookies.get("b-Id") + "/documents",
-        {
-          type: "working_picture",
-        },
+        url +
+          "api/businesses/" +
+          cookies.get("b-Id") +
+          "/documents?type=working_picture",
 
         {
           headers: {

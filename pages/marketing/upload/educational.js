@@ -82,10 +82,11 @@ const educational = () => {
   const gettingSlides = () => {
     axios
       .get(
-        url + "api/businesses/" + cookies.get("b-Id") + "/documents",
-        {
-          type: "slider",
-        },
+        url +
+          "api/businesses/" +
+          cookies.get("b-Id") +
+          "/documents?type=equipment",
+
         {
           headers: {
             Authorization: `Bearer ${cookies.get("token")}`,
@@ -101,7 +102,6 @@ const educational = () => {
         console.log(error.message);
       });
   };
-  console.log(allSlide.full_link);
 
   const rootFilesAddressFunc = (rootFilesAddress) => {
     setrootFilesAddress(rootFilesAddress);
@@ -118,7 +118,6 @@ const educational = () => {
     setDeLeteLoading(false);
   };
   const DeleteHandler = () => {
-    console.log(slideId);
     setDeLeteLoading(true);
     axios
       .post(
@@ -166,6 +165,27 @@ const educational = () => {
 
   return (
     <div>
+      {show && (
+        <MainRoot
+          closeMainRoot={closeMainRoot}
+          rootFilesAddress={rootFilesAddressFunc}
+          chooseFileFromMainRoot={chooseFileFromMainRootFunc}
+        />
+      )}
+
+      {showModal && (
+        <Modal
+          modalHandler={modalHandler}
+          delete={DeleteHandler}
+          deleteLoading={deleteLoading}
+        />
+      )}
+      {softDeleteModal && (
+        <ModalSoftDelete
+          modalHandler={showSoftDeleteModal}
+          delete={softDeleteModalHandler}
+        />
+      )}
       <div className="business-panel-container">
         <div className="business-panel-cols flex grid-cols- bg-slate-100 ">
           <div>
@@ -224,17 +244,20 @@ const educational = () => {
                         setDescription(e.target.value);
                       }}
                     ></textarea>
-                  </div>
-                  <div className="next-btn mb-2 w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center ">
                     {loading && (
                       <>
-                        <span className="ml-2 text-primary">...Loading</span>
-                        <div
-                          className="spinner-grow text-primary ml-2"
-                          role="status"
-                        ></div>
+                        <span className="ml-2 text-primary flex justify-center mt-3">
+                          ...Loading
+                          <div
+                            className="spinner-grow text-primary mr-2 "
+                            role="status"
+                          ></div>
+                        </span>
                       </>
                     )}
+                  </div>
+
+                  <div className="movieInLoadFile next-btn mb-2 w-full h-full border-t-2 border-dotted border-slate-100  items-center ">
                     <button
                       onClick={InsertIntoPermission}
                       className="text-white bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse  font-bold ml-2 "
