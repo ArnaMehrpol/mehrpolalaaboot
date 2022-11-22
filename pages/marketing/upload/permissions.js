@@ -11,6 +11,7 @@ import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 import Modal from "../../../components/Modal";
 import ModalSoftDelete from "../../../components/ModalSoftDelete";
+import { iconFile } from "../../../components/tools/iconFiles";
 
 const permissions = () => {
   const [url, seturl] = useState("https://dfgsdfgsdfgj32gsdg.mehrpol.com/");

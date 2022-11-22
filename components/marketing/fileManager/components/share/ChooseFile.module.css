@@ -13,6 +13,20 @@
   max-height: 100%;
 }
 
+.gh_containerSpanShowMessage{
+  content:' ';
+  background-color: #4b4b4b99;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1001;
+  perspective: 1000px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .gh_containerDiv{
   position: fixed;
   top: 50%;
@@ -24,6 +38,22 @@
   max-height: 100%;
   overflow-y: auto;
   z-index: 1000;  
+  background-color:transparent;
+  align-items: center;
+  direction: rtl;
+}
+
+.gh_containerDivShowMessage{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  transform-origin: left;
+  perspective: 1000px;
+  max-width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  z-index: 1002;  
   background-color:transparent;
   align-items: center;
   direction: rtl;

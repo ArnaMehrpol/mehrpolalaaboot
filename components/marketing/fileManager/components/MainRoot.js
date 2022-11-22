@@ -7,38 +7,45 @@ import styleMainRoot from './MainRoot.module.css'
 import { Provider } from 'react-redux'
 import store from '../redux/store'
 
-const chooseFiles =[]
-const MainRoot = ({closeMainRoot,rootFilesAddress, chooseFileFromMainRoot}) => {
-
+const MainRoot = ({closeMainRoot,rootFilesAddress, chooseFileFromMainRoot, openFileManager}) => {
+  
   const [chooseFile, setChooseFile] = useState(false)
   const [addressRoot, setAddressRoot] = useState()
-  
+  const [chosenFile, setChosenFile] = useState([])
+  const [openChooseFile, setOpenChooseFile] = useState(false)
   const closeChooseFile = () =>{
     setChooseFile(prevChooseFile => prevChooseFile = false)
+    setOpenChooseFile(false)
   }
     
   const chooseFileForSendInMainRootFunc = (chooseFilesFromChild) =>{
-    chooseFiles = chooseFilesFromChild
+    setChosenFile(chooseFilesFromChild)
   }
 
   const addressFilesRootFunc = (addressRootFiles) =>{
     setAddressRoot(addressRootFiles)
   }
 
-  console.log({chooseFiles})
   console.log({addressRoot})
-  console.log(chooseFiles.lenght)
+
+  useEffect(()=>{
+    if(openFileManager === true){
+      setChosenFile([])
+    }
+  },[openFileManager])
+  console.log({chosenFile})
   return (
     <Provider store={store}>
       <div hidden={!chooseFile}>
-        <ChooseFile closeChooseFile={closeChooseFile} addressFilesRoot={addressFilesRootFunc}  chooseFileForSendInMainRoot={chooseFileForSendInMainRootFunc}/>
+        <ChooseFile closeChooseFile={closeChooseFile} addressFilesRoot={addressFilesRootFunc} chooseFileForSendInMainRoot={chooseFileForSendInMainRootFunc}
+                      openChooseFile={openChooseFile}/>
       </div>
       <span className={styleMainRoot.gh_containerSpan}>      
       <div className={styleMainRoot.gh_containerDiv}>
     <div className='bg-[#ffffff] p-5 rounded-lg'>
         <div className='flex justify-start items-center w-100 h-[100px] mb-4 border-2 rounded-lg bg-[#ffffff]'>
           {
-          chooseFiles && chooseFiles.map(files =>
+          chosenFile && chosenFile.map(files =>
             <div className='border-2 rounded-lg mx-2' key={files.id}>
             {
             files.type.search('folder') !== -1 ?
@@ -74,16 +81,17 @@ const MainRoot = ({closeMainRoot,rootFilesAddress, chooseFileFromMainRoot}) => {
         </div>
       <div className={styleMainRoot.gh_chosenArea}>
         <div className={styleMainRoot.gh_buttonArea}>
-          <button onClick={()=> setChooseFile(prevChooseFile => prevChooseFile = true)}>مدیریت فایل</button>
+          <button onClick={()=> {setChooseFile(prevChooseFile => prevChooseFile = true)
+                                  setOpenChooseFile(true)}}>مدیریت فایل</button>
           <i className="bi bi-cloud-plus mr-2"></i>
         </div>
 
           <button 
-              className={`bg-green-600 px-8 py-1 rounded-md text-[#ffffff] cursor-pointer hover:bg-green-700 ${!chooseFiles.length ? 'hidden bg-gray-600 cursor-default hover:bg-gray-600':''}`}
+              className={`bg-green-600 px-8 py-1 rounded-md text-[#ffffff] cursor-pointer hover:bg-green-700 ${!chosenFile.length ? 'hidden bg-gray-600 cursor-default hover:bg-gray-600':''}`}
               onClick={(e)=>{
                 closeMainRoot()
                 rootFilesAddress(addressRoot)
-                chooseFileFromMainRoot(chooseFiles)
+                chooseFileFromMainRoot(chosenFile)
               }}>تایید فایل های انتخاب شده</button>
           <button 
               className='bg-red-600 px-8 py-1 rounded-md text-[#ffffff] cursor-pointer hover:bg-red-700'

@@ -28,7 +28,7 @@ const chooseFileForShowInChooseFile = []
 const parentFolder = []
 const filesSelectedForAction=[]
 
-const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesRoot}) => {
+const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesRoot, openChooseFile}) => {
  // document.body.style.overflowY = 'auto'
   const [folderId, setFolderId] = useState();
   const [doFileSend, setDoFileSend] = useState(false);
@@ -44,14 +44,16 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
   const [chosenAnyFolder, setChosenAnyFolder] = useState(false);
   const [folderName, setFolderName] = useState({ });
   const [turnBackFolder, setTurnBackFolder] = useState(false);
-  const [sendFiles, setSendFiles] = useState(false);
+  const [isSendFiles, setIsSendFiles] = useState(false);
   const [dataReloading, setDataReloading] = useState(false);
-  
+  const [chooseParentFolder, setChooseParentFolder] = useState(false)
+  const [sendFileDone, setSendFileDone] = useState(false)
+  const [showMessage, setShowMessage] = useState(false)
   const dispatch = useDispatch();
   let dataFiles  =  useSelector( state => state.loadData);
   const createFolder = useSelector(state => state.postCreateFolder);
   const deleteFilesAndFolders = useSelector(state => state.deleteFilesAndFolder);
-  //const sendFiles = useSelector(state => state.sendFilesToDataBase)
+  const sendFiles = useSelector(state => state.sendFilesToDataBase)
   const states = {
     folder_id: null,
     folder_content: {},
@@ -60,7 +62,7 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
   
   useEffect(()=>{
     dispatch(fetchData());
-    chooseFileForShowInChooseFile = null
+    chooseFileForShowInChooseFile = []
   },[])
 
   useEffect(()=>{
@@ -81,18 +83,20 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
   },[doCreateFolder])
 
   useEffect(()=>{
-    if(doFileSend === true){
+    if(sendFileDone === true){
       console.log('this is send File useeffect')
       dispatch(fetchData());
-      setDoDeleteItem(false);
+      setSendFileDone(false);
+      setSendFileLoading(false)
+      setChosenFiles([])
     }
-  },[doFileSend])
+  },[sendFileDone])
 
   useEffect(()=>{
     if(doDeleteItem === true){
       // console.log('this is delete item useeffect')
       dispatch(fetchData());
-      setDoFileSend(false);
+      setDoDeleteItem(false);
     }
   },[doDeleteItem])
 
@@ -106,7 +110,46 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
     filesSelectedForAction = []
   },[chosenFiles])
   
+  useEffect(()=>{
+    if(openChooseFile === true){
+      setChosenFiles([])
+      chooseFileForShowInChooseFile = []
+    }
+  },[openChooseFile])
 
+
+  useEffect(()=>{
+    const sendFilesAction =  () =>{
+      if(isSendFiles === true){
+        let folder_id
+        if(Object.keys(folderName).length !== 0){
+          let lastFolder = Object.values(folderName).pop()
+          folder_id = lastFolder.file_id
+        }else{
+          folder_id = null
+        }
+        console.log({folder_id, sendFiles})
+           filesSelectedForAction.map(file =>{
+          dispatch(fetchPostFiles(file,folder_id))    
+          
+        })
+        setIsSendFiles(false)
+      }
+    }
+    sendFilesAction()
+  }, [isSendFiles])
+  
+
+  useEffect(()=>{
+    sendFiles.loading ? 
+      setSendFileLoading(true):
+    sendFiles.error ?
+      setSendFileLoading(false):
+    sendFiles.data.message === 'successful' ? 
+    setSendFileDone(true) : ''
+  },[sendFiles])
+
+  console.log({isSendFiles})
   console.log({dataFiles})
   console.log({createFolder})
   console.log({filesRoot})
@@ -120,28 +163,50 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
     console.log({filesSelectedForAction})
   }
 
+  function getChildren(id, object){
+    var result = [];
+    for(var arr of object){
+        if(arr.id == id){
+            return arr;
+        } else {
+            if(typeof arr.children != "undefined"){
+                return getChildren(id, arr.children)
+            }
+        }
+    }
+    return [];
+}
+
   const selectedFolderFunc = (selectedFolder) =>{
     //React.createElement('button', {}, selectedFolder.name)
     setFolderName(Array.from(selectedFolder))
-
+    setChooseParentFolder(false)
     setTurnBackFolder(false)
     console.log('folllderrrnnnname: ',selectedFolder)
     setChosenAnyFolder(true)
     let lastFolder = Object.values(selectedFolder).pop()
+    console.log({lastFolder})
     let temp = []
-    dataFiles.data.files.filter(
-      file =>{
-        if(file.name === lastFolder.file_name){
-          file.children ? file.children.map(child=>
-            temp = [...temp, child]
-            ) : temp = 'فایلی وجود ندارد'
-        }
-      }
-    )
-    chilrenContent = temp
+    
+    temp = getChildren(lastFolder.file_id, dataFiles.data.files)
+    
+    if (!temp.children){
+      chilrenContent = 'فایلی وجود ندارد'
+    }else{
+      chilrenContent = temp
+    }
+    // dataFiles.data.files.filter(
+    //   file =>{
+    //     if(file.id === lastFolder.file_id){
+    //       file.children ? file.children.map(child=>
+    //         temp = [...temp, child]
+    //         ) : temp = 'فایلی وجود ندارد'
+    //     }
+    //   }
+    // )
+    // chilrenContent = temp
     console.log({temp})
     console.log({chilrenContent})
-    
   }
 
   const doDeleteItemFunc = () =>{
@@ -167,32 +232,38 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
     );
     let lastFolder = Object.values(folderName).pop()
     let temp = []
-    dataFiles.data.files.filter(
-      file =>{
-        if(file.name === lastFolder.file_name){
-          file.children ? file.children.map(child=>
-            temp = [...temp, child]
-            ) : temp = 'فایلی وجود ندارد'
-        }
-      }
-    )
+    temp = getChildren(folder_id, dataFiles.data.files)
+    
     chilrenContent = temp
     console.log({temp})
     console.log({chilrenContent})
   }
 
-  const sendFileFalse = () =>{
-    setSendFiles(false)
-  }
+  // const sendFileFalse = () =>{
+  //   setSendFiles(false)
+  // }
 
   const chooseFileForShowFunc = (chooseFileForShow) =>{
     chooseFileForShowInChooseFile = chooseFileForShow
+    console.log({chooseFileForShowInChooseFile})
   }
 
-  console.log({chooseFileForShowInChooseFile})
   console.log({folderName});
   return (
     <>
+      <div hidden={!showMessage}>
+        <span className={styleChooseFile.gh_containerSpanShowMessage}>
+          <div className={styleChooseFile.gh_containerDivShowMessage}>
+            <div className='bg-white py-2 px-4 rounded-lg'>
+              <div className='flex justify-start items-center'>
+                <i className="bi bi-exclamation-octagon-fill mt-2 ml-2 text-[22px] text-red-600 bg-white"></i>
+                <p className='mt-2 font-semibold'>فایل یا فایل های مورد نظر خود را انتخاب کنید</p>
+              </div>
+              <button className='mt-3 px-2 py-1 bg-red-500 text-white rounded-md' onClick={()=>setShowMessage(false)}>باشه</button>
+            </div>
+          </div>
+        </span>
+      </div>
       <div hidden={!showGetNameFolderComponent}>
         <GetNameFolder closeComponent={closeGetNameFolderComponent} getDoCreateFolder={doCreateFolderFunc} parent_id={folderName}/>
       </div>
@@ -221,7 +292,8 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
                 {
                   chosenAnyFolder && folderName.map(((folder, index) =>
                     <li onClick={()=>{
-                    theFolderOpenClickHandler(folder.file_id, folder.file_name, index)
+                      setChooseParentFolder(true)
+                      theFolderOpenClickHandler(folder.file_id, folder.file_name, index)
                     }} key={folder.file_id}>
                       <span>
                         {folder.file_name}
@@ -250,9 +322,9 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
                   )) :
                   chosenAnyFolder === true ? 
                     chilrenContent ===  'فایلی وجود ندارد' ? 
-                      <p>پوشه خالی است</p> :
-                      chilrenContent.map(file =>
-                      <CardFilesFetchDataBase key={file.id} files={file} doFileDelete={doDeleteItemFunc} getTurnBackFolder={turnBackFolder} chooseFileForShow={chooseFileForShowFunc} selectedFolder={selectedFolderFunc}/>
+                      <p>پوشه خالی است</p> : 
+                      chilrenContent.children.map(file =>
+                      <CardFilesFetchDataBase key={file.id} files={file} doFileDelete={doDeleteItemFunc} getTurnBackFolder={turnBackFolder} chooseFileForShow={chooseFileForShowFunc} selectedFolder={selectedFolderFunc} listfolder={folderName} isBackToParent={chooseParentFolder}/>
                       )
                     : ''
                 // <p>{dataFiles.data.data.files[0].type === 'folder' ? 'folder' : 'file'}</p>
@@ -260,18 +332,20 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
           </div>
           <div className={styleChooseFile.gh_mainPageLeft}>
             <div className={`${styleChooseFile.gh_mainPageLeftButtonsSend}`}>
-              <i onClick={()=>{setSendFiles(true)
-                reloadDataFunc()
+              <i onClick={()=>{
+                  !filesSelectedForAction.length ? setShowMessage(true) :
+                  setIsSendFiles(true)
+                // reloadDataFunc()
                 }} 
-                title='ارسال فایل' className="bi bi-send "></i>
+                title='ارسال فایل به بخش مدیریت فایل ها' className="bi bi-send "></i>
             </div>
-            <div className={styleChooseFile.gh_mainPageLeftButtonsTrash}>
+            {/* <div className={styleChooseFile.gh_mainPageLeftButtonsTrash}>
               <i title='حذف فایل انتخاب شده' className="bi bi-trash"></i>
-            </div>
+            </div> */}
             
             {
               chosenFiles !== undefined && chosenFiles !== null ? chosenFiles.map(file => 
-                <CardFiles key={file.name} files={file} clickedSendFilesButton={sendFiles} getDoFileSend={doFileSendFunc} selectedFolder={folderName} filesSendDone={sendFileFalse} filesSelectedForAction={filesSelectedForActionFunc}/>
+                <CardFiles key={file.name} files={file} getDoFileSend={doFileSendFunc} selectedFolder={folderName}  filesSelectedForAction={filesSelectedForActionFunc}/>
               ):''
             }
           </div>
@@ -287,7 +361,9 @@ const ChooseFile = ({closeChooseFile, chooseFileForSendInMainRoot, addressFilesR
               <div>
                 <button 
                   className={styleChooseFile.gh_addButton}
-                  onClick={(e)=>{closeChooseFile()
+                  onClick={(e)=>{
+                    !chooseFileForShowInChooseFile.length ? setShowMessage(true) :
+                    closeChooseFile()
                     chooseFileForSendInMainRoot(chooseFileForShowInChooseFile)
                   }}>
                     

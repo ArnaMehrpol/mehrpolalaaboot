@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { fetchDeleteFilesAndFolder } from '../../redux/deleteFilesAndFolder/DeleteFilesAndFolderAction';
 import { iconFileFileManager } from '../../utils/iconFilesFilemanager';
@@ -13,7 +14,7 @@ const folderName =[]
 const chooseFile=[]
 
 const CardFilesFetchDataBase = (props) => {
-  const {files, doFileDelete, selectedFolder, rootData, getTurnBackFolder, chooseFileForShow} = props;
+  const {files, doFileDelete, selectedFolder, rootData, getTurnBackFolder, isBackToParent, chooseFileForShow, listfolder} = props;
   // console.log('fileincard:',files)
   console.log({files})
   const dispatch = useDispatch();
@@ -25,9 +26,11 @@ const CardFilesFetchDataBase = (props) => {
   useEffect(()=>{
     chooseFile=[]
   },[])
+
   const doubleClickHandler = () =>{
     console.log('Hi doubleClick')
     if(getTurnBackFolder === true){
+      console.log('ترن بک اجرا میشه؟')
       state = []
       getTurnBackFolder=false;
     }
@@ -35,7 +38,13 @@ const CardFilesFetchDataBase = (props) => {
       // state.file_id = files.id;
       // state.file_name = files.name
       // if()
-      let temp = state.find(file => file.id !== files.id)
+      if(isBackToParent === true){
+        state = listfolder
+
+      }
+      console.log(files.id)
+      
+      let temp = state.find(file => file.id === files.id)
       console.log({temp})
       // if(state.find(file => file.id !== files.id)){
       state = [
@@ -56,7 +65,7 @@ const CardFilesFetchDataBase = (props) => {
       deleteFilesAndFolders.loading ?
         <p>Loading...</p> :
       deleteFilesAndFolders.error ?
-        <p>{deleteFilesAndFolders.error}</p> :
+        toast.error('حذف فایل با مشکل مواجه شد') :
         deleteFilesAndFolders.loading === false ||  deleteFilesAndFolders.error === ''  || deleteFilesAndFolders.data === 1 ?
       doFileDelete() : ''
       setShowDeleteItemQuestion(false)
@@ -66,16 +75,28 @@ const CardFilesFetchDataBase = (props) => {
     }
   }
 
+  // useEffect(()=>{
+  //   deleteFilesAndFolders.loading ? 
+  //     setSendFileLoading(true):
+  //   deleteFilesAndFolders.error ?
+  //     setSendFileLoading(false):
+  //   deleteFilesAndFolders.data.message === 'successful' ? 
+  //   setSendFileDone(true) : ''
+  // },[deleteFilesAndFolders])
+
   const chooseFileFunc = (e) =>{
     if (e.target.checked){
+      console.log('انتخاب کن')
       chooseFile.push(files)
       chooseFileForShow(chooseFile)
     }else{
+      console.log('انتخاب نکن')
       let temp = chooseFile
       chooseFile = temp.filter(file=> file.id !== files.id)
       chooseFileForShow(chooseFile)
     }
-    
+    console.log({chooseFileForShow})
+    console.log({chooseFile})
   }
   return (
     <>
@@ -94,7 +115,7 @@ const CardFilesFetchDataBase = (props) => {
         <div>
           {
             files.type.search('folder') !== -1 ? '' :
-            <input onClick={chooseFileFunc}  className='ml-1' type='checkbox' />
+            <input onChange={chooseFileFunc}  className='ml-1' type='checkbox' />
           }
         </div>
       </div>

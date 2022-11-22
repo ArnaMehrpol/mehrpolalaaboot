@@ -25,10 +25,11 @@ const fetchData = () =>{
   const cookies = new Cookies();
   const tokenId = cookies.get('token')
   const businessId = cookies.get('b-Id')
+  console.log({businessId})
   let dataFiles, files
   return async (dispatch)  =>{
     dispatch(fetchRequest())
-    await axios.get(`${config.api_url}/businesses/${businessId}/filemanager`,
+    await axios.get(`${config.api_url}/businesses/${+businessId}/filemanager`,
     {headers: {
       'Accept': "application/json",
       "Content-Type": "application/json; charset= UTF-8",        

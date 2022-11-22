@@ -16,7 +16,7 @@ const CardFiles = (props) => {
   console.log('fileincard:',files)
   const [showEditor, setShowEditor] = useState(false);
   const refCheckBox = useRef(null)
- 
+  const [selectFile, setSelectFile] = useState(false)
   const dispatch = useDispatch();
   const sendFiles = useSelector(state => state.sendFilesToDataBase)
 
@@ -24,31 +24,40 @@ const CardFiles = (props) => {
     filesSelected = []
   },[])
 
+  console.log({filesSelected})
+  
   useEffect(()=>{
-    const sendFilesAction = async () =>{
-      if(clickedSendFilesButton === true){
-        let folder_id
-        if(Object.keys(selectedFolder).length !== 0){
-          let lastFolder = Object.values(selectedFolder).pop()
-          folder_id = lastFolder.file_id
-        }else
-          folder_id = null
-          await filesSelected.map(file =>{
-          dispatch(fetchPostFiles(file,folder_id))    
-          sendFiles.loading ? 
-            setSendFileLoading(true):
-          sendFiles.error ?
-            setSendFileLoading(false):
-          sendFiles.loading === false ||  sendFiles.error === ''  || sendFiles.data.message === 'successful' ?
-            getDoFileSend() : ''
-        })
-        filesSendDone()
-        
-      }
-
+    if(selectFile === true){
+      filesSelected = []
+      setSelectFile(false)
     }
-    sendFilesAction()
-  },[clickedSendFilesButton])
+  }, selectFile)
+
+  // useEffect(()=>{
+  //   const sendFilesAction = async () =>{
+  //     if(clickedSendFilesButton === true){
+  //       let folder_id
+  //       if(Object.keys(selectedFolder).length !== 0){
+  //         let lastFolder = Object.values(selectedFolder).pop()
+  //         folder_id = lastFolder.file_id
+  //       }else
+  //         folder_id = null
+  //         await filesSelected.map(file =>{
+  //         dispatch(fetchPostFiles(file,folder_id))    
+  //         sendFiles.loading ? 
+  //           setSendFileLoading(true):
+  //         sendFiles.error ?
+  //           setSendFileLoading(false):
+  //         sendFiles.loading === false ||  sendFiles.error === ''  || sendFiles.data.message === 'successful' ?
+  //           getDoFileSend() : ''
+  //       })
+  //       filesSendDone()
+        
+  //     }
+
+  //   }
+  //   sendFilesAction()
+  // },[clickedSendFilesButton])
 
   const selectFileClickHandler = () =>{
     
