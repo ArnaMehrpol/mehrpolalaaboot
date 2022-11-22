@@ -250,7 +250,7 @@ const permissions = () => {
                               setDbSlideId(slide.id);
                               modalHandler();
                             }}
-                            className="absolute mr-2 mt-2"
+                            className="absolute mr-2 mt-2 myPointer"
                           >
                             <i className="bi bi-trash text-danger"></i>
                           </div>

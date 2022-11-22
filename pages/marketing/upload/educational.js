@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import Modal from "../../../components/Modal";
 import ModalSoftDelete from "../../../components/ModalSoftDelete";
 import { iconFile } from "../../../components/tools/iconFiles";
+
 const educational = () => {
   const [url, seturl] = useState("https://dfgsdfgsdfgj32gsdg.mehrpol.com/");
   const [show, setShow] = useState(false);
@@ -49,8 +50,10 @@ const educational = () => {
         .post(
           url + "api/businesses/" + cookies.get("b-Id") + "/documents",
           {
-            type: "slider",
+            type: "tutorial_video",
             filemanager_item_id: chooseFiles[i].id,
+            name: fileName,
+            description: description,
           },
           {
             headers: {
@@ -62,8 +65,10 @@ const educational = () => {
           if ([i] >= counter) {
             gettingSlides();
             softDeleteModalHandler2();
-            toast.success(`اسلاید با موفقیت ذخیره شد!`);
+            toast.success(`فایل با موفقیت ذخیره شد!`);
             setLoading(false);
+            document.getElementById("filmName").value = "";
+            document.getElementById("filmDescription").value = "";
           } else {
             console.log("عملیات با مشکل مواجه شد");
             console.log([i]);
@@ -86,7 +91,7 @@ const educational = () => {
         url +
           "api/businesses/" +
           cookies.get("b-Id") +
-          "/documents?type=equipment",
+          "/documents?type=tutorial_video",
 
         {
           headers: {
@@ -138,7 +143,7 @@ const educational = () => {
       )
       .then(function (response) {
         if (response) {
-          toast.success("تصویر مورد نظر با موفقیت پاک شد!");
+          toast.success("فایل مورد نظر با موفقیت پاک شد!");
           setDeLeteLoading(false);
           gettingSlides();
           setShowModal(false);
@@ -212,6 +217,7 @@ const educational = () => {
                       </label>
                       <div class="all-input-group input-group mb-3">
                         <input
+                          id="filmName"
                           onChange={(e) => {
                             setFileName(e.target.value);
                           }}
@@ -239,7 +245,7 @@ const educational = () => {
                     </label>
                     <textarea
                       class="form-control pt-[17px]"
-                      id="exampleFormControlTextarea1"
+                      id="filmDescription"
                       rows="4"
                       onChange={(e) => {
                         setDescription(e.target.value);
@@ -278,9 +284,9 @@ const educational = () => {
                     <h5 className="text-slate-600 text-lg font-semibold text-center md:-mt-9  overflow-hidden -mt-5">
                       ویدئو ها
                     </h5>
-                    <p className="text-slate-600 text-xs text-center px-6">
+                    {/* <p className="text-slate-600 text-xs text-center px-6">
                       فایل MP4 حجم باقیمانده ۱۲۰۰ کیلوبایت
-                    </p>
+                    </p> */}
                   </div>
                   {/* az */}
                   <div className=" slideContainer items-center">
@@ -294,47 +300,53 @@ const educational = () => {
                           >
                             <div
                               onClick={showSoftDeleteModal}
-                              className="absolute mr-2 mt-2"
+                              className="absolute mr-2 mt-2 z-20"
                             >
                               <i class="bi bi-x-circle text-danger"></i>
                             </div>
-                            <div className="mySlideCard overflow-hidden silideScale ">
-                              <img
+                            <div className="myVideoCard overflow-hidden silideScale ">
+                              <video
+                                controls
                                 onChange={(e) => {
                                   setSlideId(file.id);
                                 }}
                                 src={`${rootFilesAddress}/${file.name}`}
-                                className="rounded-md  "
-                              />
+                                className="rounded-md"
+                              ></video>
                             </div>
                           </div>
                         </>
                       ))}
-
                     {allSlide &&
-                      allSlide.map((slide) => (
-                        <div key={slide.id} className="m-1 relative">
+                      allSlide.map((file) => (
+                        <div key={file.id} className="m-1 relative">
                           <div
                             onClick={() => {
-                              setDbSlideId(slide.id);
+                              setDbSlideId(file.id);
                               modalHandler();
                             }}
-                            className="absolute mr-2 mt-2"
+                            className="absolute mr-2 mt-2 myPointer z-20"
                           >
                             <i className="bi bi-trash text-danger"></i>
                           </div>
-                          <div className="mySlideCard overflow-hidden silideScale ">
-                            <img
+                          <div className=" myVideoCard overflow-hidden silideScale ">
+                            <video
+                              controls
                               onChange={(e) => {
-                                setDbSlideId(slide.id);
+                                setSlideId(file.id);
                               }}
-                              src={slide.full_link}
-                              className="rounded-md  "
-                            />
+                              src={file.full_link}
+                              className="rounded-md"
+                            ></video>
                           </div>
+                          <h1 className="text-center mt-1 ">{file.name}</h1>
+                          <h3 className="text-center mt-1 ">
+                            {file.description}
+                          </h3>
                         </div>
                       ))}
                   </div>
+
                   {/* Ta Inja */}
                 </div>
 
@@ -344,9 +356,9 @@ const educational = () => {
                     <h5 className="text-slate-600 text-lg font-semibold text-center md:-mt-12 mt-0 overflow-hidden -mt-5">
                       پادکست ها
                     </h5>
-                    <p className="text-slate-600 text-xs text-center px-6">
+                    {/* <p className="text-slate-600 text-xs text-center px-6">
                       فایل MP3 حجم باقیمانده ۸۰۰۰ کیلوبایت
-                    </p>
+                    </p> */}
                   </div>
                   <div className="w-full lg:col-span-1 md:col-span-2 col-span-5 flex-col space-y-2 p-2">
                     <div className="w-full flex justify-center  rounded-sm relative bg-slate-100 ">

@@ -24,6 +24,17 @@ input[type="number"]{
   /* flex-flow: row; */
   
 }
+.myAudioCard{
+  width: 300px !important;
+  height: auto; 
+}
+.myVideoCard{
+min-width: 310px !important;
+min-height: 170px !important;
+}
+.myPointer{
+  cursor: pointer;
+}
 .silideScale{
   width:20vh;
   height:12vh;  
