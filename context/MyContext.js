@@ -3,7 +3,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import Cookies from "universal-cookie";
-// import { getCookies, getCookie, setCookies, removeCookies } from 'cookies-next';
 
 export const MyProvider = ({ children }) => {
   const router = useRouter();
@@ -13,7 +12,6 @@ export const MyProvider = ({ children }) => {
 
   const [loading, setLoading] = useState(false);
 
-  // const [mymobile, setmymobile] = useState(null);
   const [mytoken, setmytoken] = useState("");
 
   const [mycookie, setmycookie] = useState("");
@@ -43,10 +41,9 @@ export const MyProvider = ({ children }) => {
           return false;
         } else {
           toast.success("ثبت نام شما با موفقیت انجام شد!");
-          //const data = response.json();
+
           const token = response.data.token;
-          const userData = response.data;
-          // console.log(response);
+
           console.log(token);
           document.cookie = `token=${token}; path=/; Secure; max-age=${
             60 * 60 * 24 * 1
@@ -87,9 +84,6 @@ export const MyProvider = ({ children }) => {
         document.cookie = `token=${data.token}; path=/; Secure; max-age=${
           60 * 60 * 24 * 30
         }; `;
-        document.cookie = `userData=${data.user}; path=/; Secure; max-age=${
-          60 * 60 * 24 * 30
-        };`;
       } else {
         cookies.set(
           "token",
@@ -114,8 +108,7 @@ export const MyProvider = ({ children }) => {
       console.log("this is data: ", data.user);
       setmytoken(data.token);
       const myT = data.token;
-      console.log({ myT });
-      console.log({ cookies });
+
       toast.success("شما با موفقیت وارد شدید!");
       router.push("/");
     } else {

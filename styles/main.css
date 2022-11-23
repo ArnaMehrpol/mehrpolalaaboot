@@ -16,13 +16,11 @@ input::-webkit-outer-spin-button{
 input[type="number"]{
   -moz-appearance: textfield;
 }
-.slideContainer{
-  /* width: 500vh !important; */
+.slideContainer{  
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  /* flex-flow: row; */
-  
+  justify-content: flex-start; 
+ 
 }
 .myAudioCard{
   width: 300px !important;
@@ -31,6 +29,12 @@ input[type="number"]{
 .myVideoCard{
 min-width: 310px !important;
 min-height: 170px !important;
+}
+.myVideoContainer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-direction: row;
 }
 .myPointer{
   cursor: pointer;
