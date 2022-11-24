@@ -89,7 +89,6 @@ const generalinfo = () => {
       .then(function (response) {
         const data = response.data;
         if (response) {
-          // setOk("ok");
           setName(data.user.name);
           setLast_name(data.user.last_name);
           setNational_code(data.user.national_code);
@@ -125,7 +124,7 @@ const generalinfo = () => {
           birthday: enBirthday,
           birthday_place_id: birthday_place,
           gender: gender,
-          mobile: mobile,
+          // mobile: mobile,
           mobile_2: mobile_2,
           account_number: account_number,
           sheba_number: sheba_number,

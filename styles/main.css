@@ -17,24 +17,34 @@ input[type="number"]{
   -moz-appearance: textfield;
 }
 .slideContainer{  
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start; 
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: flex-start !important; 
+
  
 }
-.myAudioCard{
-  width: 300px !important;
+
+.myPdfCard{
+  min-width: 100px !important;
+  min-height: 120px !important;
+  background-image: url('../public/assets/img/Background/pdf.png') ;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.myAudioCard{  
+  width: 310px !important;
   height: auto; 
 }
 .myVideoCard{
 min-width: 310px !important;
 min-height: 170px !important;
 }
-.myVideoContainer{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  flex-direction: row;
+
+.myTutorialContainer{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  justify-content: flex-start !important;
+  flex-direction: row !important;
 }
 .myPointer{
   cursor: pointer;

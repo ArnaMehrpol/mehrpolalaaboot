@@ -15,7 +15,7 @@ import Modal from "../../../components/Modal";
 import ModalSoftDelete from "../../../components/ModalSoftDelete";
 import { iconFile } from "../../../components/tools/iconFiles";
 
-const Podcast = () => {
+const Pdf = () => {
   const [url, seturl] = useState("https://dfgsdfgsdfgj32gsdg.mehrpol.com/");
   const [show, setShow] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
@@ -51,9 +51,9 @@ const Podcast = () => {
           url +
             "api/businesses/" +
             cookies.get("b-Id") +
-            "/documents?type=tutorial_podcast",
+            "/documents?type=tutorial_pdf",
           {
-            type: "tutorial_podcast",
+            type: "tutorial_pdf",
             filemanager_item_id: chooseFiles[i].id,
             name: fileName,
             description: description,
@@ -95,7 +95,7 @@ const Podcast = () => {
         url +
           "api/businesses/" +
           cookies.get("b-Id") +
-          "/documents?type=tutorial_podcast",
+          "/documents?type=tutorial_pdf",
 
         {
           headers: {
@@ -208,8 +208,8 @@ const Podcast = () => {
               <div className="educational-title flex flex-col my-2">
                 <small className="text-slate-400 text-xs mt-0.5">
                   فایل های آموزشی
-                  <span className="text-danger"> صوتی </span>
-                  خود را فقط با فرمت <span className="text-danger"> MP3 </span>
+                  <span className="text-danger"> متنی </span>
+                  خود را فقط با فرمت <span className="text-danger"> PDF </span>
                   در این قسمت وارد کنید.
                 </small>
               </div>
@@ -217,7 +217,7 @@ const Podcast = () => {
                 <div className="lg:col-span-2 col-span-6 flex flex-col">
                   <div className="educatinal-input lg:col-span-4 col-span-12">
                     <label className="text-sm text-slate-700 px-2 mb-2">
-                      نام فایل صوتی
+                      نام فایل متنی
                     </label>
                     <div class="all-input-group input-group mb-3">
                       <input
@@ -227,7 +227,7 @@ const Podcast = () => {
                         }}
                         type="text"
                         className="form-control"
-                        placeholder="نام فایل صوتی را وارد کنید"
+                        placeholder="نام فایل متنی را وارد کنید"
                       />
                     </div>
                   </div>
@@ -238,7 +238,7 @@ const Podcast = () => {
                       }}
                       className="fs-5 text-slate-400 mr-2"
                     >
-                      بارگذاری فایل صوتی
+                      بارگذاری فایل متنی
                       <i className="bi bi-cloud-arrow-up fs-5 mr-2"></i>
                     </button>
                   </div>
@@ -284,12 +284,12 @@ const Podcast = () => {
 
               <div className="video-grid grid grid-cols-5 border border-slate-200 rounded-md p-2 mt-4">
                 <div className="w-full h-full lg:col-span-1 md:col-span-2 col-span-5 flex flex-col items-center justify-evenly ">
-                  <i class="bi bi-mic text-7xl text-slate-500 md:-mt-9 mt-0"></i>
+                  <i class="bi bi-filetype-pdf text-7xl text-slate-500 md:-mt-9 mt-0"></i>
                   <h5 className="text-slate-600 text-lg font-semibold text-center md:-mt-12 mt-0 overflow-hidden -mt-5">
-                    پادکست ها
+                    فایل ها
                   </h5>
                 </div>
-                {/* az */}
+
                 <div className=" slideContainer items-center">
                   {chooseFiles &&
                     chooseFiles.map((file) => (
@@ -301,59 +301,62 @@ const Podcast = () => {
                         >
                           <div
                             onClick={showSoftDeleteModal}
-                            className="absolute mr-5 mb-4 z-20"
+                            className="absolute mr-2 mt-2 z-20"
                           >
                             <i class="bi bi-x-circle text-danger"></i>
                           </div>
-                          <div className="myAudioCard overflow-hidden silideScale">
-                            <audio
+                          <div className="myPdfCard overflow-hidden silideScale">
+                            <div
                               controls
                               onChange={(e) => {
                                 setSlideId(file.id);
                               }}
                               src={`${rootFilesAddress}/${file.name}`}
-                            ></audio>
+                              className="rounded-md myPdfCard "
+                            ></div>
                           </div>
                         </div>
                       </>
                     ))}
-                  {allSlide &&
-                    allSlide.map((file) => (
-                      <div key={file.id} className="m-1 relative">
-                        <div
-                          onClick={() => {
-                            setDbSlideId(file.id);
-                            modalHandler();
-                          }}
-                          className="absolute mr-5 mb-4 myPointer z-20"
-                        >
-                          <i className="bi bi-trash text-danger"></i>
-                        </div>
-                        <div className=" myAudioCard overflow-hidden silideScale">
-                          <audio
-                            controls
-                            onChange={(e) => {
-                              setSlideId(file.id);
+                  <div className="myTutorialContainer">
+                    {allSlide &&
+                      allSlide.map((file) => (
+                        <div key={file.id} className="m-1 relative">
+                          <div
+                            onClick={() => {
+                              setDbSlideId(file.id);
+                              modalHandler();
                             }}
-                            src={file.full_link}
-                          ></audio>
+                            className="absolute mr-2  myPointer z-20"
+                          >
+                            <i className="bi bi-trash text-danger"></i>
+                          </div>
+                          <div className=" myPdfCard overflow-hidden silideScale">
+                            <div
+                              onChange={(e) => {
+                                setSlideId(file.id);
+                              }}
+                              src={file.full_link}
+                              className="rounded-md myPdfCard"
+                            ></div>
+                          </div>
+                          <h2 className="text-center bold mt-1 ">
+                            {file.name}
+                          </h2>
+                          <p className="text-center mt-1 ">
+                            {file.description}
+                          </p>
                         </div>
-
-                        <h2 className="text-center bold mt-1 ">{file.name}</h2>
-                        <p className="text-center mt-1 ">{file.description}</p>
-                      </div>
-                    ))}
+                      ))}
+                  </div>
                 </div>
-
-                {/* Ta Inja */}
               </div>
             </div>
           </section>
         </div>
-        {/* </div> */}
       </div>
     </div>
   );
 };
 
-export default Podcast;
+export default Pdf;

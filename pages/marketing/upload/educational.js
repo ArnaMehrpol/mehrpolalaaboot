@@ -15,6 +15,7 @@ import Modal from "../../../components/Modal";
 import ModalSoftDelete from "../../../components/ModalSoftDelete";
 import { iconFile } from "../../../components/tools/iconFiles";
 import Podcast from "./Podcast";
+import Pdf from "./Pdf";
 
 const educational = () => {
   const [url, seturl] = useState("https://dfgsdfgsdfgj32gsdg.mehrpol.com/");
@@ -52,9 +53,9 @@ const educational = () => {
           url +
             "api/businesses/" +
             cookies.get("b-Id") +
-            "/documents?type=tutorial_podcast",
+            "/documents?type=tutorial_video",
           {
-            type: "tutorial_podcast",
+            type: "tutorial_video",
             filemanager_item_id: chooseFiles[i].id,
             name: fileName,
             description: description,
@@ -90,12 +91,13 @@ const educational = () => {
   };
 
   const gettingSlides = () => {
+    setLoading(true);
     axios
       .get(
         url +
           "api/businesses/" +
           cookies.get("b-Id") +
-          "/documents?type=tutorial_podcast",
+          "/documents?type=tutorial_video",
 
         {
           headers: {
@@ -107,9 +109,11 @@ const educational = () => {
         setAllSlide(response.data.data);
         console.log(response.status);
         console.log(response.data);
+        setLoading(false);
       })
       .catch(function (error) {
         console.log(error.message);
+        setLoading(false);
       });
   };
 
@@ -210,8 +214,11 @@ const educational = () => {
                     فایلهای آموزشی تصویری
                   </h5>
                   <small className="text-slate-400 text-xs mt-0.5">
-                    فایل های آموزشی <span className="text-danger">تصویری</span>{" "}
-                    خود را در این قسمت وارد کنید.
+                    فایل های آموزشی
+                    <span className="text-danger"> تصویری </span>
+                    خود را فقط با فرمت
+                    <span className="text-danger"> MP4 </span>
+                    در این قسمت وارد کنید.
                   </small>
                 </div>
                 <div className="grid grid-cols-6 gap-3">
@@ -319,36 +326,38 @@ const educational = () => {
                           </div>
                         </>
                       ))}
-                    {allSlide &&
-                      allSlide.map((file) => (
-                        <div key={file.id} className="m-1 relative">
-                          <div
-                            onClick={() => {
-                              setDbSlideId(file.id);
-                              modalHandler();
-                            }}
-                            className="absolute mr-2 mt-2 myPointer z-20"
-                          >
-                            <i className="bi bi-trash text-danger"></i>
-                          </div>
-                          <div className=" myVideoCard overflow-hidden silideScale">
-                            <video
-                              controls
-                              onChange={(e) => {
-                                setSlideId(file.id);
+                    <div className="myTutorialContainer">
+                      {allSlide &&
+                        allSlide.map((file) => (
+                          <div key={file.id} className="m-1 relative">
+                            <div
+                              onClick={() => {
+                                setDbSlideId(file.id);
+                                modalHandler();
                               }}
-                              src={file.full_link}
-                              className="rounded-md myVideoCard"
-                            ></video>
+                              className="absolute mr-2 mt-2 myPointer z-20"
+                            >
+                              <i className="bi bi-trash text-danger"></i>
+                            </div>
+                            <div className=" myVideoCard overflow-hidden silideScale">
+                              <video
+                                controls
+                                onChange={(e) => {
+                                  setSlideId(file.id);
+                                }}
+                                src={file.full_link}
+                                className="rounded-md myVideoCard"
+                              ></video>
+                            </div>
+                            <h2 className="text-center bold mt-1 ">
+                              {file.name}
+                            </h2>
+                            <p className="text-center mt-1 ">
+                              {file.description}
+                            </p>
                           </div>
-                          <h2 className="text-center bold mt-1 ">
-                            {file.name}
-                          </h2>
-                          <p className="text-center mt-1 ">
-                            {file.description}
-                          </p>
-                        </div>
-                      ))}
+                        ))}
+                    </div>
                   </div>
 
                   {/* Ta Inja */}
@@ -356,6 +365,7 @@ const educational = () => {
               </div>
             </section>
             <Podcast />
+            <Pdf />
           </div>
         </div>
       </div>
