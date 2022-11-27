@@ -279,13 +279,10 @@ const educational = () => {
                   <div className="movieInLoadFile next-btn mb-2 w-full h-full border-t-2 border-dotted border-slate-100  items-center ">
                     <button
                       onClick={InsertIntoPermission}
-                      className="text-white bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse  font-bold ml-2 "
+                      className="text-white bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse  font-bold ml-6 "
                       type="submit"
                     >
                       ثبت
-                    </button>
-                    <button className="text-white   bg-blue-600 h-10 w-32 hover:bg-blue-700 rounded-md IranSanse    font-bold ml-2">
-                      مرحله بعد
                     </button>
                   </div>
                 </div>
@@ -298,10 +295,10 @@ const educational = () => {
                     </h5>
                   </div>
                   {/* az */}
-                  <div className=" slideContainer items-center">
+                  <div className="slideContainer">
                     {chooseFiles &&
                       chooseFiles.map((file) => (
-                        <>
+                        <div>
                           <div
                             id="myElement"
                             key={file.id}
@@ -324,18 +321,21 @@ const educational = () => {
                               ></video>
                             </div>
                           </div>
-                        </>
+                        </div>
                       ))}
-                    <div className="myTutorialContainer">
-                      {allSlide &&
-                        allSlide.map((file) => (
+                  </div>
+                  {/* <div className="myTutorialContainer"> */}
+                  <div className="slideContainer">
+                    {allSlide &&
+                      allSlide.map((file) => (
+                        <div>
                           <div key={file.id} className="m-1 relative">
                             <div
                               onClick={() => {
                                 setDbSlideId(file.id);
                                 modalHandler();
                               }}
-                              className="absolute mr-2 mt-2 myPointer z-20"
+                              className="absolute ml-2  myPointer z-20"
                             >
                               <i className="bi bi-trash text-danger"></i>
                             </div>
@@ -356,16 +356,22 @@ const educational = () => {
                               {file.description}
                             </p>
                           </div>
-                        ))}
-                    </div>
+                        </div>
+                      ))}
                   </div>
-
-                  {/* Ta Inja */}
                 </div>
+
+                {/* Ta Inja */}
               </div>
+              {/* </div> */}
             </section>
             <Podcast />
             <Pdf />
+            <div className="nextLevel">
+              <button className="text-white   bg-blue-600 h-10 w-32 hover:bg-blue-700 rounded-md IranSanse  font-bold ">
+                مرحله بعد
+              </button>
+            </div>
           </div>
         </div>
       </div>

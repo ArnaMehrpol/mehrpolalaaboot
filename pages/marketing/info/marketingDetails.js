@@ -158,7 +158,6 @@ const info = () => {
         },
       })
       .then(function (response) {
-        console.log("کسب و کار رو گرفتم");
         if (response) {
           const data = response.data;
 
@@ -168,13 +167,10 @@ const info = () => {
           setFoundedYear(data.established_year);
           setLogo(data.logo_file);
           setLogoLink(data.logo_link);
-          // setCategory_id(data.id);
-          // setArea_id("");
-          // setSubArea_id("");
+
           setExclusiveDomain(data.domain);
           setMehrpolDomain(data.username);
           setEmail(data.email);
-          // setBusiness_id(data.business_id);
         } else {
           toast.error("هنوز کسب و کاری ثبت نشده است");
         }
@@ -311,11 +307,6 @@ const info = () => {
 
   //Show Addresses
   const gettingAddresses = (e) => {
-    // e.preventDefault();
-    // console.log(locationName);
-    // console.log(place_id);
-    // console.log(description);
-    // console.log(postal_code);
     console.log(cookies.get("b-Id", { path: "/" }));
 
     axios
@@ -337,15 +328,14 @@ const info = () => {
         setAllAddresses(response.data.data);
         setLocationName(data.name);
         setplace_id(data.place_id);
-        // setLocationLat(latitude);
-        // setLocationLon(longitude);
+
         setDescription(data.description);
         setPostal_code(data.postal_code);
         setTel1(data.tel_1);
         setTel2(data.tel_2);
         setTel1Code(data.tel1Code);
         setTel2Code(data.tel_2_code);
-        // cookies.set("b-Id", data.business.id, { path: "/" });
+
         console.log("آدرس ها رو گرفتم");
       })
       .catch(function (error) {
@@ -374,7 +364,7 @@ const info = () => {
                 {/* start Disable it */}
                 <div className="top-nav d-flex">
                   <div className="business-logo w-14 h-14 rounded-full bg-white">
-                    <Link href="/">
+                    <Link href="#">
                       <Image
                         src="/../public/assets/img/logos/1.png"
                         width="60px"

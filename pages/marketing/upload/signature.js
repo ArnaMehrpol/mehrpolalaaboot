@@ -28,28 +28,7 @@ const signature = () => {
 
   const cookies = new Cookies();
 
-  useEffect(() => {
-    gettingManagerInfoes();
-  }, []);
-
-  const gettingManagerInfoes = () => {
-    axios
-      .get(url + "api/businesses/" + cookies.get("b-Id") + "/managers", {
-        headers: {
-          Authorization: `Bearer ${cookies.get("token")}`,
-        },
-      })
-      .then(function (response) {
-        var AllDatas = response.data.data;
-        console.log(AllDatas);
-
-        setManagerAllInfos(AllDatas);
-      })
-      .catch(function (error) {
-        console.log("not ok");
-        console.log(token);
-      });
-  };
+  useEffect(() => {}, []);
 
   return (
     <div>
@@ -83,25 +62,13 @@ const signature = () => {
                           <lable className="text-sm text-slate-600 px-2 mb-2">
                             نام و نام خانوادگی
                           </lable>
-                          <select
-                            class="form-select form-select-text-style py-[0.575rem]"
-                            aria-label="Default select example"
-                          >
-                            <option selected className="">
-                              انتخاب کنید
-                            </option>
-                            {managerAllInfos.map(function (allinfo) {
-                              return (
-                                <option
-                                  // key={allinfo.id}
-                                  className="text-slate-600 text-sm"
-                                  value={allinfo.id}
-                                >
-                                  {allinfo.first_name} {allinfo.last_name}
-                                </option>
-                              );
-                            })}
-                          </select>
+                          <input
+                            type="text"
+                            name="managerName"
+                            id="managerName"
+                            placeholder="نام و نام خانوادگی..."
+                            className="form-control text-sm text-slate-600 px-2 mb-2"
+                          />
                         </div>
                         <div className="signature-select lg:col-span-3 col-span-12 mt-[21px]">
                           <label className="text-sm text-slate-600 px-2 mb-2">

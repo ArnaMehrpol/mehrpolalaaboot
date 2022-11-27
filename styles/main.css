@@ -20,10 +20,35 @@ input[type="number"]{
   display: flex !important;
   flex-wrap: wrap !important;
   justify-content: flex-start !important; 
-
- 
+  width: 600px !important;
+  right: 0;
 }
-
+.slideContainer2{  
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: flex-start !important; 
+  width: 700px !important;
+  right: 0;
+  margin-right: -50px;
+}
+@media only screen and (max-width: 500px) {
+  .slideContainer2{  
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important; 
+    width: 700px !important;
+    right: 0;
+    margin-right: -50px;
+    flex-flow: column;
+  }
+}
+.nextLevel{
+  display: flex;
+  justify-content: end;
+  margin-left: 15px !important;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
 .myPdfCard{
   min-width: 100px !important;
   min-height: 120px !important;
@@ -36,16 +61,16 @@ input[type="number"]{
   height: auto; 
 }
 .myVideoCard{
-min-width: 310px !important;
-min-height: 170px !important;
+min-width: 120px !important;
+min-height: 60px !important;
 }
 
-.myTutorialContainer{
+/* .myTutorialContainer{
   display: flex !important;
-  flex-wrap: nowrap !important;
+  flex-wrap: wrap !important;
   justify-content: flex-start !important;
   flex-direction: row !important;
-}
+} */
 .myPointer{
   cursor: pointer;
 }

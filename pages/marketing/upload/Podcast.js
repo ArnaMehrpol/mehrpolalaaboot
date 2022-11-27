@@ -33,6 +33,7 @@ const Podcast = () => {
   const [softDeleteModal, setSoftDeleteModal] = useState(false);
   const [fileName, setFileName] = useState([]);
   const [description, setDescription] = useState([]);
+  const [hidden, setHidden] = useState(false);
 
   const cookies = new Cookies();
 
@@ -44,6 +45,7 @@ const Podcast = () => {
   const InsertIntoPermission = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setHidden(false);
     for (var i = 0; i < chooseFiles.length; i++) {
       setCounter(chooseFiles.length);
       axios
@@ -70,8 +72,8 @@ const Podcast = () => {
             softDeleteModalHandler2();
             toast.success(`فایل با موفقیت ذخیره شد!`);
             setLoading(false);
-            document.getElementById("filmName").value = "";
-            document.getElementById("filmDescription").value = "";
+            document.getElementById("fileNameMp3").value = "";
+            document.getElementById("fileDescriptionMp3").value = "";
           } else {
             console.log("عملیات با مشکل مواجه شد");
             console.log([i]);
@@ -80,7 +82,7 @@ const Podcast = () => {
           }
         })
         .catch(function (error) {
-          toast.error("عملیات انجام نشد. لطفا دوباره سعی نمایید");
+          // toast.error("عملیات انجام نشد. لطفا دوباره سعی نمایید");
           setError(true);
           console.log(error.message);
           setLoading(false);
@@ -221,7 +223,7 @@ const Podcast = () => {
                     </label>
                     <div class="all-input-group input-group mb-3">
                       <input
-                        id="filmName"
+                        id="fileNameMp3"
                         onChange={(e) => {
                           setFileName(e.target.value);
                         }}
@@ -235,6 +237,7 @@ const Podcast = () => {
                     <button
                       onClick={() => {
                         setShow(true);
+                        setHidden(true);
                       }}
                       className="fs-5 text-slate-400 mr-2"
                     >
@@ -249,7 +252,7 @@ const Podcast = () => {
                   </label>
                   <textarea
                     class="form-control pt-[17px]"
-                    id="filmDescription"
+                    id="fileDescriptionMp3"
                     rows="4"
                     onChange={(e) => {
                       setDescription(e.target.value);
@@ -271,13 +274,10 @@ const Podcast = () => {
                 <div className="movieInLoadFile next-btn mb-2 w-full h-full border-t-2 border-dotted border-slate-100  items-center ">
                   <button
                     onClick={InsertIntoPermission}
-                    className="text-white bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse  font-bold ml-2 "
+                    className="text-white bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse  font-bold ml-6 "
                     type="submit"
                   >
                     ثبت
-                  </button>
-                  <button className="text-white   bg-blue-600 h-10 w-32 hover:bg-blue-700 rounded-md IranSanse    font-bold ml-2">
-                    مرحله بعد
                   </button>
                 </div>
               </div>
@@ -285,20 +285,16 @@ const Podcast = () => {
               <div className="video-grid grid grid-cols-5 border border-slate-200 rounded-md p-2 mt-4">
                 <div className="w-full h-full lg:col-span-1 md:col-span-2 col-span-5 flex flex-col items-center justify-evenly ">
                   <i class="bi bi-mic text-7xl text-slate-500 md:-mt-9 mt-0"></i>
-                  <h5 className="text-slate-600 text-lg font-semibold text-center md:-mt-12 mt-0 overflow-hidden -mt-5">
+                  <h5 className="text-slate-600 text-lg font-semibold text-center md:-mt-12 mt-0 overflow-hidden ">
                     پادکست ها
                   </h5>
                 </div>
                 {/* az */}
-                <div className=" slideContainer items-center">
+                <div className=" slideContainer2">
                   {chooseFiles &&
                     chooseFiles.map((file) => (
                       <>
-                        <div
-                          id="myElement"
-                          key={file.id}
-                          className="m-1 relative"
-                        >
+                        <div id="myElement" key={file.id} className=" relative">
                           <div
                             onClick={showSoftDeleteModal}
                             className="absolute mr-5 mb-4 z-20"
@@ -317,9 +313,15 @@ const Podcast = () => {
                         </div>
                       </>
                     ))}
+                </div>
+                <div className="slideContainer2">
                   {allSlide &&
                     allSlide.map((file) => (
-                      <div key={file.id} className="m-1 relative">
+                      <div
+                        key={file.id}
+                        className="m-1 relative"
+                        hidden={hidden}
+                      >
                         <div
                           onClick={() => {
                             setDbSlideId(file.id);
@@ -350,7 +352,6 @@ const Podcast = () => {
             </div>
           </section>
         </div>
-        {/* </div> */}
       </div>
     </div>
   );

@@ -70,8 +70,8 @@ const Pdf = () => {
             softDeleteModalHandler2();
             toast.success(`فایل با موفقیت ذخیره شد!`);
             setLoading(false);
-            document.getElementById("filmName").value = "";
-            document.getElementById("filmDescription").value = "";
+            document.getElementById("fileNamePDF").value = "";
+            document.getElementById("fileDescriptionPDF").value = "";
           } else {
             console.log("عملیات با مشکل مواجه شد");
             console.log([i]);
@@ -221,7 +221,7 @@ const Pdf = () => {
                     </label>
                     <div class="all-input-group input-group mb-3">
                       <input
-                        id="filmName"
+                        id="fileNamePDF"
                         onChange={(e) => {
                           setFileName(e.target.value);
                         }}
@@ -249,7 +249,7 @@ const Pdf = () => {
                   </label>
                   <textarea
                     class="form-control pt-[17px]"
-                    id="filmDescription"
+                    id="fileDescriptionPDF"
                     rows="4"
                     onChange={(e) => {
                       setDescription(e.target.value);
@@ -271,13 +271,10 @@ const Pdf = () => {
                 <div className="movieInLoadFile next-btn mb-2 w-full h-full border-t-2 border-dotted border-slate-100  items-center ">
                   <button
                     onClick={InsertIntoPermission}
-                    className="text-white bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse  font-bold ml-2 "
+                    className="text-white bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse  font-bold ml-6 "
                     type="submit"
                   >
                     ثبت
-                  </button>
-                  <button className="text-white   bg-blue-600 h-10 w-32 hover:bg-blue-700 rounded-md IranSanse    font-bold ml-2">
-                    مرحله بعد
                   </button>
                 </div>
               </div>
@@ -290,69 +287,70 @@ const Pdf = () => {
                   </h5>
                 </div>
 
-                <div className=" slideContainer items-center">
+                <div className=" slideContainer2">
                   {chooseFiles &&
                     chooseFiles.map((file) => (
                       <>
-                        <div
-                          id="myElement"
-                          key={file.id}
-                          className="m-1 relative"
-                        >
+                        <div className="slideContainer">
                           <div
-                            onClick={showSoftDeleteModal}
-                            className="absolute mr-2 mt-2 z-20"
+                            id="myElement"
+                            key={file.id}
+                            className="m-1 relative"
                           >
-                            <i class="bi bi-x-circle text-danger"></i>
-                          </div>
-                          <div className="myPdfCard overflow-hidden silideScale">
                             <div
-                              controls
-                              onChange={(e) => {
-                                setSlideId(file.id);
-                              }}
-                              src={`${rootFilesAddress}/${file.name}`}
-                              className="rounded-md myPdfCard "
-                            ></div>
+                              onClick={showSoftDeleteModal}
+                              className="absolute mr-2 mt-2 z-20"
+                            >
+                              <i class="bi bi-x-circle text-danger"></i>
+                            </div>
+                            <div className="myPdfCard overflow-hidden silideScale">
+                              <div
+                                controls
+                                onChange={(e) => {
+                                  setSlideId(file.id);
+                                }}
+                                src={`${rootFilesAddress}/${file.name}`}
+                                className="rounded-md myPdfCard "
+                              ></div>
+                            </div>
                           </div>
                         </div>
                       </>
                     ))}
-                  <div className="myTutorialContainer">
-                    {allSlide &&
-                      allSlide.map((file) => (
-                        <div key={file.id} className="m-1 relative">
-                          <div
-                            onClick={() => {
-                              setDbSlideId(file.id);
-                              modalHandler();
-                            }}
-                            className="absolute mr-2  myPointer z-20"
-                          >
-                            <i className="bi bi-trash text-danger"></i>
-                          </div>
-                          <div className=" myPdfCard overflow-hidden silideScale">
-                            <div
-                              onChange={(e) => {
-                                setSlideId(file.id);
-                              }}
-                              src={file.full_link}
-                              className="rounded-md myPdfCard"
-                            ></div>
-                          </div>
-                          <h2 className="text-center bold mt-1 ">
-                            {file.name}
-                          </h2>
-                          <p className="text-center mt-1 ">
-                            {file.description}
-                          </p>
+                </div>
+                <div className="slideContainer">
+                  {allSlide &&
+                    allSlide.map((file) => (
+                      <div key={file.id} className="m-1 relative">
+                        <div
+                          onClick={() => {
+                            setDbSlideId(file.id);
+                            modalHandler();
+                          }}
+                          className="absolute mr-2  myPointer z-20"
+                        >
+                          <i className="bi bi-trash text-danger"></i>
                         </div>
-                      ))}
-                  </div>
+                        <div className=" myPdfCard overflow-hidden silideScale">
+                          <div
+                            onChange={(e) => {
+                              setSlideId(file.id);
+                            }}
+                            src={file.full_link}
+                            className="rounded-md myPdfCard"
+                          ></div>
+                        </div>
+                        <h2 className="text-center bold mt-1 ">{file.name}</h2>
+                        <p className="text-center mt-1 ">{file.description}</p>
+                      </div>
+                    ))}
                 </div>
               </div>
             </div>
           </section>
+          {/* <button className="text-white   bg-blue-600 h-10 w-32 hover:bg-blue-700 rounded-md IranSanse    font-bold ml-2">
+            مرحله بعد
+          </button> */}
         </div>
       </div>
     </div>
