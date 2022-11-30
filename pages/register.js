@@ -4,13 +4,13 @@ import MyContext from "../context/MyContext";
 import Image from "next/image";
 import Link from "next/link";
 import Captcha from "../components/CaptchaOld";
+import { useRouter } from "next/router";
+import { axiosSetup } from "../components/utils/axiosSetup";
+import axios from "axios";
 
 const register2 = () => {
   //Start Password Validation
-  const [loading, setLoading] = useState(false);
-  const handelLoading = () => {
-    setLoading(!loading);
-  };
+  const [loadingRegisterButton, setLoadingRegisterButton] = useState(false);
   const [isOnline, setIsOnline] = useState();
   const [openEye, setopenEye] = useState(false);
   const [closeEye, setcloseEye] = useState(true);
@@ -32,6 +32,14 @@ const register2 = () => {
   const [progress22, setprogress22] = useState(false);
   const [progress33, setprogress33] = useState(false);
   const [progress44, setprogress44] = useState(false);
+  const [errMsg, setErrMsg] = useState([]);
+  const [errMsgPhone, setErrMsgPhone] = useState([]);
+  const [resMsg, setResMsg] = useState([]);
+  const [errMobile, setErrMobile] = useState([]);
+  const [feedBackMobile, setFeedBackMobile] = useState([]);
+  const [resRegister, setResRegister] = useState([]);
+  const [catchRegister, setCatchRegister] = useState([]);
+  const [checkPhoneNumber, setCheckPhoneNumber] = useState(false);
 
   let progress1 = false;
   let progress2 = false;
@@ -39,6 +47,7 @@ const register2 = () => {
   let progress4 = false;
   //End Password Validation
 
+  const router = useRouter();
   const [num1, setnum1] = useState(0);
   const [num2, setnum2] = useState(0);
   const [sum, setsum] = useState(0);
@@ -46,7 +55,7 @@ const register2 = () => {
   const [captchaStatus, setcaptchaStatus] = useState("");
 
   const [mobile, setmobile] = useState("");
-  const [mobileStatus, setmobileStatus] = useState("");
+  const [mobileStatus, setmobileStatus] = useState(false);
   const [password, setpassword] = useState("");
   const [passwordDisable, setpasswordDisable] = useState(true);
   const [repassword, setrepassword] = useState("");
@@ -72,11 +81,13 @@ const register2 = () => {
   const [disableGettingCode, setdisableGettingCode] = useState(false);
 
   const [sendCode, setsendCode] = useState("ارسال کد");
-  console.log({waitingForSenddata});
-  useEffect(()=>{
-    setIsOnline(navigator.onLine)
-  })
+  useEffect(() => {
+    setIsOnline(navigator.onLine);
+  });
 
+  const handelLoading = () => {
+    setLoadingRegisterButton(true);
+  };
 
   function startTimer() {
     setmyTime(
@@ -126,30 +137,111 @@ const register2 = () => {
     setinputValue(Number(e.target.value));
   };
 
+  useEffect(() => {
+    if (errMsg.code === "ERR_NETWORK") {
+      generateCaptcha();
+      toast.error("شما به اینرنت متصل نیستید");
+    }
+  }, [errMsg]);
+
+  useEffect(() => {
+    if (errMobile.data == "user exists") {
+      generateCaptcha();
+      toast.error("این شماره قبلا ثبت شده است");
+      setErrMobile("");
+    } else if (feedBackMobile.status === 201) {
+      setmobileStatus(true);
+    }
+  }, [feedBackMobile, errMobile]);
+
+  useEffect(() => {
+    if (mobileStatus === true) {
+      axios
+        .post(
+          url + "api/user/auth/send-verify-code",
+          JSON.stringify({
+            mobile: mobile,
+          }),
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => setResMsg(res))
+        .catch((err) => setErrMsgPhone(err));
+    }
+  }, [mobileStatus]);
+
+  useEffect(() => {
+    if (!resMsg && resMsg.status !== 200) {
+      setmobileStatus(false);
+      toast.error("ارسال پیامک با مشکل مواجه شده است. لطفا مجددا تلاش نمایید");
+    } else if (resMsg.status === 200) {
+      if (resMsg.data === 201) {
+        setmobileStatus(false);
+        toast.success("کد برای شما ارسال شد");
+        startTimer();
+        setdisableGettingCode(true);
+        setenterCodeDisable(false);
+        setpasswordDisable(false);
+        setrepasswordDisable(false);
+      } else if (resMsg.data === 200) {
+        setmobileStatus(false);
+        toast.success("کد قبلا برای شما ارسال شده است");
+        startTimer();
+        setdisableGettingCode(true);
+        setenterCodeDisable(false);
+        setpasswordDisable(false);
+        setrepasswordDisable(false);
+      }
+    }
+  }, [resMsg, errMsgPhone]);
+
+  console.log({ resMsg });
+  console.log({ errMsgPhone });
+
+  useEffect(() => {
+    if (resRegister.status === 200) {
+      setLoadingRegisterButton(false);
+      if (resRegister.data === 404) {
+        toast.error("لطفا کد را صحیح وارد نمایید");
+      } else {
+        toast.success("ثبت نام شما با موفقیت انجام شد");
+        router.push("/");
+      }
+    } else if (!catchRegister) {
+      setLoadingRegisterButton(false);
+      toast.error("ثبت نام شما با مشکل مواجه شد. لطفا مجددا سعی نمایید");
+    }
+  }, [resRegister, catchRegister]);
+
   //Getting Code
   const gettingCodeMethode = async (e) => {
+    generateCaptcha();
     e.preventDefault();
     const regexMobile10 = new RegExp("^(\\+98|0)?9\\d{9}$");
 
     if (!regexMobile10.test(mobile) || mobile === "") {
-      toast.error(
-        "شماره موبایل باید با 09 شروع شده و بیشتر از 10 رقم یا خالی نباشد"
-      );
+      toast.error("شماره موبایل باید با 09 شروع شود");
       document.getElementById("mobile").style.backgroundColor = "red";
+
       document.getElementById("mobile").value = "";
       setmobile("");
       setdisableGettingCode(false);
       setmobileStatus(false);
-
+      generateCaptcha();
       return;
     } else {
-      setmobileStatus(true);
+      // setmobileStatus(true);
     }
     if (sum === inputValue) {
       setcaptchaStatus(true);
     } else {
-      toast.error("لطفا جمع اعداد را صحیح وارد نمایید!");
+      toast.error("لطفا جمع اعداد را صحیح وارد نمایید");
       document.getElementById("captchaInput").style.backgroundColor = "red";
+
       document.getElementById("captchaInput").value = "";
       generateCaptcha();
       setcaptchaStatus(false);
@@ -157,53 +249,31 @@ const register2 = () => {
     }
 
     //All Ok for Getting Code
-    if (isOnline){
-      const resMobile = await fetch(url + "api/user/auth/register", {
-        method: "POST",
-        body: JSON.stringify({
-          mobile: mobile,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      }); //End Fetch Mobile
-    
-      if (resMobile.ok) {
-        const resCode = await fetch(url + "api/user/auth/send-verify-code", {
-          method: "POST",
-          body: JSON.stringify({
+    if (isOnline) {
+      const resMobile = await axios
+        .post(
+          url + `api/user/auth/register`,
+          JSON.stringify({
             mobile: mobile,
           }),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-        },
-      }); //End Fetch Code
-      
-      if (resCode.ok) {
-        toast.success("کد برای شما ارسال شد!");
-        startTimer();
-        setdisableGettingCode(true);
-        setenterCodeDisable(false);
-        setpasswordDisable(false);
-        setrepasswordDisable(false);
-      } else {
-        toast.error("این شماره قبلا ثبت شده است!");
-        return false;
-      }
-    } else {
-      toast.error("این شماره قبلا ثبت شده است!");
-      setenterCodeDisable(true);
-      setpasswordDisable(true);
-      setrepasswordDisable(true);
-    }
-  }
-  else toast.error("شما به اینرنت متصل نیستید");
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          setFeedBackMobile(res);
+          generateCaptcha();
+        })
+        .catch((err) => setErrMobile(err.response));
+    } else toast.error("شما به اینرنت متصل نیستید");
   }; //End Getting Code
 
   //Start Password Checker
   const passwordCheker = () => {
+    generateCaptcha();
     let points = 0;
     if (
       password.includes("@") ||
@@ -354,54 +424,58 @@ const register2 = () => {
     }
     if (points > 15) {
       setprogress44(true);
-    }else{
-      setprogress44(false)
+    } else {
+      setprogress44(false);
     }
     if (points > 11) {
       setprogress33(true);
-    }else{
-      setprogress33(false)
+    } else {
+      setprogress33(false);
     }
     if (points > 7) {
       setprogress22(true);
-    }else{
-      setprogress22(false)
+    } else {
+      setprogress22(false);
     }
     if (points > 3) {
       setprogress11(true);
-    }else{
-      setprogress11(false)
+    } else {
+      setprogress11(false);
     }
   }; //End Password Checker
 
-  
   //Login Handler
   const loginHandler = (e) => {
+    generateCaptcha();
     e.preventDefault();
     if (password === "") {
-      toast.error("رمز عبور نباید خالی باشد!");
+      toast.error("رمز عبور نباید خالی باشد");
       document.getElementById("password").style.backgroundColor = "red";
       return;
     }
     if (password !== repassword) {
-      toast.error("رمز عبور با تکرارش برابر یکسان نیستند!");
+      generateCaptcha();
+      toast.error("رمز عبور و تکرارش باید یکسان باشد");
       // document.getElementById("repassword").style.backgroundColor = "red";
       return;
     }
     if (password.length < 8) {
-      toast.error("رمز عبور حداقل باید 8 کاراکتر داشته باشد!");
+      generateCaptcha();
+      toast.error("رمز عبور حداقل باید 8 کاراکتر داشته باشد");
       document.getElementById("password").style.backgroundColor = "red";
       return;
     }
     if (includeNumberStatus) {
     } else {
-      toast.error("در رمز عبور حتما باید عدد موجود باشد!");
+      generateCaptcha();
+      toast.error("در رمز عبور حتما باید عدد موجود باشد");
       document.getElementById("password").style.backgroundColor = "red";
       return;
     }
 
     if (includeSpetialCharStatus) {
     } else {
+      generateCaptcha();
       toast.error(
         "در رمز عبور حتما باید از یکی از کاراکترهای  @ # $ % & ! + - _ استفاده نمایید!"
       );
@@ -416,21 +490,23 @@ const register2 = () => {
       password.includes("^") ||
       password.includes("*")
     ) {
-      toast.error("لطفا فقط از کاراکترهای مجاز استفاده فرمایید!");
+      toast.error("لطفا فقط از کاراکترهای مجاز استفاده نمایید");
       document.getElementById("password").style.backgroundColor = "red";
       return;
     }
 
     if (includeCapitalCharStatus) {
     } else {
-      toast.error("باید حداقل از یک حرف بزرک استفاده فرمایید!");
+      generateCaptcha();
+      toast.error("باید حداقل از یک حرف بزرک استفاده فرمایید");
       document.getElementById("password").style.backgroundColor = "red";
       return;
     }
 
     if (includeSmallCharStatus) {
     } else {
-      toast.error("باید حداقل از یک حرف کوچک استفاده فرمایید!");
+      generateCaptcha();
+      toast.error("باید حداقل از یک حرف کوچک استفاده نمایید");
       document.getElementById("password").style.backgroundColor = "red";
       return;
     }
@@ -438,8 +514,16 @@ const register2 = () => {
     // ALL OK
     handelLoading();
 
-    register({ mobile, password, code });
-    setLoading(false);
+    axios
+      .post(url + "api/user/auth/verify-code", {
+        mobile: mobile,
+        code: code,
+        password: password,
+      })
+      .then((res) => setResRegister(res))
+      .catch((err) => setCatchRegister(err));
+
+    // register({ mobile, password, code });
   };
   //End Login Handler
   useEffect(() => {
@@ -449,9 +533,16 @@ const register2 = () => {
   return (
     <>
       <div className="registerBody">
-        <div className="login w-full grid grid-cols-12">
-          <div className="right-content lg:col-span-5 col-span-12 bg-blue-600 relative">
-            <div className="flex flex-col justify-center items-center absolute registerPic  right-[10rem] top-[39rem]">
+        <div className="login w-full grid grid-cols-12 ">
+          {/*photo */}
+          <div className="right-content lg:col-span-5 col-span-12 bg-blue-600 z-0 relative registerPicContainer">
+            <div className="flex flex-col justify-center items-center absolute registerPic z-50  right-[1rem] top-[3rem]">
+              <Image
+                src={"/../assets/img/utilis/login.svg"}
+                width={500}
+                height={600}
+                className=""
+              />
               <p className="text-2xl font-bold text-white text-center">
                 به وب سایت
               </p>
@@ -469,7 +560,9 @@ const register2 = () => {
                       onSubmit={(e) => loginHandler(e)}
                       className=" IranSanse "
                     >
-                      <p className="text-center mb-4 text-[22px] font-bold ">ثبت نام</p>
+                      <p className="text-center mb-4 text-[22px] font-bold ">
+                        ثبت نام
+                      </p>
                       <div className="mb-3">
                         <input
                           type="number"
@@ -477,7 +570,7 @@ const register2 = () => {
                           className="form-control IranSanse font12 height185 buttonOffMozila buttonOffOthers"
                           id="mobile"
                           aria-describedby="emailHelp"
-                          placeholder="شماره همراه خود را وارد نمایید..."
+                          placeholder="مثال: 09121111111"
                           name="mobile"
                           onChange={(e) => {
                             document.getElementById(
@@ -496,7 +589,7 @@ const register2 = () => {
                               type="number"
                               className="form-control mb-3  font12 width100 height185 buttonOffMozila buttonOffOthers"
                               id="captchaInput"
-                              placeholder="مجموع اعداد را وارد فرمایید"
+                              placeholder="مجموع اعداد را وارد نمایید"
                             />
                           </div>
                           <div>
@@ -519,7 +612,7 @@ const register2 = () => {
                         <div className="gettingCode">
                           <div className="mb-3">
                             <input
-                              autoComplete='off'
+                              autoComplete="off"
                               type="number"
                               className="form-control IranSanse  font12 width100 height185"
                               id="code"
@@ -554,15 +647,22 @@ const register2 = () => {
                               type="submit"
                               className={`border-2 border-blue-500 rounded-lg px-3 mb-3 IranSanse cursor-pointer 
                                font12 width100 sendingAgainCode height185 hover:bg-blue-500 hover:text-white 
-                               ${disableGettingCode ? 'bg-gray-400 cursor-pointer hover:bg-gray-400 hover:text-black' : ''}`}
+                               ${
+                                 disableGettingCode
+                                   ? "bg-gray-400 cursor-pointer hover:bg-gray-400 hover:text-black"
+                                   : ""
+                               }`}
                               id="btnSendCode"
                               disabled={disableGettingCode}
                             >
-                              {waitingForSenddata ? 
+                              {mobileStatus ? (
                                 <div
-                                  className="spinner-border text-sm "
+                                  className="spinner-border text-sm"
                                   role="status"
-                                ></div> :
+                                >
+                                  <span class="sr-only">Loading...</span>
+                                </div>
+                              ) : (
                                 <div className="d-flex justify-between">
                                   <div>{sendCode}</div>
                                   <div>
@@ -570,30 +670,21 @@ const register2 = () => {
                                     <span id="mins">{defaultMins}</span>
                                     <span id="seconds">{defaultSeconds}</span>
                                   </div>
-                                </div>}
+                                </div>
+                              )}
                             </button>
                           </div>
                         </div>
-                        {/* Enter Code */}
-                        {/* <div>
-                          <p className="font10">
-                            رمز عبور باید حداقل 8 حرف و شامل یک حرف بزرگ یک حرف
-                            کوجک و یک عدد و یکی از کاراکترهای مجاز @ % & () ! -
-                            باشد!
-                          </p>
-                        </div> */}
-                        {/* Start Rpogress */}
 
                         <div className="thePassword">
                           <div className="mb-3">
                             <input
-                              autoComplete='off'
+                              autoComplete="off"
                               type="password"
                               className="form-control IranSanse  font10 width100 height185"
                               id="password"
                               placeholder="رمز عبور خود را وارد فرمایید..."
                               name="password"
-
                               disabled={passwordDisable}
                               onKeyUpCapture={passwordCheker}
                               onChange={(e) => {
@@ -713,21 +804,37 @@ const register2 = () => {
                         {/* start  Conditions */}
                         <ul className="myUl2">
                           <li
-                            className={`IranSanse text-slate-400 ${includeNumberStatus? 'text-[#256709] font-semibold' : ''}`}
-                          
+                            className={`IranSanse text-slate-400 ${
+                              includeNumberStatus
+                                ? "text-[#256709] font-semibold"
+                                : ""
+                            }`}
                           >
                             شامل عدد
                           </li>
-                          <li className={`IranSanse text-slate-400 ${include8CharStatus? 'text-[#256709] font-semibold' : ''}`} >
+                          <li
+                            className={`IranSanse text-slate-400 ${
+                              include8CharStatus
+                                ? "text-[#256709] font-semibold"
+                                : ""
+                            }`}
+                          >
                             حداقل 8 حرف
                           </li>
                           <li
-                            className={`IranSanse text-slate-400 ${includeSpetialCharStatus? 'text-[#256709] font-semibold' : ''}`}
+                            className={`IranSanse text-slate-400 ${
+                              includeSpetialCharStatus
+                                ? "text-[#256709] font-semibold"
+                                : ""
+                            }`}
                           >
                             شامل حداقل یکی از علائم (@ ! # $ % ^ & _ + -)
                           </li>
-                          <li className={`IranSanse text-slate-400 ${both? 'text-[#256709] font-semibold' : ''}`}
-                             >
+                          <li
+                            className={`IranSanse text-slate-400 ${
+                              both ? "text-[#256709] font-semibold" : ""
+                            }`}
+                          >
                             شامل یک حرف بزرگ و یک حرف کوچک
                           </li>
                         </ul>
@@ -755,7 +862,7 @@ const register2 = () => {
                           <button
                             onClick={(e) => loginHandler(e)}
                             type="submit"
-                            className="text-white bg-blue-400  hover:bg-blue-500 rounded-md IranSanse font14 font-bold width100 height185"
+                            className="text-white bg-blue-400 cursor-pointer hover:bg-blue-500 rounded-md IranSanse font14 font-bold width100 height185"
                             id="btnRegister"
                             disabled={
                               password === "" ||
@@ -764,7 +871,14 @@ const register2 = () => {
                               acceptChekBox.checked == false
                             }
                           >
-                            { (
+                            {loadingRegisterButton ? (
+                              <div
+                                className="spinner-border text-sm"
+                                role="status"
+                              >
+                                <span class="sr-only">Loading...</span>
+                              </div>
+                            ) : (
                               "ثبت نام"
                             )}
                           </button>
@@ -785,11 +899,3 @@ const register2 = () => {
 };
 
 export default register2;
-
-
-// loading ? (
-//   <div
-//     className="spinner-border text-sm "
-//     role="status"
-//   ></div>
-// ) :

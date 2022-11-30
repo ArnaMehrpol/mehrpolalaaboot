@@ -1,13 +1,119 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import Cookies from "universal-cookie";
+import axios from 'axios';
+
 
 const MarketingInfoSide = () => {
+  const cookies = new Cookies();
+
+  const url ="https://dfgsdfgsdfgj32gsdg.mehrpol.com/";
+  const router = useRouter();
+  const [allBusiness, setAllBusiness] = useState([]);
+  const [business_id, setBusiness_id] = useState(null);
+  const [name, setName] = useState("");
+  const [last_name, setLast_name] = useState("");
+  const [chooseBusiness, setChooseBusiness] = useState(false)
+
+  useEffect(()=>{
+    axios
+      .get(url + "api/user/businesses", {
+        headers: {
+          Authorization: `Bearer ${cookies.get("token")}`,
+        },
+      })
+      .then((response) => {
+        console.log({response})
+        setAllBusiness(response.data.data);
+        if (response) {
+          console.log(response.data.data);
+          console.log("داده ها دریافت شدند");
+        } else {
+          console.log("بیزنسی ثبت نشده");
+        }
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
+  },[])
+
+  useEffect(()=>{
+    if(chooseBusiness === true){
+      cookies.set('b-Id', business_id , { path: '/' });
+      setChooseBusiness(false)
+    }
+  },[chooseBusiness])
+
+  const settingBusinessId = (res) => {
+    axios
+      .get(url + "api/user/businesses", {
+        headers: {
+          Authorization: `Bearer ${cookies.get("token")}`,
+        },
+      })
+      .then((response) => {
+        console.log({response})
+        setAllBusiness(response.data.data);
+        if (response) {
+          console.log(response.data.data);
+          console.log("داده ها دریافت شدند");
+        } else {
+          console.log("بیزنسی ثبت نشده");
+        }
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
+  };
+
+  const cookieSetter = (e) => {
+    if (business_id == null) {
+      toast.error("اول کسب و کار خود را انتخاب نماببد!");
+    } else {
+      cookies.set("b-Id", business_id, { path: "/" });
+      toast.success("کسب و کار ست شد");
+      console.log(business_id);
+    }
+  };
+
+  const gettingGeneralInfos = () => {
+    axios
+      .get(url + "api/user", {
+        headers: {
+          Authorization: `Bearer ${cookies.get("token")}`,
+        },
+      })
+      .then(function (response) {
+        const data = response.data;
+        if (response) {
+          // setOk("ok");
+          setName(data.user.name);
+          setLast_name(data.user.last_name);
+          setNational_code(data.user.national_code);
+          setMobile(data.user.mobile);
+          setMobile_2(data.user.mobile_2);
+          setEnBirthday(data.user.birthday);
+          setBirthday_place_id(data.user.birthday_place_id);
+
+          setGender(data.user.gender);
+          setAccount_number(data.user.account_number);
+          setSheba_number(data.user.sheba_number);
+        } else {
+          console.log("داده های بیزنس دریافت نشد!");
+        }
+      })
+      .catch(function (error) {
+        console.log("not ok");
+      });
+  };
+
   return (
     <div className=' bg-slate-100'>
-      <div className="business-panel-sidbar lg:col-span-3 col-span-12 my-8">
+      <div className="business-panel-sidbar w-[350px] lg:col-span-3 col-span-12 my-8">
             <nav className="navbar navbar-business navbar-business-expand-lg navbar-expand-lg">
-              <div class="navbar-business-container container-fluid mx-4">
+              <div className="navbar-business-container container-fluid mx-4">
                 <div className="top-nav d-flex">
                   <div className="business-logo w-14 h-14 rounded-full bg-white">
                     <Link href="/">
@@ -20,80 +126,42 @@ const MarketingInfoSide = () => {
                     </Link>
                   </div>
                   <div className="business-name flex flex-col mr-3">
-                    <div class="dropdown">
-                      <a
-                        class="dropdown-toggle"
-                        href="#"
-                        id="dropdownMenuLink"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      ></a>
+                  <select
+                className="form-select font11"
+                aria-label="Default select example"
+                onChange={(e) => {
+                  if(e.target.value !== 'chosen'){
+                    setChooseBusiness(true)
+                    setBusiness_id(e.target.value);
+                  }
+                }}
+              >
+                <option selected value='chosen'>کسب و کار خود را انتخاب نمایید</option>
+                {allBusiness
+                  ? allBusiness.map(function (allBusiness) {
+                      return (
+                        <option value={allBusiness.id}>
+                          <small>{allBusiness.name}</small>
+                        </option>
+                      );
+                    })
+                  : ""}
+              </select>
 
-                      <ul
-                        class="dropdown-menu"
-                        aria-labelledby="dropdownMenuLink"
-                      >
-                        <li className="border-b border-slate-200">
-                          <Link href="/">
-                            <a className="dropdown-item flex" href="#">
-                              <Image
-                                src="/../public/assets/img/logos/3.png"
-                                width="35px"
-                                height="35px"
-                                className="rounded-full flex justify-center items-center"
-                              ></Image>
-                              <div className="flex flex-col mr-3">
-                                <p className="text-xs font-semibold">
-                                  فروشگاه رضا
-                                </p>
-                                <small className="text-xs">امیر باقری</small>
-                              </div>
-                            </a>
-                          </Link>
-                        </li>
-                        <li className="border-b border-slate-200">
-                          <Link href="/">
-                            <a className="dropdown-item flex" href="#">
-                              <Image
-                                src="/../public/assets/img/logos/1.png"
-                                width="35px"
-                                height="35px"
-                                className="rounded-full flex justify-center items-center"
-                              ></Image>
-                              <div className="flex flex-col mr-3">
-                                <p className="text-xs font-semibold">
-                                  فروشگاه رضا
-                                </p>
-                                <small className="text-xs">امیر باقری</small>
-                              </div>
-                            </a>
-                          </Link>
-                        </li>
-                        <li className="border-b border-slate-200">
-                          <Link href="/">
-                            <a className="dropdown-item flex" href="#">
-                              <Image
-                                src="/../public/assets/img/logos/3.png"
-                                width="35px"
-                                height="35px"
-                                className="rounded-full flex justify-center items-center"
-                              ></Image>
-                              <div className="flex flex-col mr-3">
-                                <p className="text-xs font-semibold">
-                                  فروشگاه رضا
-                                </p>
-                                <small className="text-xs">امیر باقری</small>
-                              </div>
-                            </a>
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-                    <p className="text-xs font-semibold py-0.5">
-                      فروشگاه شیک نو
-                    </p>
-                    <small className="text-xs">آرش محمدی </small>
-                  </div>
+              <small className="text-xs mt-1 mb-1">
+                {name} {last_name}
+              </small>
+              {/* <small className="IranSanse mb-1">
+                پس از انتخاب کسب و کار دکمه زیر را بزنید
+              </small> */}
+
+              {/* <button
+                onClick={cookieSetter}
+                className="btn btn-outline-primary"
+              >
+                ست
+              </button> */}
+            </div>
                 </div>
                 <button
                   className="business-navbar-toggler navbar-toggler custom-toggler bg-light"
@@ -104,7 +172,7 @@ const MarketingInfoSide = () => {
                   aria-expanded="false"
                   aria-label="Toggle navigation"
                 >
-                  <i class="bi bi-list"></i>
+                  <i className="bi bi-list"></i>
                 </button>
                 <div
                   className="business-collapse collapse product-navbar-collapse navbar-collapse w-full mt-4"
@@ -113,14 +181,14 @@ const MarketingInfoSide = () => {
                     <div className="business-nav-item nav-item bg-blue-500 rounded-md px-4 mb-3">
                       <div className="w-full h-full nav-item-flex flex items-center">
                         <i className="bi bi-person font-semibold text-sm text-white"></i>
-                        <Link href="/">
+                        
                           <a
-                            class="business-nav-link nav-link text-xs text-white mr-1"
+                            className="business-nav-link nav-link text-xs text-white mr-1"
                             aria-current="page"
                           >
                             اطلاعات کسب و کار
                           </a>
-                        </Link>
+                        
                       </div>
                     </div>
                     <div className="business-nav-item-active nav-item rounded-md flex items-center">

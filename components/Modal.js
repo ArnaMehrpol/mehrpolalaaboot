@@ -1,17 +1,10 @@
 import React from "react";
-import { useState } from "react";
 
 const Modal = (props) => {
   return (
     <>
       <div
-        style={{
-          transform: props.modalHandler
-            ? "translateX(0)"
-            : "translateX(-100vw)",
-          opacity: props.modalHandler ? "1" : "0",
-        }}
-        className="modal1  theModal"
+        className="modal1 "
         id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
@@ -35,15 +28,6 @@ const Modal = (props) => {
             </div>
             <div className="modal-body">آیا از انجام عملیات مطمئن هستید؟</div>
             <div className="modal-footer">
-              {props.deleteLoading && (
-                <>
-                  <span className="ml-2 text-primary">...Loading</span>
-                  <div
-                    className="spinner-grow text-primary ml-2"
-                    role="status"
-                  ></div>
-                </>
-              )}
               <button
                 onClick={props.modalHandler}
                 type="button"

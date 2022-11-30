@@ -47,20 +47,26 @@ const AddressModal = (props) => {
   return (
     <div className=" AddressModal ">
       <div className="allcontent xxx">
-        <div className="panel-addresses bg-slate-200 p-4 border-b border-slate-200">
-          <h5 className="text-base font-semibold">آدرس ها</h5>
-          <button
-            className="btn btn-danger px-4 py-2 text-xs mt-2"
-            onClick={props.modalHandler}
-          >
-            بستن
-          </button>
+        <div className="partOndeAddressModal bg-secondary">
+          <div className="bg-secondary">
+            <h5 className="text-base font-semibold mt-2 mr-7">آدرس ها</h5>
+          </div>
+          <div className="bg-secondary">
+            <button
+              className="btn btn-danger px-4 mr-7 py-2 text-xs mt-2 mb-2"
+              onClick={props.modalHandler}
+            >
+              بستن
+            </button>
+          </div>
           {/* *********************************************************************** */}
           <div className="deleteModalForAddress">
             {showModal && (
               <Modal modalHandler={modalHandler} delete={deleteAddress} />
             )}
           </div>
+        </div>
+        <div className="panel-addresses bg-slate-200 p-4 border-b border-slate-200">
           {props.allAddresses &&
             props.allAddresses.map(function (allAddresses) {
               return (

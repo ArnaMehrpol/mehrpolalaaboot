@@ -89,7 +89,7 @@ const MostPoular = () => {
                 {delay: 3000}
               }
               className="Swiper">
-                {items.map(item => (
+                {/* {items.map(item => (
                   <SwiperSlide 
                     key={item.id}
                   >
@@ -97,7 +97,7 @@ const MostPoular = () => {
                       <CardMostPopular/>
                       <CardMostPopular/>
                   </SwiperSlide>
-                ))}
+                ))} */}
             </Swiper>
           </div>
           <div className="custom-swiper-tools mt-3">

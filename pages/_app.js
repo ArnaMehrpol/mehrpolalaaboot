@@ -20,6 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { MyProvider } from "../context/MyContext";
 import ProfileLayout from "../components/profile/layouts/ProfileLayout";
 import MarketingLayout from "../components/marketing/layout/MarketingLayout";
+import { useRouter } from "next/router";
 
 //کامپوننت ها برای انجام اعمال فراخوانی و ایجاد تغییرات در دیتابیس(Redux)
 import { Provider } from "react-redux";
@@ -29,59 +30,46 @@ function MyApp({ Component, props }) {
   const [showing, setshowing] = useState(false);
   const [showProfile, setShowProfile] = useState();
   const [showMarketing, setShowMarketing] = useState();
-
+  const [showNavbar, setShowNavbar] = useState(false);
+  const [showFooter, setShowFooter] = useState(false);
+  const router = useRouter();
+  useEffect(() => {
+    if (window.location.href.indexOf("/register") !== -1) {
+      setShowNavbar(true);
+      setShowFooter(true);
+    }
+    if (window.location.href.indexOf("/login") !== -1) {
+      setShowNavbar(true);
+      setShowFooter(true);
+    }
+  });
   useEffect(() => {
     setShowProfile(window.location.href.indexOf("/profile") !== 1);
     setShowMarketing(window.location.href.indexOf("/marketing") !== 1);
   }, []);
+
   useEffect(() => {
     import("bootstrap/dist/js/bootstrap.bundle.js");
     import("chart.js/dist/chart.js");
 
     setshowing(true);
   }, []);
+
   return (
-    <div className="bg-[#ffffff]">
+    <div hidden={!showing} className="bg-[#ffffff]">
       <Provider store={store}>
         <MyProvider>
-          <Navbar />
-          <div>
-            {/* {
-              showProfile &&
-              <ProfileLayout >
-                <Component {...props} />
-              </ProfileLayout>
-            } */}
+          <ToastContainer position="top-center" />
+          <div hidden={showNavbar}>
+            <Navbar />
           </div>
-          <div>
-            {/* {
-              showMarketing && !showProfile &&
-              <MarketingLayout>
-                <Component {...props} />
-              </MarketingLayout>
-            } */}
-          </div>
-          <div>
-            {
-              // window.location.href.match('/') !== -1 &&
-              <Component {...props} />
-            }
-          </div>
-          <ToastContainer
-            position="top-center"
-            autoClose={4000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover={true}
-            theme="light"
-          />
+
+          <div>{<Component {...props} />}</div>
 
           {/* <MainPage/> */}
-          <Footer />
+          <div hidden={showFooter}>
+            <Footer />
+          </div>
         </MyProvider>
       </Provider>
     </div>

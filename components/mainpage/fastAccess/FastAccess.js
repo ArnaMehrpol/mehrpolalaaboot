@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import SwiperCore,{Navigation, Pagination, Scrollbar, A11y, Autoplay, Mousewheel} from 'swiper';
 import {Swiper, SwiperSlide, useSwiper, useSwiperSlide} from 'swiper/react';
+import { fastAccessFetchData } from '../redux/fastAccess/FastAccessAction'; 
+import { axiosSetup } from '../../utils/axiosSetup';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
@@ -37,8 +41,15 @@ const items = [
 
 
 const FastAccess = () => {
-
+  const dispatch = useDispatch();
+  const fastAccessData = useSelector( state => state.loadFastAccess);
   const swiper = useSwiper();
+  
+  useEffect(()=>{
+    dispatch(fastAccessFetchData());
+  },[])
+
+
   SwiperCore.use(Autoplay)
   const swiperSlide = useSwiperSlide();
 
@@ -108,11 +119,13 @@ const FastAccess = () => {
             autoplay={
               {delay: 5000}
             }>
-            {items.map(item => (
+            { fastAccessData.reloading ? <p>در حال آماده سازی</p>:
+              fastAccessData.error ? <p>خطا در بارگذاری</p> :
+              !fastAccessData.data.categories ? '' : fastAccessData.data.categories.map(items => (
               <SwiperSlide 
-                key={item.id}
+                key={items.id}
               >
-                  <CardFastaccess/>
+                  <CardFastaccess categories={items}/>
               </SwiperSlide>
             ))}
           </Swiper>

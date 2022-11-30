@@ -2,12 +2,19 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Card from "../../components/profile/components/card/Card";
+import { useSelector, useDispatch } from 'react-redux';
 import Price from "../../components/profile/components/cart/Price";
 import Favoritcard from "../../components/profile/components/card/Product";
 import ShowpathProfile from '../../components/profile/components/showPathProfile/ShowpathProfile'
 import ProfileLayout from '../../components/profile/layouts/ProfileLayout'
 
+import { clear, checkout } from "../../redux/cart/cartAction";
+
 const cart = () => {
+
+  const dispatch = useDispatch()
+  const state = useSelector(state => state.cartState)
+
   return (
     <>
     <div className=' max-w-screen-2xl bg-light md:px-12 pt-3 mx-auto'
@@ -27,6 +34,9 @@ const cart = () => {
           </div>
           <div className="grid grid-cols-11">
             <div className="lg:col-span-6 md:col-span-6 border-slate-100 rounded-md bg-white p-3 lg:ml-3 md:ml-3 lg:mb-0 mb-4">
+              
+            {state.selectedItems.map(item => <Card key={item.id} data={item}/>)}
+              
               <Card
                 image="/../public/assets/img/products/1.png"
                 title="دستگاه کراشر چوبی مدل mvc"

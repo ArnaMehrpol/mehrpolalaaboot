@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import Cookies from "universal-cookie";
 import { axiosSetup } from "../utils/axiosSetup";
 import { notify } from "../tools/toastify";
+import { useSelector } from "react-redux";
+import { fixNumbers } from "../tools/ChangeLanguage";
 
 const Navbar = () => {
   const cookies = new Cookies();
@@ -14,20 +16,33 @@ const Navbar = () => {
   const [resData, setResData] = useState([])
   const [catchData, setCatchData] = useState([])
   const userData = cookies.get('dataUser');
-  const userName = userData && `${userData.name} ${userData.last_name}`;
+  const [isLogout, setIsLogout] = useState(false)
   const tokenId = cookies.get('token');
+  const [userName, setUserName] = useState('')
+  useEffect(()=>{
+    setUserName( userData && `${userData.name} ${userData.last_name}`)
+  },[userData])
+  
   useEffect(()=>{
     if(resData.length === 0 && catchData.length !== 0){
       notify('مشکلی پیش آمده برای خروج دوباره تلاش کنید', 'error')
 
     }else if(resData.status === 200){
       notify(' شما از پنل کاربری خود خارج شدید', 'success')
+      
+      setIsLogout(true)
+    }
+  },[resData, catchData])
+
+  useEffect(()=>{
+    if(isLogout === true){
       cookies.remove('dataUser')
       cookies.remove('token')
       cookies.remove('b-Id')
       router.push('/')
+      setIsLogout(false)
     }
-  },[resData, catchData])
+  },[isLogout])
 
   const exitClickHandler = () =>{
     const address = '/user/auth/logout'
@@ -44,7 +59,7 @@ const Navbar = () => {
       setCatchData(data)
     }
   }
-
+  const state = useSelector(state => state.cartState);
   return (
     <div className="mb-3">
       <div className='sm:hidden'>
@@ -59,11 +74,14 @@ const Navbar = () => {
                 <p className=''>خانه</p>
               </a>
             </Link>
-              
             </li>
             <li className="flex items-center text-[#1b1b1b] sm:px-1 lg:px-2 xl:px-3 rounded-xl cursor-pointer hover:bg-[#f43f5e] hover:text-[#ffffff]">
-              <i className="bi bi-archive ml-2 xl:text-[18px]"></i>
-              <p className=''>محصولات</p>
+              <Link href="/allproducts">
+                <a className="nav-link flex items-center" aria-current="page">
+                  <i className="bi bi-archive ml-2 xl:text-[18px]"></i>
+                  <p className=''>محصولات</p>
+                </a>
+              </Link>
             </li>
             <li className="flex items-center text-[#1b1b1b] sm:px-1 lg:px-2 xl:px-3 rounded-xl cursor-pointer hover:bg-[#f43f5e] hover:text-[#ffffff]" style={{cursor:'pointer'}}>
               <i className="bi bi-coin ml-2 xl:text-[18px]"></i>
@@ -88,37 +106,42 @@ const Navbar = () => {
             <li className="flex items-center text-[#1b1b1b] sm:px-1 xl:px-3 rounded-xl cursor-pointer hover:bg-[#f43f5e] hover:text-[#ffffff]" style={{cursor:'pointer'}}>
               <Link href="/profile/cart">
                 <a className="nav-link flex items-center" aria-current="page">
-                  <span hidden className="badge text-bg-danger my-badge animate-bounce">
-                    4
-                  </span>
+                 { state.itemsCounter ?
+                    <span  className="badge text-bg-danger my-badge animate-bounce">
+                      {fixNumbers(state.itemsCounter + '')}
+                    </span> : ''
+                  }
                   <i className="bi bi-cart3 ml-2 xl:text-[18px]"></i>
                   <p className=''>سبد سفارش</p>
                 </a>
               </Link>
             </li>
             {
+
               userName ? (
-                  <>
-                    <li className="nav-item">
-                      <Link href="/profile/dashboard">
-                        <a className="nav-link startTab " aria-current="page">
-                          <i className="bi bi-person-circle"></i>
-                          {userName.includes('null') ? 'کابر' : userName}
-                          {/* علیرضا بهرام زادگان خوش آمدید */}
-                        </a>
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <button
-                        onClick={exitClickHandler}
-                        className="nav-link startTab "
-                        aria-current="page"
-                      >
-                        <i className="bi bi-door-open-fill"></i> خروج
-                      </button>
-                    </li>
-                  </>
-                ) : (
+                <>
+                  <li className="nav-item">
+                    <Link href="/profile/dashboard">
+                      <a className="nav-link startTab " aria-current="page">
+                        <i className="bi bi-person-circle ml-1"></i>
+                        {userName.includes('null') ? 'کاربر' : userName}
+                        {/* علیرضا بهرام زادگان خوش آمدید */}
+                      </a>
+                    </Link>
+                  </li>
+                  <li className="nav-item mr-3">
+                    <button
+                      onClick={exitClickHandler}
+                      className="nav-link startTab "
+                      aria-current="page"
+                    >
+                      <i className="bi bi-door-open-fill"></i> خروج
+                    </button>
+                  </li>
+                </>
+              ) :
+
+               (
                   <>
                     <li className="flex items-center text-[#1b1b1b] sm:px-1 xl:px-3 rounded-xl cursor-pointer hover:bg-[#f43f5e] hover:text-[#ffffff]" style={{cursor:'pointer'}}>
                       <Link href="/login">

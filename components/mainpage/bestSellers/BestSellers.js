@@ -1,7 +1,9 @@
-import React from 'react'
-import CardProduct from '../card/CardProduct'
+import React, { useEffect } from 'react'
+import CardProduct from './CardProduct'
 import SwiperCore,{Navigation, Pagination, Scrollbar, A11y, Autoplay} from 'swiper';
 import {Swiper, SwiperSlide, useSwiper, useSwiperSlide} from 'swiper/react';
+import { useSelector, useDispatch } from 'react-redux';
+import { bestSellerFetchData } from '../redux/bestSeller/BestSellerAction';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -27,6 +29,15 @@ const items = [
   ];
 
 const BestSellers = () => {
+
+  const dispatch = useDispatch();
+  const bestSellerData = useSelector( state => state.loadBestSeller);
+  useEffect(()=>{
+    dispatch(bestSellerFetchData());
+  },[])
+
+  console.log({bestSellerData})
+
   return (
     <div className='text-center bg-[#f3f4f6] w-[90%] py-10 mt-[40px] mx-auto'>
       <div className='flex justify-between items-center px-[100px] mb-[30px] mt-[40px]'>
@@ -77,15 +88,20 @@ const BestSellers = () => {
               {delay: 3000}
             }
             className="mySwiper">
-            <div className='pt-1 pb-1  pr-2 pl-3 bg-[#ce2424]  w-fit m-auto rounded-xl'>
-              <div className='flex justify-center '>
-              {items.map(item => (
-              <SwiperSlide
-                key={item.id}
-              >
-                <CardProduct key={item.id} data={item}/>
+            <div>
+              <div className='justify-center '>
+              {
+                bestSellerData && bestSellerData.loading ? 'در حال بارگذاری' :
+                bestSellerData.error ? 'بارگذاری با خطا مواجه شده است' :
+                bestSellerData.data.bestSellers && bestSellerData.data.bestSellers.map(product=>
+                  
+                    <SwiperSlide
+                    key={product.id}
+                    >
+                <CardProduct key={product.id} data={product}/>
               </SwiperSlide>
-            ))}        
+            )
+            }        
                 </div>
             </div>
           </Swiper>

@@ -1,0 +1,49 @@
+.dateSearch{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border : var(--color-border);
+  border-radius: 10px;
+  align-content: center;
+  justify-items: center;
+  justify-content: center;
+}
+
+.dateSearch input{
+  width: 100%;
+  font-size: 14px;
+  border: none;
+  padding: 10px 15px;
+  background-color: transparent;
+}
+
+.dateSearch input:focus{
+  outline: none;
+}
+
+.dateSearch input:first-child{
+  border-left: var(--color-border);
+}
+
+.dateSearchBus{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr;
+  border : var(--color-border);
+  border-radius: 10px;
+  align-content: center;
+  justify-items: center;
+  justify-content: center;
+}
+
+.dateSearchBus input{
+  width: 100%;
+  font-size: 14px;
+  border: none;
+  padding: 10px 15px;
+  background-color: transparent;
+}
+
+.dateSearchBus input:focus{
+  outline: none;
+}

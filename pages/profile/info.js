@@ -8,10 +8,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchState } from "../../redux/loadState/LoadStateAction";
 import { fetchCities } from "../../redux/loadCities/LoadCitiesAction";
 import { isNationalIdValid } from "../../components/tools/validationNationalId";
-import DtPicker, {convertToFa} from 'react-calendar-datetime-picker'
+import DtPicker, {convertToFa, convertToEn} from 'react-calendar-datetime-picker'
+import "react-calendar-datetime-picker/dist/index.css";
 import ShowpathProfile from '../../components/profile/components/showPathProfile/ShowpathProfile'
 import ProfileLayout from '../../components/profile/layouts/ProfileLayout'
 import { stringify } from "postcss";
+import axios from "axios";
+import config from "../../components/utils/config";
+import { toast } from "react-toastify";
+import SiteCalender from "../../components/tools/SiteCalender";
 
 const infoUser={
   first_name : '',
@@ -37,7 +42,10 @@ const info = () => {
   const [loadCities, setLoadCities] = useState([])
   const [isValidationNationalId, setIsValidationNationalId] = useState(true);
   const [choosenState, setChoosenState] = useState(false)
+  const [resUpdateInfoUser, setResUpdateInfoUser] = useState([])
+  const [catchUpdateInfoUser, setCatchUpdateInfoUser] = useState([])
   const [reloadStateList, setReloadStateList] = useState(false)
+  const [loadingSpinner, setLoadingSpinner] = useState(false)
   const userData = cookies.get('dataUser');
   const tokenId = cookies.get('token')
   const [userAddress, setUserAddress] = useState({
@@ -69,6 +77,10 @@ const info = () => {
     picture: '',
     _method: 'put'
   })
+
+  const [resSaveInfoUser, setResSaveInfoUser] = useState([])
+  const [catchSaveInfoUser, setCatchSaveInfoUser] = useState([])
+
   const [birthDaygetFromDB, setBirthDaygetFromDB] = useState({
     year: userData &&  userData.birthday && userData.birthday.slice(0,4),
     month: userData && userData.birthday && userData.birthday.slice(6,2),
@@ -76,14 +88,9 @@ const info = () => {
   })
   
  
-  const changeHandler = (e) =>{
-    console.log(e.target.info)
-    setChangeInfoUser({...changeInfoUser, [e.target.name]: e.target.value})
-  }
-  
   useEffect(()=>{
-   axiosSetup(address, method, header, '', getResult)
-   function getResult (data){
+    axiosSetup(address, method, header, '', getResult)
+    function getResult (data){
     console.log({data})
     setLoadStates(data)
    }
@@ -93,15 +100,15 @@ const info = () => {
   if(reloadStateList === true){
     axiosSetup(address, method, header, '', getResult)
     function getResult (data){
-    setLoadStates(data)
+      setLoadStates(data)
     }
     setReloadStateList(false)
   }
    //dispatch(fetchState(address, method, header, ''));  
    //axiosSetup(method, address, header, '')
-},[reloadStateList])
-
-useEffect(()=>{
+  },[reloadStateList])
+  
+  useEffect(()=>{
   const loadInfo = async () =>{
     let address = '/user';
     header = {
@@ -109,11 +116,11 @@ useEffect(()=>{
       'Authorization':"Bearer " + tokenId
     }
     await axiosSetup(address, method, header, '', getResult)
-     function getResult (data){
+    function getResult (data){
       console.log('داده های کاربر',data)
       setGetInfoUserFromDB(data.data.user)
       setIsLoadInfo(true)
-     }
+    }
   }
   loadInfo()
 },[])
@@ -127,7 +134,7 @@ useEffect(()=>{
       mobile: getInfoUserFromDB.mobile,
       national_code: getInfoUserFromDB.national_code,
       birthday_place_id: getInfoUserFromDB.birthday_place_id,
-      birthday: convertToFa(birthDaygetFromDB),
+      birthday: setDate(convertToFa(birthDaygetFromDB)),
       gender: getInfoUserFromDB.gender,
       refund_type: getInfoUserFromDB.refund_type, 
       typeReturnMoney: {
@@ -136,19 +143,26 @@ useEffect(()=>{
         card_number: getInfoUserFromDB.card_number
       },
       picture: getInfoUserFromDB.picture_file,
+      link_picture: getInfoUserFromDB.picture_link,
       _method: 'put'
     })
+    setIsLoadInfo(false)
   }
 },[isLoadInfo])
 
-console.log({getInfoUserFromDB})
+console.log({changeInfoUser})
 
- useEffect(()=>{
+useEffect(()=>{
   //setLoadStates(dataState.data.place)
-  },[choosenState])
+},[choosenState])
+
+const getDateFromCalenderFun = (val) =>{
+  console.log({val})
+}
 
 
-  const selectStateChangeHandler = (e) =>{
+console.log({getInfoUserFromDB})
+const selectStateChangeHandler = (e) =>{
     const stateId = e.target.value;
     console.log(stateId)
     if(stateId === 'reload'){
@@ -158,36 +172,92 @@ console.log({getInfoUserFromDB})
       const address = `/public/place?type=city&parent_id=${stateId}`
       axiosSetup(address, method, header, '', getResult)
       function getResult (data){
-      setLoadCities(data)
-      setChoosenState(true)
+        setLoadCities(data)
+        setChoosenState(true)
       }
     }
     // dispatch(fetchCities(address, method, header, ''));
     // cities  =  useSelector( state => state.loadCities);
   }
+  
+  const changeHandler = (e) =>{
+    console.log(e.target.info)
+    setChangeInfoUser({...changeInfoUser, [e.target.name]: e.target.value})
+  }
 
   const checkValidationNationalId = (e) => {
     setIsValidationNationalId(isNationalIdValid(fixNumbersEnglish(e.target.value)))
   }
-
+  
   const saveInfoUser = () =>{
-    let address = `/user/${userData.id}`
+    let address = `/user`
     let method = 'post'
-    const header = {
-      'Content-Type': 'multipart/form-data',
-      'Authorization':"Bearer " + tokenId,
-    }
-    axiosSetup(address, method, header, changeInfoUser, getResult)
-    function getResult (data){
-      setLoadStates(data)
-    }
+    
+    console.log(convertToEn(date))
+    console.log(fixNumbersEnglish(changeInfoUser.national_code))
+
+    axios.post(config.api_url + '/user/3',
+    {
+      _method: 'put',
+      name: changeInfoUser.first_name,
+      last_name: changeInfoUser.last_name,
+      national_code: fixNumbersEnglish(changeInfoUser.national_code),
+      mobile: changeInfoUser.mobile,
+      birthday_place: userAddress.city.length ? userAddress.city : null,
+      refund_type: changeInfoUser.refund_type,
+      gender: changeInfoUser.gender,
+      birthday_place_id: changeInfoUser.birthday_place_id,
+      birthday: convertToEn(date),
+      picture: changeInfoUser.picture
+    },
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization':"Bearer " + tokenId,
+      },
+    }).then(res => setResUpdateInfoUser(res))
+    .catch(err => setCatchUpdateInfoUser(err))
+    
+    
+    // const header = {
+    //   'Content-Type': 'multipart/form-data',
+    //   'Authorization':"Bearer " + tokenId,
+    // }
+    // axiosSetup(address, method, header, changeInfoUser, resResult, catchResult)
+    // function resResult (data){
+    //   setResSaveInfoUser(data)
+    // }
+    // function catchResult (data){
+    //   setCatchSaveInfoUser(data)
+    // }
   }
+
+  useEffect(()=>{
+
+    if(resUpdateInfoUser.status === 200){
+      toast.success('اطلاعات بروزرسانی شد')
+      setLoadingSpinner(false)
+    }else if(catchUpdateInfoUser.name === "AxiosError"){
+      if(catchUpdateInfoUser.code === "ERR_NETWORK"){
+        toast.error('اتصال به اینترنت را بررسی کنید')
+        setLoadingSpinner(false)
+      }else{
+        toast.error('بروز رسانی با مشکل مواجه شده است، لطفا دوباره تلاش کنید')
+        setLoadingSpinner(false)
+      }
+    }
+
+  },[resUpdateInfoUser, catchUpdateInfoUser])
+
+  console.log({resUpdateInfoUser})
+  console.log({catchUpdateInfoUser})
 
   const ChangeHnadlerAddress = (e) =>{
     setUserAddress({...userAddress, [e.target.name]: e.target.value})
   }
 
   const saveAddresses = () =>{
+
     const address = '/user/addresses'
     const method = 'post'
     const header = {
@@ -276,20 +346,21 @@ console.log({getInfoUserFromDB})
           </div>
           <div className="profile-info col-span-3 md:col-span-1">
             <lable className="text-sm">تاریخ تولد</lable>
-            <input
+            {/* <input
               name='birthday'
               type="text"
               value={fixNumbers(changeInfoUser.birthday)}
               placeholder="۱۳۷۳-۰۳-۲۵"
-              className="border border-slate-100 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-sky-500 overflow-hidden rounded-sm py-2 px-2 text-sm"
-            ></input>
+              /> */}
+              {/* <DtPicker
+                className="border text-center IranSanse border-slate-100 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-sky-500 overflow-hidden rounded-sm py-2 px-2 text-sm"
+                onChange={setDate}
+                local="fa"
+                /> */}
+              <SiteCalender getBirthdate={true} valueDate={getDateFromCalenderFun}/>
+           
           </div>
-          <div hidden>
-            <DtPicker
-              onChange={setDate}
-            />
-            <p>{convertToFa(date)}</p>
-          </div>
+          
           <div className="profile-info col-span-3 md:col-span-1">
             <lable htmlFor='male'  className="text-sm">جنسیت</lable>
             <div className="radio-box">
@@ -331,19 +402,16 @@ console.log({getInfoUserFromDB})
               <select
                 id="refundType"
                 className="bg-white border border-slate-100 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-sky-500 overflow-hidden rounded-sm py-2 px-2 text-sm text-slate-400"
-                
+                onChange={changeHandler}
+                value={changeInfoUser.refund_type}
+                name='refund_type'
               >
+                <option selected> انتخاب کنید</option>
                 <option
-                  selected={changeInfoUser.refund_type === "sheba_number" ? true : false}
-                  onClick={(e) => setChangeInfoUser({...changeInfoUser, refund_type: e.target.value})}
-                  value="card_number">شبا</option>
+                  value="sheba_number">شبا</option>
                 <option 
-                selected={changeInfoUser.refund_type === "account_number" ? true : false}
-                onClick={(e) => setChangeInfoUser({...changeInfoUser, refund_type: e.target.value})}
                   value="account_number">حساب </option>
                 <option 
-                  selected={changeInfoUser.refund_type === "card_number" ? true : false}
-                  onClick={(e) => setChangeInfoUser({...changeInfoUser, refund_type: e.target.value})}
                   value="card_number">کارت</option>
               </select>
               <input
@@ -471,7 +539,7 @@ console.log({getInfoUserFromDB})
           </button>
           <div className="profile-info col-span-3 md:col-span-1 border border-slate-500 overflow-hidden rounded-md">
             
-              <button
+              {/* <button
                 className="h-full panel-address-link  flex items-center justify-center"
                 type="button"
                 data-bs-toggle="modal"
@@ -492,7 +560,7 @@ console.log({getInfoUserFromDB})
                     d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                   />
                 </svg>
-              </button>
+              </button> */}
            
             <div
               className="modal fade"
@@ -741,18 +809,25 @@ console.log({getInfoUserFromDB})
           </div>
           <div className="w-full col-span-3 flex justify-end space-x-2 rtl:space-x-reverse">
             <div className="profile-seen-btn col-span-3 md:col-span-3 flex justify-end items-end mt-2">
-              <Link href="/">
-                <a className="px-4 py-2 bg-blue-500 hover:bg-blue-400 rounded-md">
+                <button className="px-4 py-2 bg-blue-500 hover:bg-blue-400 rounded-md">
                   <span className="text-white text-xs">نمایش آدر س ها</span>
-                </a>
-              </Link>
+                </button>
             </div>
             <div className="profile-save-btn col-span-3 md:col-span-3 flex justify-end items-end mt-2">
               
                 <button 
-                  onClick={saveInfoUser}
+                  onClick={(e)=>{saveInfoUser(e)
+                                 setLoadingSpinner(true) }}
                   className="px-4 py-2 bg-blue-500 hover:bg-blue-400 rounded-md">
-                  <span className="text-white text-xs">ثبت</span>
+                  {
+                    loadingSpinner === true ? 
+                      <div
+                        className="spinner-border text-xs px-2 py-1 text-white"
+                        role="status"
+                      ><span className="sr-only">Loading...</span></div>
+                    :
+                      <span className="text-white text-xs">ثبت</span>
+                  }
                 </button>
               
             </div>

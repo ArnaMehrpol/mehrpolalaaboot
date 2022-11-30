@@ -1,15 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import { notify } from "../components/tools/toastify";
 import MyContext from "../context/MyContext";
+import { toast } from "react-toastify";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import Validation from "../components/Validation";
 import { axiosSetup } from "../components/utils/axiosSetup";
+import Cookies from "universal-cookie";
 
 const login = () => {
-  const [changeCatch, setChangeCatch] = useState(false)
+  const cookies = new Cookies();
+  const router = useRouter();
+  const [changeCatch, setChangeCatch] = useState(false);
   const { login } = useContext(MyContext);
   const [loading, setLoading] = useState(false);
+  const [dataLogin, setDataLogin] = useState([]);
+  const [dataCatch, setDataCatch] = useState([]);
   const handelLoading = () => {
     setLoading(!loading);
   };
@@ -29,7 +37,6 @@ const login = () => {
     setnum2(nummber2);
     setsum(nummber1 + nummber2);
   };
-  console.log({login})
   const [url, seturl] = useState("https://dfgsdfgsdfgj32gsdg.mehrpol.com/");
   // const [code, setcode] = useState(null);
   // const [usecodedisable, setusecodedisable] = useState(true);
@@ -40,31 +47,91 @@ const login = () => {
     setinputValue(Number(e.target.value));
   };
 
-  const loginClickHandler = () =>{
-    const address = '/user/auth/login'
-    const method = 'post'
-    const header = {
-      'Accept': "application/json"
+  useEffect(() => {
+    setLoading(false);
+    if (dataLogin.length === 0 && dataCatch.length !== 0) {
+      if (dataCatch.code === "ERR_NETWORK") {
+        notify("اتصال اینترنت خود را بررسی کنید", "error");
+      } else {
+        notify("نام کاربری یا رمز عبور صحیح نیست", "error");
+      }
+    } else if (dataLogin.status === 201) {
+      notify("ورود به پنل کاربری با موفقیت انجام گرفت", "success");
+
+      if (remmemberme === true) {
+        cookies.set(
+          "token",
+          dataLogin.data.token,
+          { path: "/" },
+          { maxAge: 60 * 60 * 24 * 30 }
+        );
+        cookies.set(
+          "dataUser",
+          dataLogin.data.user,
+          { path: "/" },
+          { maxAge: 60 * 60 * 24 * 30 }
+        );
+        // document.cookie = `token=${data.token}; path=/; Secure; max-age=${
+        //   60 * 60 * 24 * 30
+        // }; `;
+        // document.cookie = `userData=${data.user}; path=/; Secure; max-age=${
+        //   60 * 60 * 24 * 30
+        // };`;
+      } else {
+        cookies.set(
+          "token",
+          dataLogin.data.token,
+          { path: "/" },
+          { maxAge: 60 * 60 * 24 * 1 }
+        );
+        // document.cookie = `token=${data.token}; path=/; Secure; max-age=${
+        //   60 * 60 * 24 * 1
+        // }; `;
+        cookies.set(
+          "dataUser",
+          dataLogin.data.user,
+          { path: "/" },
+          { maxAge: 60 * 60 * 24 * 1 }
+        );
+        // document.cookie = `userData=${data.user}; path=/; Secure; max-age=${
+        //   60 * 60 * 24 * 1
+        // };`;
+      }
+      router.push("/");
     }
+  }, [dataLogin, dataCatch]);
+
+  const loginClickHandler = () => {
+    const address = "/user/auth/login";
+    const method = "post";
+    const header = {
+      Accept: "application/json",
+    };
     const body = {
       mobile: mobile,
       password: password,
+    };
+    axiosSetup(address, method, header, body, getResult, getCatch);
+    function getResult(data) {
+      setDataLogin(data);
     }
-    axiosSetup(address, method, header, body, getResult)
-    function getResult (data){
-      console.log(data)
-      
-     }
-  }
+    function getCatch(data) {
+      setDataCatch(data);
+    }
+
+    dataLogin.length === 0 && setLoading(true);
+  };
 
   //Login Handler
   const loginHandler = (e) => {
     e.preventDefault();
+    generateCaptcha();
 
     // const regexMobile10 = new RegExp("^(\\+98|0)?9\\d{9}$");
     // const regexPassword = new RegExp("^([a-zA-Z0-9.(_!@#$%&-+])*$");
 
     if (!regexMobile10.test(mobile)) {
+      generateCaptcha();
       toast.error(
         "شماره موبایل باید با 09 شروع شده و بیشتر از 10 رقم یا خالی نباشد"
       );
@@ -77,6 +144,7 @@ const login = () => {
     <Validation mobile={mobile} />;
 
     if (!regexPassword.test(password)) {
+      generateCaptcha();
       toast.error("لطفا از کاراکترهای ویژه در رمز عبور استفاده نفرمایید!");
       document.getElementById("password").style.backgroundColor = "red";
       document.getElementById("password").value = "";
@@ -84,8 +152,8 @@ const login = () => {
       return false;
     }
 
-    if (sum === inputValue) {
-    } else {
+    if (sum !== inputValue) {
+      generateCaptcha();
       toast.error("لطفا جمع اعداد را صحیح وارد نمایید!");
       document.getElementById("captchaInput").style.backgroundColor = "red";
       document.getElementById("captchaInput").value = "";
@@ -93,12 +161,11 @@ const login = () => {
       return false;
     }
 
-    setChangeCatch(true)
+    setChangeCatch(true);
     // All ok then =>
     setLoading(true);
-    // loginClickHandler()
-    login({ mobile, password });
-    setLoading(false);
+    loginClickHandler();
+    // login({ mobile, password });
   };
   //End Login Handler
   useEffect(() => {
@@ -106,9 +173,9 @@ const login = () => {
   }, []);
 
   useEffect(() => {
-    if(changeCatch === true){
+    if (changeCatch === true) {
       generateCaptcha();
-      setChangeCatch(false)
+      setChangeCatch(false);
     }
   }, [changeCatch]);
 
@@ -117,7 +184,13 @@ const login = () => {
       <div className="registerBody">
         <div className="login w-full grid grid-cols-12">
           <div className="right-content lg:col-span-5 col-span-12 bg-blue-600 relative">
-            <div className="flex flex-col justify-center items-center absolute mt-14  right-[10rem] top-[39rem]">
+            <div className="flex flex-col justify-center items-center  mt-14  right-[1rem] top-[2rem]">
+              <Image
+                src={"/../assets/img/utilis/login.svg"}
+                width={500}
+                height={600}
+                className=""
+              />
               <p className="text-2xl font-bold text-white">به وب سایت </p>
               <p className="text-2xl  font-bold text-white">مهرپل خوش آمدید</p>
             </div>
@@ -131,15 +204,17 @@ const login = () => {
                       onSubmit={(e) => loginHandler(e)}
                       className=" IranSanse "
                     >
-                      <p className="text-center mb-4 text-[22px] font-bold">ورود</p>
+                      <p className="text-center mb-4 text-[22px] font-bold">
+                        ورود
+                      </p>
                       <div className="mb-3">
                         <input
                           type="number"
                           autoFocus
-                          className="form-control IranSanse font12 height185 buttonOffMozila buttonOffOthers"
+                          className="form-control IranSanse font12 height185 buttonOffMozila buttonOffOthers focus:bg-white"
                           id="mobile"
                           aria-describedby="emailHelp"
-                          placeholder="شماره همراه خود را وارد نمایید..."
+                          placeholder="برای مثال: 09121111111"
                           name="mobile"
                           onChange={(e) => {
                             document.getElementById(
@@ -201,7 +276,11 @@ const login = () => {
                             type="checkbox"
                             name="remmemberme"
                             id="remmemberme"
-                            value="yes"
+                            onChange={(e) => {
+                              e.target.checked === true
+                                ? setremmemberme(true)
+                                : setremmemberme(false);
+                            }}
                           />
 
                           <label
@@ -228,11 +307,13 @@ const login = () => {
                             id="btnLogin"
                             disabled={mobile === "" || password === ""}
                           >
-                            {loading ? (
+                            {loading === true ? (
                               <div
                                 className="spinner-border text-sm"
                                 role="status"
-                              ></div>
+                              >
+                                <span class="sr-only">Loading...</span>
+                              </div>
                             ) : (
                               "ورود"
                             )}

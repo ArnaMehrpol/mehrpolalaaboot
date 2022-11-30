@@ -176,7 +176,7 @@ const MarketingLayout = ({children}) => {
                       className="text-xs collapsed text-slate-600"
                       data-bs-toggle="collapse"
                       data-bs-target="#panelsStayOpen-collapseOne"
-                      aria-expanded="true"
+                      aria-expanded="false"
                       aria-controls="panelsStayOpen-collapseOne"
                     >
                       <i className="bi bi-layout-text-window text-xs text-black ml-2"></i>
@@ -293,7 +293,7 @@ const MarketingLayout = ({children}) => {
                       className="text-xs collapsed text-slate-600"
                       data-bs-toggle="collapse"
                       data-bs-target="#panelsStayOpen-collapseOneOrders"
-                      aria-expanded="true"
+                      aria-expanded="false"
                       aria-controls="panelsStayOpen-collapseOneOrders"
                     >
                       <i className="bi bi-person-lines-fill text-sm text-black ml-2"></i>

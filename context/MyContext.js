@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import Cookies from "universal-cookie";
+// import { getCookies, getCookie, setCookies, removeCookies } from 'cookies-next';
 
 export const MyProvider = ({ children }) => {
   const router = useRouter();
@@ -12,6 +13,7 @@ export const MyProvider = ({ children }) => {
 
   const [loading, setLoading] = useState(false);
 
+  // const [mymobile, setmymobile] = useState(null);
   const [mytoken, setmytoken] = useState("");
 
   const [mycookie, setmycookie] = useState("");
@@ -24,7 +26,7 @@ export const MyProvider = ({ children }) => {
 
   useEffect(() => {
     setToken(cookies.get("token"));
-    console.log("when load this:", token);
+    console.log('when load this:',token);
   }, []);
   //Register
 
@@ -41,13 +43,17 @@ export const MyProvider = ({ children }) => {
           return false;
         } else {
           toast.success("ثبت نام شما با موفقیت انجام شد!");
-
+          //const data = response.json();
           const token = response.data.token;
-
+          const userData = response.data;
+          // console.log(response);
           console.log(token);
           document.cookie = `token=${token}; path=/; Secure; max-age=${
             60 * 60 * 24 * 1
           };   `;
+          document.cookie = `userData=${userData}; path=/; Secure; max-age=${
+            60 * 60 * 24 * 1
+          };`;
 
           router.push("/");
           setuser(response.data);
@@ -76,39 +82,44 @@ export const MyProvider = ({ children }) => {
     let chk = document.getElementById("remmemberme").checked;
 
     const data = await res.json();
-    console.log({ data });
+    console.log({data})
     setuser(`${data.user}`);
 
     if (res.ok) {
       if (chk === true) {
+        console.log('کوکی اجرا میشه')
         document.cookie = `token=${data.token}; path=/; Secure; max-age=${
           60 * 60 * 24 * 30
         }; `;
+        document.cookie = `userData=${data.user}; path=/; Secure; max-age=${
+          60 * 60 * 24 * 30
+        };`;
       } else {
-        cookies.set(
-          "token",
-          data.token,
-          { path: "/" },
-          { maxAge: 60 * 60 * 24 * 1 }
-        );
+        console.log('کوکی اجرا میشه')
+        cookies.set('token', data.token , { path: '/' }, {maxAge: (60 * 60 * 24 * 1)});
         document.cookie = `token=${data.token}; path=/; Secure; max-age=${
           60 * 60 * 24 * 1
         }; `;
-        cookies.set(
-          "dataUser",
-          data.user,
-          { path: "/" },
-          { maxAge: 60 * 60 * 24 * 1 }
-        );
+        cookies.set('dataUser', data.user , { path: '/' }, {maxAge: (60 * 60 * 24 * 1)});
+        document.cookie = `userData=${data.user}; path=/; Secure; max-age=${
+          60 * 60 * 24 * 1
+        };`;
+        
+        // console.log('this is myCookiData', cookies.get('dataUser'))
+        // console.log('this is myCookiToken', cookies.get('token'))
 
         const showCookie = cookies.get("userData");
         if (showCookie !== "") {
+          console.log(showCookie);
+
+          console.log(JSON.stringify(showCookie));
         }
       }
-      console.log("this is data: ", data.user);
+      console.log('this is data: ', data.user)
       setmytoken(data.token);
       const myT = data.token;
-
+      console.log({myT})
+      console.log({cookies})
       toast.success("شما با موفقیت وارد شدید!");
       router.push("/");
     } else {
@@ -132,7 +143,9 @@ export const MyProvider = ({ children }) => {
 
     if (res.ok) {
       setuser(null);
-
+      // setmycookie(
+      //   (document.cookie = `token=''; path=/; Secure; expires= ${new Date(0)} `)
+      // );
       cookies.set("token", "");
       toast.success("شما با موفقیت از سایت خارج شدید!");
       router.push("/");
@@ -150,7 +163,7 @@ export const MyProvider = ({ children }) => {
       url: "https://dfgsdfgsdfgj32gsdg.mehrpol.com/api/user/auth/reset-password",
       data: { password: newPassword },
       headers: {
-        Authorization: `Bearer ${newPassToken}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then(function (response) {
@@ -159,7 +172,7 @@ export const MyProvider = ({ children }) => {
         } else {
           toast.success("رمز عبور با موفقیت تغییر یافت!");
 
-          document.cookie = `token=${newPassToken}; path=/; Secure; max-age=${
+          document.cookie = `token=${token}; path=/; Secure; max-age=${
             60 * 60 * 24 * 1
           };   `;
           setuser(response.data);

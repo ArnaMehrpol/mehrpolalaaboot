@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^35.3.0",
+    "@ckeditor/ckeditor5-react": "^5.0.2",
+    "@tiptap/react": "^2.0.0-beta.202",
+    "@tiptap/starter-kit": "^2.0.0-beta.202",
     "aos": "^3.0.0-beta.6",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
@@ -21,6 +25,7 @@
     "react-dom": "^18.2.0",
     "react-easy-crop": "^4.6.1",
     "react-icons": "^4.4.0",
+    "react-multi-date-picker": "^3.3.4",
     "react-player": "^2.10.1",
     "react-redux": "^8.0.4",
     "react-slideshow-image": "^4.0.4",

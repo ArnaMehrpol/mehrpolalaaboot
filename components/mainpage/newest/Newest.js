@@ -3,13 +3,29 @@ import CardNewest from './card/CardNewest'
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // import required modules
-import { Grid, Pagination, Navigation, Scrollbar, Autoplay } from "swiper";
+import { Grid, Pagination, Navigation, A11y, Scrollbar, Autoplay } from "swiper";
 
 
 // Import Swiper styles
-import "swiper/css";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/autoplay';
+import 'swiper/css/effect-fade';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import "swiper/css/bundle";
 import "swiper/css/grid";
-import "swiper/css/pagination";
+
+
+const items = [
+  { key: '1', image: 'pic1.src'},
+  { key: '2', image: 'pic1.src'},
+  { key: '3', image: 'pic1.src'},
+  { key: '4', image: 'pic1.src'},
+  { key: '5', image: 'pic1.src'},
+  { key: '6', image: 'pic1.src'},
+  
+  ];
 
 const Newest = () => {
   return (
@@ -39,16 +55,16 @@ const Newest = () => {
         </div>
       </div>
       <div className='px-20 '>
-        <div className='py-2 px-2 bg-[#ce2424] rounded-xl'>
+        <div className='py-4 px-4 mx-auto flex bg-[#ce2424] rounded-xl'>
           <Swiper
-            modules={[Grid, Pagination, Navigation, Scrollbar, Autoplay ]}
-            slidesPerView={3}
+            modules={[Grid, Pagination, Navigation, Scrollbar, A11y, Autoplay ]}
+            slidesPerView='2'
             grid={{
               rows: 2,
             }}
             touchRatio={1.5}
             effect={"flip"}
-            spaceBetween={30}
+            spaceBetween={20}
             loop={true}
             dir="rtl"
             navigation={{
@@ -65,13 +81,17 @@ const Newest = () => {
             }
             className="mySwiper"
           >
-            <div className='flex justify-center flex-wrap'>
-              <SwiperSlide><CardNewest/></SwiperSlide>
-              
-            </div>
+            
+            {
+              items.map(item=>
+                <SwiperSlide className='bg-white text-center h-[500px]' key={item}>
+                  <CardNewest/> 
+                </SwiperSlide>
+                )
+            }
            </Swiper>
         </div>
-        <div className="custom-swiper-tools d-flex align-items-center justify-content-between mt-3 px-2">
+          {/* <div className="custom-swiper-tools d-flex align-items-center justify-content-between mt-3 px-2">
             <div class="custom-navigation d-flex relative ps-1">
               <div class="slider-button-prev mt-0 left-0 relative ">
                 <svg className='text-[#ce2424]' width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -91,7 +111,7 @@ const Newest = () => {
                 <path className='bg-[#ce2424]' d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/>
               </svg>
             </div>
-          </div>
+          </div> */}
       </div>
     </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from "react-toastify";
@@ -6,10 +6,10 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { useContext } from "react";
 import MyContext from "../context/MyContext";
-
+import Cookies from "universal-cookie";
 const forgatenpass = () => {
   const { restPassword } = useContext(MyContext);
-
+  const cookies = new Cookies()
   const router = useRouter();
   const [url, seturl] = useState("https://dfgsdfgsdfgj32gsdg.mehrpol.com/");
   const [mobile, setmobile] = useState("");
@@ -20,13 +20,22 @@ const forgatenpass = () => {
   const [defaultSeconds, setdefaultSeconds] = useState("00");
   const [timex, settimex] = useState(0);
   const [disableGettingCode, setdisableGettingCode] = useState(false);
-
+  const [resSendCode, setResSendCode] = useState([])
+  const [catchSendCode, setCatchSendCode] = useState([])
+  const [resConfirmCode, setResConfirmCode] = useState([])
+  const [catchConfirmCode, setCatchConfirmCode] = useState([])
+  const [loadingSppinerConfirm, setLoadingSppinerConfirm] = useState(false)
   const [code, setcode] = useState("");
   const [disableBtnTaeed, setdisableBtnTaeed] = useState(true);
-
+  const [loadingSppiner, setLoadingSppiner] = useState(false)
   const [sendCode, setsendCode] = useState("ارسال");
   const [forgetCode, setforgetCode] = useState("");
   const [myTime, setmyTime] = useState(null);
+  const [beforeSendCode, setBeforeSendCode] = useState(false)
+  
+  const regexMobile10 = new RegExp("^(\\+98|0)?9\\d{9}$");
+  const regexPassword = new RegExp("^([a-zA-Z0-9.(_!@#$%&-+])*$");
+
   function startTimer() {
     setmyTime(
       setTimeout(function () {
@@ -60,60 +69,128 @@ const forgatenpass = () => {
     );
   }
 
+  useEffect(()=>{
+    if(beforeSendCode === true){
+      setLoadingSppiner(false);
+      setBeforeSendCode(false)
+    }
+  },[beforeSendCode])
+
   //End Timer
   const mobileHandler = async (e) => {
     e.preventDefault();
-    const resMobile = await fetch(
+
+    if (!regexMobile10.test(mobile)) {
+      toast.error(
+        "شماره موبایل باید با 09 شروع شده و بیشتر از 10 رقم یا خالی نباشد"
+      );
+        setBeforeSendCode(true);
+        return false;
+      }
+    await axios.post(
       url + "api/user/auth/send-reset-password-verify-code",
-      {
-        method: "POST",
-        body: JSON.stringify({
+      
+        JSON.stringify({
           mobile: mobile,
-        }),
+        }),{
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-        },
+        }},
+      
+    ).then(res => setResSendCode(res))
+    .catch(err => setCatchSendCode(err))
+  }
+
+  useEffect(()=>{
+    if(resSendCode.status === 200){
+      if(resSendCode.data === 201){
+        toast.success("کد به موبایل شما ارسال شد!");
+        startTimer();
+        setmobileStatus(true);
+        setdisableBtnTaeed(false);
+        setLoadingSppiner(false)
+      }else if(resSendCode.data === 200){
+        toast.success("کد قبلا به موبایل شما ارسال شده است!");
+        setLoadingSppiner(false)
       }
-    ); //End Fetch Mobile
-    if (resMobile.ok) {
-      toast.success("کد به مویایل شما ارسال شد!");
-      startTimer();
-      setmobileStatus(true);
-      setdisableBtnTaeed(false);
-    } else {
-      toast.error("ارسال کد با مشکل مواجه شد. لطفا دوباره سعی نمایید!");
+    } else if(catchSendCode.name === "AxiosError"){
+      toast.error("ارسال کد با مشکل مواجه شده است و یا شماره موبایل اشتباه است!");
+      setLoadingSppiner(false)
     }
-  };
+
+  },[resSendCode, catchSendCode])
+  //   const resMobile = await fetch(
+  //     url + "api/user/auth/send-reset-password-verify-code",
+  //     {
+  //       method: "POST",
+  //       body: JSON.stringify({
+  //         mobile: mobile,
+  //       }),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Accept: "application/json",
+  //       },
+  //     }
+  //   ); //End Fetch Mobile
+  //   if (resMobile.ok) {
+  //     toast.success("کد به مویایل شما ارسال شد!");
+  //     startTimer();
+  //     setmobileStatus(true);
+  //     setdisableBtnTaeed(false);
+  //   } else {
+  //     toast.error("ارسال کد با مشکل مواجه شد. لطفا دوباره سعی نمایید!");
+  //   }
+  // };
   //ُStarte Fetch Code
   const verifyForgetCodePass = (e) => {
     e.preventDefault();
-
     axios
       .post(url + "api/user/auth/verify-code", {
         code: forgetCode,
         mobile: mobile,
-      })
-      .then(function (response) {
-        if (response.data == 404) {
-          toast.error("لطفا کد صحیح را ارسال فرمایید!");
-        } else {
-          var token = response.data.token;
-          document.cookie = `token=${token}; path=/; Secure; max-age=${
-            60 * 60 * 24 * 1
-          };`;
-          // restPassword({ token });
-          // console.log(token);
+      },{
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        }},).then(res => setResConfirmCode(res))
+        .catch(err => setCatchConfirmCode(err))
+      // .then(function (response) {
+      //   if (response.data == 404) {
+      //     toast.error("لطفا کد صحیح را ارسال فرمایید!");
+      //   } else {
+      //     var token = response.data.token;
+      //     cookies.set('token', token , { path: '/' }, {maxAge: (60 * 60 * 24 * 30)});
+      //     // restPassword({ token });
+      //     console.log(token);
 
-          toast.success("کد شما تایید گردید!");
-          router.push("/forgottenpass2");
-        }
-      })
-      .catch(function (error) {
-        // console.log(error);
-      });
+      //     toast.success("کد شما تایید گردید!");
+      //     router.push("/forgottenpass2");
+      //   }
+      // })
+      // .catch(function (error) {
+      //   console.log(error);
+      // });
     // console.log(token);
   }; //End Fetch Forget Code
+
+  useEffect(()=>{
+    if(resConfirmCode.status === 200){
+      if(resConfirmCode.data === 404){
+        toast.error("لطفا کد صحیح را ارسال فرمایید!");
+        setLoadingSppinerConfirm(false)
+      }else{
+        cookies.set('token', resConfirmCode.data.token , { path: '/' }, {maxAge: (60 * 60 * 24 * 30)});
+        setLoadingSppinerConfirm(false)
+        toast.success("کد شما تایید گردید!");
+        router.push("/forgottenpass2");
+      }
+    }else if(catchConfirmCode.length){
+      toast.error("ارسال کد با مشکل مواجه شده است. لطفا دوباره تلاش کنید.");
+      setLoadingSppinerConfirm(false)
+    }
+  }, [resConfirmCode, catchConfirmCode])
+
   return (
     <div className="container fotgottenBody shadow-lg">
       <div className="row">
@@ -146,6 +223,7 @@ const forgatenpass = () => {
                 <div className="d-flex">
                   <input
                     type="text"
+                    placeholder="برای مثال: 09121111111"
                     className="form-control IranSanse"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
@@ -155,12 +233,22 @@ const forgatenpass = () => {
                     }}
                   />
                   <button
-                    type="submit"
-                    className="text-white bg-blue-400  hover:bg-blue-500 rounded-md IranSanse mr-1 w-[130px] height150"
+                    
+                    className={`text-white bg-blue-400  hover:bg-blue-500 rounded-md IranSanse mr-1 w-[130px] height150 ${mobileStatus ? 'bg-slate-400 hover:bg-slate-400' : '' }`}
                     disabled={mobileStatus}
-                    onClick={mobileHandler}
+                    onClick={(e)=>{mobileHandler(e)
+                      setLoadingSppiner(true)
+                    }}
                   >
-                    {sendCode}
+                    {
+                    loadingSppiner === true ? 
+                      <div
+                        className="spinner-border text-sm"
+                        role="status"
+                      ><span class="sr-only">Loading...</span></div>
+                    : 
+                      sendCode
+                    }
                   </button>
                 </div>
               </div>
@@ -183,10 +271,19 @@ const forgatenpass = () => {
                   <button
                     type="submit"
                     className="text-white bg-blue-400  hover:bg-blue-500 rounded-md IranSanse mr-1 w-[130px] height150"
-                    onClick={verifyForgetCodePass}
-                    disabled={disableBtnTaeed}
+                    onClick={(e)=>{verifyForgetCodePass(e)
+                              setLoadingSppinerConfirm(true)}}
+                    
                   >
-                    تایید
+                    {
+                      loadingSppinerConfirm === true ? 
+                        <div
+                          className="spinner-border text-sm"
+                          role="status"
+                        ><span class="sr-only">Loading...</span></div>
+                      : 
+                        'تایید'
+                    }
                   </button>
                 </div>
                 <div className="forgattenTomer IranSanse mt-4 text-center d-flex justify-center">

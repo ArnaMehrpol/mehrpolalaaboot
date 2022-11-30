@@ -4,8 +4,15 @@ import Link from "next/link";
 import { useContext } from "react";
 import { toast } from "react-toastify";
 import MyContext from "../context/MyContext";
+import axios from "axios";
+import Cookies from "universal-cookie";
+import { useRouter } from "next/router"; 
 
 const forgatenpass2 = () => {
+  const router = useRouter();
+  const cookies = new Cookies()
+  const token = cookies.get('token')
+  const [loadingSppiner, setLoadingSppiner] = useState(false)
   const { restPassword } = useContext(MyContext);
   const [openEye, setopenEye] = useState(false);
   const [closeEye, setcloseEye] = useState(true);
@@ -23,8 +30,9 @@ const forgatenpass2 = () => {
   const [includeSmallChar, setincludeSmallChar] = useState("");
   const [includeSmallCharStatus, setincludeSmallCharStatus] = useState(false);
   const [both, setboth] = useState(false);
-
-  const [token, settoken] = useState("");
+  const [resSendNewPassword, setResSendNewPassword] = useState([])
+  const [catchSendNewPassword, setCatchSendNewPassword] = useState([])
+  
 
   const [progress11, setprogress11] = useState(false);
   const [progress22, setprogress22] = useState(false);
@@ -38,23 +46,12 @@ const forgatenpass2 = () => {
   let progress3 = false;
   let progress4 = false;
 
-  console.log({include8CharStatus})
-  console.log({includeNumberStatus})
-  console.log({includeSpetialCharStatus})
-  console.log({both})
-  console.log({progress1})
-  console.log({progress2})
-  console.log({progress3})
-  console.log({progress4})
-
-
   useEffect(()=>{
 
   },[])
 
   const passwordCheker = () => {
     let points = 0;
-    console.log({points})
     if (
       newPassword.includes("'") ||
       newPassword.includes('"') ||
@@ -304,8 +301,33 @@ const forgatenpass2 = () => {
       return;
     }
 
-    restPassword({ newPassword });
+    axios({
+      method: "POST",
+      url: "https://dfgsdfgsdfgj32gsdg.mehrpol.com/api/user/auth/reset-password",
+      data: { password: newPassword },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(res=>  setResSendNewPassword(res))
+    .catch(err => setCatchSendNewPassword(err))
+
+    // restPassword({ newPassword });
   };
+
+  useEffect(()=>{
+    if(resSendNewPassword.status === 200){
+      if(resSendNewPassword.data === 200){
+        toast.success("رمز عبور با موفقیت تغییر یافت!");
+        cookies.remove('token')
+        setLoadingSppiner(false)
+        router.push("/");
+      }
+    }
+    if(catchSendNewPassword.name === "AxiosError"){
+      toast.error("تغییر رمز عبور با مشکل مواجه شده است. لطفا دوباره تلاش کنید!");
+      setLoadingSppiner(false)
+    }
+  },[resSendNewPassword, catchSendNewPassword])
 
   return (
     <div className="container fotgottenBody shadow-lg">

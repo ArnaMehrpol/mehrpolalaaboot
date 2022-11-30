@@ -7,13 +7,22 @@ import { useEffect } from "react";
 
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchData } from "../../../redux/loadState/LoadStateAction";
+
+const detailUser = {
+  userName:  '',
+  phoneNumber: ''
+}
+
 function ProfileLayout({ children }) {
   const cookies = new Cookies();
   const router = useRouter(); 
   const userData = cookies.get('dataUser');
-  const userName = userData && `${userData.name} ${userData.last_name}`;
-  
 
+  useEffect(()=>{
+    detailUser.userName = userData && `${userData.name} ${userData.last_name}`;
+    detailUser.phoneNumber = userData && fixNumbers(userData.mobile)
+  },[userData])
+  
   return (
     <>
      <div className=" bg-light md:px-12  pt-3">
@@ -39,8 +48,8 @@ function ProfileLayout({ children }) {
                   </a>
                 </div>
                 <div className="top-nav-info d-flex flex-column ms-3">
-                  <p className="fw-bold">{userName && userName.includes('null') ? 'کاربر' : userName}</p>
-                  <small className="text-muted">{userData && fixNumbers(userData.mobile)}</small>
+                  <p className="fw-bold">{detailUser && detailUser.userName.includes('null') ? 'کاربر' : detailUser.userName}</p>
+                  <small className="text-muted">{detailUser.phoneNumber}</small>
                 </div>
               </div>
 

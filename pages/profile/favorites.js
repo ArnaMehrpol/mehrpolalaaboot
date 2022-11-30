@@ -36,6 +36,9 @@ const products = () => {
    }
   }, [])
   
+  const addressPageFunc = () =>{
+    
+  }
 
   console.log({getAllFavorites})
   console.log({getAllMarketing})
@@ -160,7 +163,7 @@ const products = () => {
                 </div>
               </div>
             </div>
-            <Pagination />
+            {/* <Pagination addressPage={addressPageFunc} linksData={getAllMarketing && getAllMarketing.data}/> */}
           </div>
         </div>
       </div>

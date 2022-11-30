@@ -11,7 +11,8 @@ const ModalSoftDelete = (props) => {
             : "translateX(-100vw)",
           opacity: props.modalHandler ? "1" : "0",
         }}
-        className="modal1  theModal"
+        className="modal1  "
+        // theModal
         id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
