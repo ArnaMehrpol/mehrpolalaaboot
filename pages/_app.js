@@ -7,10 +7,7 @@ import "../styles/main.css";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
-
 import LandingPage from "./landingpage";
-
-import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/mainpage/footer/Footer";
 import MainPage from "../components/mainpage/MainPage";
 // import Navbar from "../components/Navbar";
@@ -21,6 +18,7 @@ import { MyProvider } from "../context/MyContext";
 import ProfileLayout from "../components/profile/layouts/ProfileLayout";
 import MarketingLayout from "../components/marketing/layout/MarketingLayout";
 import { useRouter } from "next/router";
+import Navbar from "../components/navbar/Navbar";
 
 //کامپوننت ها برای انجام اعمال فراخوانی و ایجاد تغییرات در دیتابیس(Redux)
 import { Provider } from "react-redux";
@@ -32,17 +30,24 @@ function MyApp({ Component, props }) {
   const [showMarketing, setShowMarketing] = useState();
   const [showNavbar, setShowNavbar] = useState(false);
   const [showFooter, setShowFooter] = useState(false);
+  const [showNavbarLogin, setShowNavbarLogin] = useState(false);
+  const [showFooterLogin, setShowFooterLogin] = useState(false);
   const router = useRouter();
+  const { asPath } = useRouter();
+
   useEffect(() => {
-    if (window.location.href.indexOf("/register") !== -1) {
+    if (
+      window.location.href.includes("/login") !== false ||
+      window.location.href.includes("/register") !== false
+    ) {
       setShowNavbar(true);
       setShowFooter(true);
+    } else {
+      setShowNavbar(false);
+      setShowFooter(false);
     }
-    if (window.location.href.indexOf("/login") !== -1) {
-      setShowNavbar(true);
-      setShowFooter(true);
-    }
-  });
+  }, [asPath]);
+
   useEffect(() => {
     setShowProfile(window.location.href.indexOf("/profile") !== 1);
     setShowMarketing(window.location.href.indexOf("/marketing") !== 1);
@@ -60,13 +65,13 @@ function MyApp({ Component, props }) {
       <Provider store={store}>
         <MyProvider>
           <ToastContainer position="top-center" />
+
           <div hidden={showNavbar}>
             <Navbar />
           </div>
 
           <div>{<Component {...props} />}</div>
 
-          {/* <MainPage/> */}
           <div hidden={showFooter}>
             <Footer />
           </div>

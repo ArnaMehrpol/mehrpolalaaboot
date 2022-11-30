@@ -150,6 +150,8 @@ input[type="number"]{
   
 }
 
+
+
 .theBlue{
   background-color: rgb(7, 90, 134);
   border-radius: 5px;
@@ -1546,8 +1548,8 @@ align-items: center;
 .registerBody{
   font-family: 'IranSanse';
   background-repeat: repeat;
-  background-size: 25vh !important;
-  /* height: 100vh !important; */
+  background-size: 17vh !important;
+  height: 123vh !important;
   background-image: url('../public/assets/img/patterns/6.webp') ;  
   width: 99% !important;
   display: flex;
@@ -1555,6 +1557,7 @@ align-items: center;
 }
 .registerPhotoRight{
 flex: 2;
+
 }
 .registerContentLeft{
 flex: 3;
@@ -1589,9 +1592,9 @@ flex: 3;
 .form-card{
   border: 1 solid #000000 !important;
   border-radius: 15px;
-  margin-top: 170px;
-  margin-bottom: 170px;
-  padding: 60px;
+  /* margin-top: 170px; */
+  margin-bottom:0;
+  padding: 30px !important;
   width: 500px;
   font-family: 'IranSanse' !important;  
   
@@ -1761,6 +1764,18 @@ progress {
   width: 99% !important;
   display: flex;
 }
+/* .reglogin{
+  display: flexbox;
+  flex-direction: row;
+  
+
+} */
+/* .right-content{
+  flex: 1;
+}
+.left-content {
+  flex: 1;
+} */
 
 /* ************ Register Responsive ************* */
 @media (max-width: 500px){
@@ -4173,9 +4188,9 @@ align-items: center;
 
   /* End Captcha CSS  */
   /* ******* Login & Register ******** */
-  .registerAll{
+  /* .registerAll{
     height: 100px !important;
-  }
+  } */
 .registerBody{
   font-family: 'IranSanse';
   background-repeat: repeat;
@@ -4184,13 +4199,13 @@ align-items: center;
   width: 99% !important;
   display: flex;  
  margin-top: -23vh;
+ margin-bottom: -23vh;
  
  
 }
 
 .registerPicContainer{
-  height: 143vh;
-  
+  height: 123vh;  
 }
 
 
@@ -4231,7 +4246,7 @@ flex: 3;
   border: 1 solid #000000 !important;
   border-radius: 15px;
   margin-top: 170px;
-  margin-bottom: 170px;
+  margin-bottom: -170px;
   padding: 60px;
   width: 500px;
   font-family: 'IranSanse' !important;  

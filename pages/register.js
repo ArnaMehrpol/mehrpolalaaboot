@@ -63,8 +63,6 @@ const register2 = () => {
   const [waitingForSenddata, setWatingForSendData] = useState(false);
   const [enterCodeDisable, setenterCodeDisable] = useState(true);
 
-  const [url, seturl] = useState("https://dfgsdfgsdfgj32gsdg.mehrpol.com/");
-
   const [code, setcode] = useState("");
   const [usecodedisable, setusecodedisable] = useState(true);
 
