@@ -387,9 +387,9 @@ const info = () => {
               <div className="info-form bg-white overflow-hidden roundde-lg shadow-md px-5">
                 {loading && (
                   <>
-                    <span className="ml-2 text-primary">...Loading</span>
+                    <span className="ml-2 text-primary">...بارگذاری</span>
                     <div
-                      className="spinner-grow text-primary ml-2"
+                      className="spinner-border text-primary ml-2"
                       role="status"
                     ></div>
                   </>
@@ -405,6 +405,7 @@ const info = () => {
                 <div className="info">
                   <div className="info-grid grid grid-cols-12 gap-3">
                     <div className="info-input lg:col-span-4 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         نام کسب و کار
                       </label>
@@ -420,6 +421,7 @@ const info = () => {
                       </div>
                     </div>
                     <div className="info-input lg:col-span-4 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         سال تاسیس
                       </label>
@@ -433,6 +435,7 @@ const info = () => {
                       </div>
                     </div>
                     <div className="info-input lg:col-span-4 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         بارگذاری لوگو
                       </label>
@@ -451,6 +454,7 @@ const info = () => {
                   {/* *********************** 111111111111111111 */}
                   <div className="info-grid grid grid-cols-12 gap-3">
                     <div className="info-input lg:col-span-4 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         دسته کسب و کار
                       </label>
@@ -473,6 +477,7 @@ const info = () => {
                       </select>
                     </div>
                     <div className="info-input lg:col-span-4 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         حوزه کسب و کار
                       </label>
@@ -494,6 +499,7 @@ const info = () => {
                       </select>
                     </div>
                     <div className="info-input lg:col-span-4 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         شاخه کسب و کار
                       </label>
@@ -520,6 +526,7 @@ const info = () => {
                   {/* *************** 222222222222222 */}
                   <div className="info-grid grid grid-cols-12 gap-3">
                     <div className="info-input lg:col-span-4 col-span-12 ">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mt-3">
                         شماره ثبت / پروانه کسب
                       </label>
@@ -533,6 +540,7 @@ const info = () => {
                       />
                     </div>
                     <div className="info-input lg:col-span-4 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mt-3">
                         کد اقتصادی
                       </label>
@@ -550,6 +558,7 @@ const info = () => {
                       />
                     </div>
                     <div className="info-input lg:col-span-4 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mt-3">
                         شناسه ملی کسب و کار
                       </label>
@@ -571,12 +580,13 @@ const info = () => {
                   <div className="domain-title flex flex-col mb-2">
                     <div className="grid grid-cols-6 gap-3">
                       <div className="lg:col-span-3 col-span-6">
+                        <sup className="text-danger">*</sup>
                         <small className="">
                           نام کسب و کار خود را به انگلیسی وارد نمایید
                         </small>
                       </div>
                       <div className="lg:col-span-3 col-span-6">
-                        <small className="">E-Mail</small>
+                        <small className="">پست الکترونیک</small>
                       </div>
                     </div>
                   </div>
@@ -900,9 +910,9 @@ const info = () => {
                 <div className="next-btn w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center">
                   {loading && (
                     <>
-                      <span className="ml-2 text-primary">...Loading</span>
+                      <span className="ml-2 text-primary">...بارگذاری</span>
                       <div
-                        className="spinner-grow text-primary ml-2"
+                        className="spinner-border text-primary ml-2"
                         role="status"
                       ></div>
                     </>

@@ -58,11 +58,11 @@ const management = () => {
         const data = response.data;
         // setBusiness_id(data.business.id);
         gettingManagerInfoes();
-        toast.success("اطلاعات با موفقیت ثبت شد!");
+        toast.success("اطلاعات با موفقیت ثبت شد");
       })
       .catch((error) => {
         setLoading(false);
-        toast.error("ثبت اطلاعات با مشکل مواجه شد!");
+        toast.error("ثبت اطلاعات با مشکل مواجه شد");
         console.log(error.message);
       });
   };
@@ -115,10 +115,10 @@ const management = () => {
       .then(function (response) {
         modalHandler();
         gettingManagerInfoes();
-        toast.success("مشخصات مدیر مورد نظر با موفقیت پاک شد!");
+        toast.success("مشخصات مدیر مورد نظر با موفقیت پاک شد");
       })
       .catch(function (err) {
-        toast.error("عملیات انجام نشد. لطفا مجددا سعی فرمایید!");
+        toast.error("عملیات انجام نشد. لطفا مجددا سعی فرمایید");
         console.log(err.message);
       });
   };
@@ -137,13 +137,13 @@ const management = () => {
           </div>
           <div className="business-panel-mainbar w-100 lg:col-span-9 col-span-12 shadow-lg shadow-slate-100 relative">
             <MarketingInfoHeader />
-            <section className="management-container max-w-screen-md mx-auto flex justify-center items-center relative z-[9999]">
+            <section className="management-container max-w-screen-md mx-auto flex justify-center items-center relative">
               <div className="management-form bg-white overflow-hidden roundde-lg shadow-md px-5 mt-[2rem]">
                 {loading && (
                   <>
-                    <span className="ml-2 text-primary">...Loading</span>
+                    <span className="ml-2 text-primary">...بارگذاری</span>
                     <div
-                      className="spinner-grow text-primary ml-2"
+                      className="spinner-border text-primary ml-2"
                       role="status"
                     ></div>
                   </>
@@ -159,6 +159,7 @@ const management = () => {
                     <div className="col-span-12">
                       <div className="grid grid-cols-6 gap-2">
                         <div className="col-span-3">
+                          <sup className="text-danger">*</sup>
                           <label className="text-sm text-slate-600 px-2 mb-2">
                             نام
                           </label>
@@ -173,6 +174,7 @@ const management = () => {
                           </div>
                         </div>
                         <div className="col-span-3">
+                          <sup className="text-danger">*</sup>
                           <label className="text-sm text-slate-600 px-2 mb-2">
                             نام خانوادگی
                           </label>
@@ -191,6 +193,7 @@ const management = () => {
                       </div>
                       <div className="grid grid-cols-6 gap-2 mt-[1.25rem]">
                         <div className="col-span-3">
+                          <sup className="text-danger">*</sup>
                           <label className="text-sm text-slate-600 px-2 mb-2">
                             شماره همراه
                           </label>
@@ -205,6 +208,7 @@ const management = () => {
                           </div>
                         </div>
                         <div className="col-span-3">
+                          <sup className="text-danger">*</sup>
                           <label className="text-sm text-slate-600 px-2 mb-2">
                             سمت
                           </label>
@@ -280,9 +284,9 @@ const management = () => {
                   <div className="mb-3">
                     {loading && (
                       <>
-                        <span className="ml-2 text-primary">...Loading</span>
+                        <span className="ml-2 text-primary">...بارگذاری</span>
                         <div
-                          className="spinner-grow text-primary ml-2"
+                          className="spinner-border text-primary ml-2"
                           role="status"
                         ></div>
                       </>
@@ -386,9 +390,9 @@ const management = () => {
                   <div className="next-btn w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center">
                     {loadingNext && (
                       <>
-                        <span className="ml-2 text-primary">...Loading</span>
+                        <span className="ml-2 text-primary">...بارگذاری</span>
                         <div
-                          className="spinner-grow text-primary ml-2"
+                          className="spinner-border text-primary ml-2"
                           role="status"
                         ></div>
                       </>

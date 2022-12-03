@@ -70,7 +70,7 @@ const Podcast = () => {
           if ([i] >= counter) {
             gettingSlides();
             softDeleteModalHandler2();
-            toast.success(`فایل با موفقیت ذخیره شد!`);
+            toast.success(`فایل با موفقیت ذخیره شد`);
             setLoading(false);
             document.getElementById("fileNameMp3").value = "";
             document.getElementById("fileDescriptionMp3").value = "";
@@ -151,17 +151,17 @@ const Podcast = () => {
       )
       .then(function (response) {
         if (response) {
-          toast.success("فایل مورد نظر با موفقیت پاک شد!");
+          toast.success("فایل مورد نظر با موفقیت پاک شد");
           setDeLeteLoading(false);
           gettingSlides();
           setShowModal(false);
         } else {
-          toast.error("عملیات انجام نشد. مجددا سعی نمایید!");
+          toast.error("عملیات انجام نشد. مجددا سعی نمایید");
           setDeLeteLoading(false);
         }
       })
       .catch(function (error) {
-        toast.error("متاسفانه سرور جواب نمی دهد!");
+        toast.error("متاسفانه سرور جواب نمی دهد");
         console.log(error.message);
         setDeLeteLoading(false);
       });
@@ -218,6 +218,7 @@ const Podcast = () => {
               <div className="grid grid-cols-6 gap-3">
                 <div className="lg:col-span-2 col-span-6 flex flex-col">
                   <div className="educatinal-input lg:col-span-4 col-span-12">
+                    <sup className="text-danger">*</sup>
                     <label className="text-sm text-slate-700 px-2 mb-2">
                       نام فایل صوتی
                     </label>
@@ -247,6 +248,7 @@ const Podcast = () => {
                   </div>
                 </div>
                 <div className="lg:col-span-2 col-span-6">
+                  <sup className="text-danger">*</sup>
                   <label className="text-sm text-slate-700 px-2 mb-2">
                     توضیحات
                   </label>
@@ -261,9 +263,9 @@ const Podcast = () => {
                   {loading && (
                     <>
                       <span className="ml-2 text-primary flex justify-center mt-3">
-                        ...Loading
+                        ...بارگذاری
                         <div
-                          className="spinner-grow text-primary mr-2 "
+                          className="spinner-border text-primary mr-2 "
                           role="status"
                         ></div>
                       </span>

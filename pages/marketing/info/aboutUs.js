@@ -100,7 +100,7 @@ const about = () => {
           </div>
           <div className="business-panel-mainbar w-100 lg:col-span-9 col-span-12 shadow-lg shadow-slate-100 relative">
             <MarketingInfoHeader />
-            {/* <header className="header-container max-w-screen-xl px-12 mx-auto bg-white h-[60px] relative lg:z-[9999999]">
+            {/* <header className="header-container max-w-screen-xl px-12 mx-auto bg-white h-[60px] relative ">
               <div className="header-flex h-full flex items-center">
                 <Link href="/">
                   <a className="header-link relative">
@@ -125,14 +125,14 @@ const about = () => {
                 </Link>
               </div>
             </header> */}
-            <section className="about-container max-w-screen-md mx-auto lg:px-0 px-6 relative z-[9999]">
+            <section className="about-container max-w-screen-md mx-auto lg:px-0 px-6 relative">
               <div className="about-form bg-white overflow-hidden roundde-lg shadow-md px-5 mt-[4.5rem]">
                 <div className="about-title flex flex-col my-4">
                   {loading && (
                     <>
-                      <span className="ml-2 text-primary">...Loading</span>
+                      <span className="ml-2 text-primary">...بارگذاری</span>
                       <div
-                        className="spinner-grow text-primary ml-2"
+                        className="spinner-border text-primary ml-2"
                         role="status"
                       ></div>
                     </>
@@ -235,9 +235,9 @@ const about = () => {
                   <div className="next-btn mb-2 w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center">
                     {loading && (
                       <>
-                        <span className="ml-2 text-primary">...Loading</span>
+                        <span className="ml-2 text-primary">...بارگذاری</span>
                         <div
-                          className="spinner-grow text-primary ml-2"
+                          className="spinner-border text-primary ml-2"
                           role="status"
                         ></div>
                       </>

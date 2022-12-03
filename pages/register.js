@@ -10,6 +10,7 @@ import axios from "axios";
 
 const register2 = () => {
   //Start Password Validation
+  const [url, seturl] = useState("https://dfgsdfgsdfgj32gsdg.mehrpol.com/");
   const [loadingRegisterButton, setLoadingRegisterButton] = useState(false);
   const [isOnline, setIsOnline] = useState();
   const [openEye, setopenEye] = useState(false);
@@ -131,7 +132,7 @@ const register2 = () => {
   };
 
   const captchaHandler = async (e) => {
-    document.getElementById("captchaInput").style.backgroundColor = "white";
+    document.getElementById("captchaInput").style.borderBlockColor = "white";
     setinputValue(Number(e.target.value));
   };
 
@@ -223,7 +224,7 @@ const register2 = () => {
 
     if (!regexMobile10.test(mobile) || mobile === "") {
       toast.error("شماره موبایل باید با 09 شروع شود");
-      document.getElementById("mobile").style.backgroundColor = "red";
+      document.getElementById("mobile").style.borderBlockColor = "red";
 
       document.getElementById("mobile").value = "";
       setmobile("");
@@ -238,7 +239,7 @@ const register2 = () => {
       setcaptchaStatus(true);
     } else {
       toast.error("لطفا جمع اعداد را صحیح وارد نمایید");
-      document.getElementById("captchaInput").style.backgroundColor = "red";
+      document.getElementById("captchaInput").style.borderBlockColor = "red";
 
       document.getElementById("captchaInput").value = "";
       generateCaptcha();
@@ -448,26 +449,26 @@ const register2 = () => {
     e.preventDefault();
     if (password === "") {
       toast.error("رمز عبور نباید خالی باشد");
-      document.getElementById("password").style.backgroundColor = "red";
+      document.getElementById("password").style.borderBlockColor = "red";
       return;
     }
     if (password !== repassword) {
       generateCaptcha();
       toast.error("رمز عبور و تکرارش باید یکسان باشد");
-      // document.getElementById("repassword").style.backgroundColor = "red";
+      // document.getElementById("repassword").style.borderBlockColor = "red";
       return;
     }
     if (password.length < 8) {
       generateCaptcha();
       toast.error("رمز عبور حداقل باید 8 کاراکتر داشته باشد");
-      document.getElementById("password").style.backgroundColor = "red";
+      document.getElementById("password").style.borderBlockColor = "red";
       return;
     }
     if (includeNumberStatus) {
     } else {
       generateCaptcha();
       toast.error("در رمز عبور حتما باید عدد موجود باشد");
-      document.getElementById("password").style.backgroundColor = "red";
+      document.getElementById("password").style.borderBlockColor = "red";
       return;
     }
 
@@ -477,7 +478,7 @@ const register2 = () => {
       toast.error(
         "در رمز عبور حتما باید از یکی از کاراکترهای  @ # $ % & ! + - _ استفاده نمایید!"
       );
-      document.getElementById("password").style.backgroundColor = "red";
+      document.getElementById("password").style.borderBlockColor = "red";
       return;
     }
 
@@ -489,7 +490,7 @@ const register2 = () => {
       password.includes("*")
     ) {
       toast.error("لطفا فقط از کاراکترهای مجاز استفاده نمایید");
-      document.getElementById("password").style.backgroundColor = "red";
+      document.getElementById("password").style.borderBlockColor = "red";
       return;
     }
 
@@ -497,7 +498,7 @@ const register2 = () => {
     } else {
       generateCaptcha();
       toast.error("باید حداقل از یک حرف بزرک استفاده فرمایید");
-      document.getElementById("password").style.backgroundColor = "red";
+      document.getElementById("password").style.borderBlockColor = "red";
       return;
     }
 
@@ -505,7 +506,7 @@ const register2 = () => {
     } else {
       generateCaptcha();
       toast.error("باید حداقل از یک حرف کوچک استفاده نمایید");
-      document.getElementById("password").style.backgroundColor = "red";
+      document.getElementById("password").style.borderBlockColor = "red";
       return;
     }
 
@@ -573,7 +574,7 @@ const register2 = () => {
                           onChange={(e) => {
                             document.getElementById(
                               "mobile"
-                            ).style.backgroundColor = "white";
+                            ).style.borderBlockColor = "white";
                             setmobile(e.target.value);
                           }}
                         />
@@ -658,7 +659,7 @@ const register2 = () => {
                                   className="spinner-border text-sm"
                                   role="status"
                                 >
-                                  <span class="sr-only">Loading...</span>
+                                  <span class="sr-only">بارگذاری...</span>
                                 </div>
                               ) : (
                                 <div className="d-flex justify-between">
@@ -688,7 +689,7 @@ const register2 = () => {
                               onChange={(e) => {
                                 document.getElementById(
                                   "password"
-                                ).style.backgroundColor = "white";
+                                ).style.borderBlockColor = "white";
                                 setpassword(e.target.value);
 
                                 setincludeNumber(e.target.value);
@@ -713,7 +714,7 @@ const register2 = () => {
                               onChange={(e) => {
                                 document.getElementById(
                                   "repassword"
-                                ).style.backgroundColor = "white";
+                                ).style.borderBlockColor = "white";
                                 setrepassword(e.target.value);
                                 setincludeNumber(e.target.value);
                                 setinclude8Char(e.target.value);
@@ -740,7 +741,6 @@ const register2 = () => {
                               aria-valuenow="100"
                               aria-valuemin="0"
                               aria-valuemax="100"
-                              // value={progress1}
                             ></div>
                           </div>
 
@@ -758,7 +758,6 @@ const register2 = () => {
                               aria-valuenow="100"
                               aria-valuemin="0"
                               aria-valuemax="100"
-                              // value={progress2}
                             ></div>
                           </div>
 
@@ -776,7 +775,6 @@ const register2 = () => {
                               aria-valuenow="100"
                               aria-valuemin="0"
                               aria-valuemax="100"
-                              // value={progress3}
                             ></div>
                           </div>
                           <div
@@ -793,7 +791,6 @@ const register2 = () => {
                               aria-valuenow="100"
                               aria-valuemin="0"
                               aria-valuemax="100"
-                              // value={progress4}
                             ></div>
                           </div>
                         </div>
@@ -874,7 +871,7 @@ const register2 = () => {
                                 className="spinner-border text-sm"
                                 role="status"
                               >
-                                <span class="sr-only">Loading...</span>
+                                <span class="sr-only">بارگذاری...</span>
                               </div>
                             ) : (
                               "ثبت نام"

@@ -6,7 +6,7 @@ const address = () => {
   return (
     <div>
       <div className="max-w-screen-2xl mx-auto business-panel-container bg-slate-100 p-5">
-        <section className="max-w-screen-md mx-auto my-14 relative z-[99999999] bg-white">
+        <section className="max-w-screen-md mx-auto my-14 relative  bg-white">
           <div className="panel-addresses bg-white p-4 border-b border-slate-200">
             <div className="addresses-title">
               <h5 className="text-base font-semibold">آدرس ها </h5>

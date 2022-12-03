@@ -67,11 +67,11 @@ const social = () => {
       .then(function (response) {
         setLoading(false);
         gettingAllSocial();
-        toast.success("اطلاعات با موفقیت ثبت شد!");
+        toast.success("اطلاعات با موفقیت ثبت شد");
       })
       .catch((error) => {
         setLoading(false);
-        toast.error("ثبت اطلاعات با مشکل مواجه شد. لطفا دوباره سعی نمایید!");
+        toast.error("ثبت اطلاعات با مشکل مواجه شد. لطفا دوباره سعی نمایید");
         console.log(error.message);
       });
   };
@@ -125,10 +125,10 @@ const social = () => {
       .then(function (response) {
         modalHandler();
         gettingAllSocial();
-        toast.success("مشخصات شبکه اجتماعی مورد نظر با موفقیت پاک شد!");
+        toast.success("مشخصات شبکه اجتماعی مورد نظر با موفقیت پاک شد");
       })
       .catch(function (err) {
-        toast.error("عملیات انجام نشد. لطفا مجددا سعی فرمایید!");
+        toast.error("عملیات انجام نشد. لطفا مجددا سعی فرمایید");
         console.log(err.message);
       });
   };
@@ -149,13 +149,13 @@ const social = () => {
           <div className="business-panel-mainbar w-100 lg:col-span-9 col-span-12 shadow-lg shadow-slate-100 relative">
             <MarketingInfoHeader />
 
-            <section className="max-w-screen-md mx-auto my-14 relative z-[99999999]">
+            <section className="max-w-screen-md mx-auto my-14 relative ">
               <div className="social-form bg-white p-5">
                 {loading && (
                   <>
-                    <span className="ml-2 text-primary">...Loading</span>
+                    <span className="ml-2 text-primary">...بارگذاری</span>
                     <div
-                      className="spinner-grow text-primary ml-2"
+                      className="spinner-border text-primary ml-2"
                       role="status"
                     ></div>
                   </>
@@ -225,9 +225,9 @@ const social = () => {
                         <div className="absolute right-[-36px]">۹۸ +</div>
                         <span className="text-slate-500">whatsapp</span>
 
-                        <button className="text-danger me-2 fs-6">
+                        {/* <button className="text-danger me-2 fs-6">
                           <i class="bi bi-trash"></i>
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>
@@ -255,9 +255,9 @@ const social = () => {
                       >
                         <span className="text-slate-500">instagram</span>
 
-                        <button className="text-danger me-2 fs-6">
+                        {/* <button className="text-danger me-2 fs-6">
                           <i class="bi bi-trash"></i>
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>
@@ -284,9 +284,9 @@ const social = () => {
                           linkdin
                         </span>
 
-                        <button className="text-danger me-2 fs-6">
+                        {/* <button className="text-danger me-2 fs-6">
                           <i class="bi bi-trash"></i>
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>
@@ -314,9 +314,9 @@ const social = () => {
                           telegram
                         </span>
 
-                        <button className="text-danger me-2 fs-6">
+                        {/* <button className="text-danger me-2 fs-6">
                           <i class="bi bi-trash"></i>
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>
@@ -342,9 +342,9 @@ const social = () => {
                       >
                         <span className="text-slate-500">facebook</span>
 
-                        <button className="text-danger me-2 fs-6">
+                        {/* <button className="text-danger me-2 fs-6">
                           <i class="bi bi-trash"></i>
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>
@@ -370,9 +370,9 @@ const social = () => {
                       >
                         <span className="text-slate-500">aparat</span>
 
-                        <button className="text-danger me-2 fs-6">
+                        {/* <button className="text-danger me-2 fs-6">
                           <i class="bi bi-trash"></i>
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>
@@ -398,9 +398,9 @@ const social = () => {
                       >
                         <span className="text-slate-500 mr-[8px]">youtybe</span>
 
-                        <button className="text-danger me-2 fs-6">
+                        {/* <button className="text-danger me-2 fs-6">
                           <i class="bi bi-trash"></i>
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>
@@ -426,9 +426,9 @@ const social = () => {
                       >
                         <span className="text-slate-500 mr-[8px]">twitter</span>
 
-                        <button className="text-danger me-2 fs-6">
+                        {/* <button className="text-danger me-2 fs-6">
                           <i class="bi bi-trash"></i>
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>
@@ -454,9 +454,9 @@ const social = () => {
                       >
                         <span className="text-slate-500 mr-[8px]">skype</span>
 
-                        <button className="text-danger me-2 fs-6">
+                        {/* <button className="text-danger me-2 fs-6">
                           <i class="bi bi-trash"></i>
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>

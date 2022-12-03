@@ -443,9 +443,9 @@ const signature = () => {
                 <div className="next-btn mb-2 w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center ">
                   {loading && (
                     <>
-                      <span className="ml-2 text-primary">...Loading</span>
+                      <span className="ml-2 text-primary">...بارگذاری</span>
                       <div
-                        className="spinner-grow text-primary ml-2"
+                        className="spinner-border text-primary ml-2"
                         role="status"
                       ></div>
                     </>

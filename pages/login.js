@@ -43,7 +43,7 @@ const login = () => {
   const regexMobile10 = new RegExp("^(\\+98|0)?9\\d{9}$");
   const regexPassword = new RegExp("^([a-zA-Z0-9.(_!@#$%&-+])*$");
   const captchaHandler = (e) => {
-    document.getElementById("captchaInput").style.backgroundColor = "white";
+    document.getElementById("captchaInput").style.borderBlockColor = "white";
     setinputValue(Number(e.target.value));
   };
 
@@ -135,7 +135,7 @@ const login = () => {
       toast.error(
         "شماره موبایل باید با 09 شروع شده و بیشتر از 10 رقم یا خالی نباشد"
       );
-      document.getElementById("mobile").style.backgroundColor = "red";
+      document.getElementById("mobile").style.borderBlockColor = "red";
       document.getElementById("mobile").value = "";
       setmobile("");
       setmobile("");
@@ -146,7 +146,7 @@ const login = () => {
     if (!regexPassword.test(password)) {
       generateCaptcha();
       toast.error("لطفا از کاراکترهای ویژه در رمز عبور استفاده نفرمایید!");
-      document.getElementById("password").style.backgroundColor = "red";
+      document.getElementById("password").style.borderBlockColor = "red";
       document.getElementById("password").value = "";
       setpassword("");
       return false;
@@ -155,7 +155,7 @@ const login = () => {
     if (sum !== inputValue) {
       generateCaptcha();
       toast.error("لطفا جمع اعداد را صحیح وارد نمایید!");
-      document.getElementById("captchaInput").style.backgroundColor = "red";
+      document.getElementById("captchaInput").style.borderBlockColor = "red";
       document.getElementById("captchaInput").value = "";
       generateCaptcha();
       return false;
@@ -219,7 +219,7 @@ const login = () => {
                           onChange={(e) => {
                             document.getElementById(
                               "mobile"
-                            ).style.backgroundColor = "white";
+                            ).style.borderBlockColor = "white";
                             setmobile(e.target.value);
                           }}
                         />
@@ -237,7 +237,7 @@ const login = () => {
                               onChange={(e) => {
                                 document.getElementById(
                                   "password"
-                                ).style.backgroundColor = "white";
+                                ).style.borderBlockColor = "white";
                                 setpassword(e.target.value);
                               }}
                             />

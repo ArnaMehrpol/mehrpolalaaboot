@@ -3,26 +3,67 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import Cookies from "universal-cookie";
 import { fixNumbers } from "../../tools/ChangeLanguage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
+import profileMan from '../../../public/assets/img/avatars/profileMan.svg'
+import profileWoman from '../../../public/assets/img/avatars/profileWoman.svg'
+import profileIcon from '../../../public/assets/img/avatars/person.svg'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchData } from "../../../redux/loadState/LoadStateAction";
+import { axiosSetup } from "../../utils/axiosSetup";
+// import imageLoader from "../../tools/imageLoader";
 
 const detailUser = {
   userName:  '',
-  phoneNumber: ''
+  phoneNumber: '',
+  gender: '',
+  picUser: ''
 }
 
-function ProfileLayout({ children }) {
+const dataInCookies ={
+  tokenId: '',
+}
+
+function ProfileLayout({ profilePic }) {
   const cookies = new Cookies();
   const router = useRouter(); 
+  const [getInfoUserFromDB, setGetInfoUserFromDB] = useState([])
   const userData = cookies.get('dataUser');
-
+  console.log({profilePic})
+  
   useEffect(()=>{
     detailUser.userName = userData && `${userData.name} ${userData.last_name}`;
     detailUser.phoneNumber = userData && fixNumbers(userData.mobile)
+    detailUser.gender = userData && userData.gender
+    detailUser.picUser = userData && userData.icon
   },[userData])
   
+  useEffect(()=>{
+    dataInCookies.tokenId = cookies.get('token')
+    console.log('sidebar')
+    const loadInfo = async () =>{
+      let address = '/user';
+      const header = {
+        'Accept': "application/json",
+        'Authorization':"Bearer " + dataInCookies.tokenId
+      }
+      await axiosSetup(address, method, header, '', getResult, catchResult)
+      function getResult (data){
+        setGetInfoUserFromDB(data.data.user)
+        // setIsLoadInfo(true)
+      }
+      function catchResult (data){
+        setGetInfoUserFromDB(data.data.user)
+        // setIsLoadInfo(true)
+      }
+    }
+  },[])
+
+  console.log({getInfoUserFromDB})
+  profileIcon
+  console.log({profileIcon})
+  console.log(typeof(profilePic))
+
   return (
     <>
      <div className=" bg-light md:px-12  pt-3">
@@ -36,18 +77,19 @@ function ProfileLayout({ children }) {
         <div className="sidbar md:col-span-3 w-[300px] col-span-">
           <nav className="navbar navbar-profile navbar-profile-expand-lg navbar-expand-lg bg-white shadow">
             <div class="navbar-profile-container container-fluid">
-              <div className="top-nav d-flex">
-                <div className="top-nav-image relative">
-                  <a className="navbar-img" href="#">
-                    <Image
-                      src="/../public/assets/img/avatars/1.png"
-                      className="img-fluide border border-slate-100"
-                      width="50px"
-                      height="50px"
-                    ></Image>
+              <div className="top-nav flex justify-end ml-[100px] mt-2">
+                <div className="top-nav-image ">
+                  <a className="navbar-img" >
+                    <img
+                      
+                      src={detailUser.picUser ? detailUser.picUser : typeof(profilePic) === 'object' ? URL.createObjectURL(profilePic) : typeof(profilePic) === 'string' ? profilePic : detailUser.gender === 'male' ? profileMan.src : detailUser.gender === 'female' ? profileWoman.src : profileIcon.src}
+                      className="img-fluide border border-slate-100 w-[50px] h-[50px]"
+                      
+                      
+                    />
                   </a>
                 </div>
-                <div className="top-nav-info d-flex flex-column ms-3">
+                <div className="top-nav-info d-flex flex-column ms-3 mr-4">
                   <p className="fw-bold">{detailUser && detailUser.userName.includes('null') ? 'کاربر' : detailUser.userName}</p>
                   <small className="text-muted">{detailUser.phoneNumber}</small>
                 </div>
@@ -138,7 +180,7 @@ function ProfileLayout({ children }) {
                           aria-current="page"
                           href="#"
                         >
-                          اطلاعات حساب کاربری
+                          پروفایل
                         </a>
                       </Link>
                     </div>

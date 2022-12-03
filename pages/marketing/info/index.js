@@ -309,7 +309,7 @@ const Userinfo = () => {
             </nav>
           </div>
           <div className="business-panel-mainbar lg:col-span-9 col-span-12 shadow-lg shadow-slate-100 relative">
-            <header className="header-container max-w-screen-xl px-12 mx-auto bg-white h-[60px] relative lg:z-[9999999]">
+            <header className="header-container max-w-screen-xl px-12 mx-auto bg-white h-[60px] relative ">
               <div className="header-flex h-full flex items-center">
                 <Link href="/">
                   <a className="header-link relative">
@@ -343,7 +343,7 @@ const Userinfo = () => {
                 </form>
               </div>
             </header>
-            <section className="about-container max-w-screen-md mx-auto lg:px-0 px-6 relative z-[9999]">
+            <section className="about-container max-w-screen-md mx-auto lg:px-0 px-6 relative ">
               <div className="about-form bg-white overflow-hidden roundde-lg shadow-md px-5 mt-[4.5rem]">
                 <div className="about-title flex flex-col my-4">
                   <h5 className="text-base font-semibold">درباره ما</h5>

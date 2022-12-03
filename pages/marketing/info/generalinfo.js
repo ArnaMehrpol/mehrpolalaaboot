@@ -193,9 +193,9 @@ const generalinfo = () => {
               <div className="generalinfo-form bg-white overflow-hidden roundde-lg shadow-md px-5 mt-[5rem]">
                 {loading && (
                   <>
-                    <span className="ml-2 text-primary">...Loading</span>
+                    <span className="ml-2 text-primary">...بارگذاری</span>
                     <div
-                      className="spinner-grow text-primary ml-2"
+                      className="spinner-border text-primary ml-2"
                       role="status"
                     ></div>
                   </>
@@ -216,6 +216,7 @@ const generalinfo = () => {
                 <div className="generalinfo">
                   <div className="generalinfo-grid grid grid-cols-12 gap-3">
                     <div className="generalinfo-input lg:col-span-4 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         نام
                       </label>
@@ -230,6 +231,7 @@ const generalinfo = () => {
                       </div>
                     </div>
                     <div className="generalinfo-input lg:col-span-4 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         نام خانوادگی
                       </label>
@@ -244,6 +246,7 @@ const generalinfo = () => {
                       </div>
                     </div>
                     <div className="generalinfo-input lg:col-span-4 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         کدملی
                       </label>
@@ -262,6 +265,7 @@ const generalinfo = () => {
                   </div>
                   <div className="generalinfo-grid grid grid-cols-12 gap-3">
                     <div className="generalinfo-input lg:col-span-4 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         تاریخ تولد
                       </label>
@@ -291,6 +295,7 @@ const generalinfo = () => {
                       </div>
                     </div>
                     <div className="generalinfo-input lg:col-span-4 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         محل تولد
                       </label>
@@ -315,6 +320,7 @@ const generalinfo = () => {
                       </div>
                     </div>
                     <div className="generalinfo-input lg:col-span-4 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         جنسیت
                       </label>
@@ -375,6 +381,7 @@ const generalinfo = () => {
                   </div>
                   <div className="generalinfo-grid grid grid-cols-12 gap-3">
                     <div className="generalinfo-input lg:col-span-6 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         حساب بانکی
                       </label>
@@ -391,6 +398,7 @@ const generalinfo = () => {
                     </div>
                     <div className="generalinfo-input lg:col-span-6 col-span-12">
                       <div className="generalinfo-input lg:col-span-6 col-span-12">
+                        <sup className="text-danger">*</sup>
                         <label className="text-sm text-slate-700 px-2 mb-2">
                           شماره شبا
                         </label>
@@ -419,9 +427,9 @@ const generalinfo = () => {
                 <div className="next-btn w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center">
                   {loading && (
                     <>
-                      <span className="ml-2 text-primary">...Loading</span>
+                      <span className="ml-2 text-primary">...بارگذاری</span>
                       <div
-                        className="spinner-grow text-primary ml-2"
+                        className="spinner-border text-primary ml-2"
                         role="status"
                       ></div>
                     </>

@@ -57,7 +57,7 @@ const Permission = () => {
           if ([i] >= counter) {
             gettingSlides();
             softDeleteModalHandler2();
-            toast.success(`اسلاید   با موفقیت ذخیره شد!`);
+            toast.success(`اسلاید با موفقیت ذخیره شد`);
             setLoading(false);
           } else {
             console.log("عملیات با مشکل مواجه شد");
@@ -138,17 +138,17 @@ const Permission = () => {
       )
       .then(function (response) {
         if (response) {
-          toast.success("تصویر مورد نظر با موفقیت پاک شد!");
+          toast.success("تصویر مورد نظر با موفقیت پاک شد");
           setDeLeteLoading(false);
           gettingSlides();
           setShowModal(false);
         } else {
-          toast.error("عملیات انجام نشد. مجددا سعی نمایید!");
+          toast.error("عملیات انجام نشد. مجددا سعی نمایید");
           setDeLeteLoading(false);
         }
       })
       .catch(function (error) {
-        toast.error("متاسفانه سرور جواب نمی دهد!");
+        toast.error("متاسفانه سرور جواب نمی دهد");
         console.log(error.message);
         setDeLeteLoading(false);
       });
@@ -293,9 +293,9 @@ const Permission = () => {
                 <div className="next-btn w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center mb-2">
                   {loading && (
                     <>
-                      <span className="ml-2 text-primary">...Loading</span>
+                      <span className="ml-2 text-primary">...بارگذاری</span>
                       <div
-                        className="spinner-grow text-primary ml-2"
+                        className="spinner-border text-primary ml-2"
                         role="status"
                       ></div>
                     </>

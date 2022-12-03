@@ -3,14 +3,13 @@ import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/router";
 
-
-const MarketingLayout = ({children}) => {
+const MarketingLayout = ({ children }) => {
   const router = useRouter();
 
   return (
-    
     <div className="col-span-12 business-panel-sibar md:col-span-2">
-      <nav className="navbar navbar-business w-[] navbar-business-expand-lg navbar-expand-lg">
+      {/* <div className="col-12 business-panel-sibar col-md-12"> */}
+      <nav className="navbar navbar-business  navbar-business-expand-lg navbar-expand-lg">
         <div className="navbar-business-container container-fluid mx-4">
           <div className="top-nav d-flex">
             <div className="bg-white rounded-full business-logo w-14 h-14">
@@ -47,9 +46,7 @@ const MarketingLayout = ({children}) => {
                           className="flex items-center justify-center rounded-full"
                         ></Image>
                         <div className="flex flex-col mr-3">
-                          <p className="text-xs font-semibold">
-                            فروشگاه رضا
-                          </p>
+                          <p className="text-xs font-semibold">فروشگاه رضا</p>
                           <small className="text-xs">امیر باقری</small>
                         </div>
                       </a>
@@ -65,9 +62,7 @@ const MarketingLayout = ({children}) => {
                           className="flex items-center justify-center rounded-full"
                         ></Image>
                         <div className="flex flex-col mr-3">
-                          <p className="text-xs font-semibold">
-                            فروشگاه رضا
-                          </p>
+                          <p className="text-xs font-semibold">فروشگاه رضا</p>
                           <small className="text-xs">امیر باقری</small>
                         </div>
                       </a>
@@ -83,9 +78,7 @@ const MarketingLayout = ({children}) => {
                           className="flex items-center justify-center rounded-full"
                         ></Image>
                         <div className="flex flex-col mr-3">
-                          <p className="text-xs font-semibold">
-                            فروشگاه رضا
-                          </p>
+                          <p className="text-xs font-semibold">فروشگاه رضا</p>
                           <small className="text-xs">امیر باقری</small>
                         </div>
                       </a>
@@ -93,9 +86,7 @@ const MarketingLayout = ({children}) => {
                   </li>
                 </ul>
               </div>
-              <p className="text-xs font-semibold py-0.5">
-                فروشگاه شیک نو
-              </p>
+              <p className="text-xs font-semibold py-0.5">فروشگاه شیک نو</p>
               <small className="text-xs">آرش محمدی </small>
               <Link href="/panel/personnel/add">
                 <a>GO</a>
@@ -132,15 +123,14 @@ const MarketingLayout = ({children}) => {
                 </div>
               </div>
               <div className=" px-4 my-1 bg-white group-hover:text-blue-500 rounded-md business-nav-item nav-item">
-                <div className="flex items-center w-full h-full nav-item-flex">
+                <div className="flex items-center w-32 h-full nav-item-flex">
                   <i className="bi bi-person text-sm text-black"></i>
                   <Link href="/marketing/info/generalinfo">
                     <a
                       className="business-nav-link  nav-link  mr-1 ${router.pathname === '/../../user-info/about' ? 'bg-blue-500 text-blue-50' : ''} "
                       aria-current="page"
                     >
-                      <span className="text-xs text-black">
-                        {" "}
+                      <span className="text-xs w-full  text-black">
                         اطلاعات کسب و کار
                       </span>
                     </a>
@@ -160,29 +150,34 @@ const MarketingLayout = ({children}) => {
                   </Link>
                 </div>
               </div>
-              <div className="accordion mb-1 border-none" id="accordionPanelsStayOpenExample">
-                
+              {/* az inja */}
+              <div
+                className="accordion mb-1 border-none"
+                id="accordionPanelsStayOpenExample"
+              >
                 <div className="w-full accordion-item border-none relative ">
-                  <div className="cursor-pointer"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#panelsStayOpen-collapseOne"
-                      aria-expanded="true"
-                      aria-controls="panelsStayOpen-collapseOne">
-                  <h2
-                    className="accordion-header px-4 py-2"
-                    id="panelsStayOpen-headingOne"
+                  <div
+                    className="cursor-pointer"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseOne"
+                    aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseOne"
                   >
-                    <a
-                      className="text-xs collapsed text-slate-600"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#panelsStayOpen-collapseOne"
-                      aria-expanded="false"
-                      aria-controls="panelsStayOpen-collapseOne"
+                    <h2
+                      className="accordion-header px-4 py-2"
+                      id="panelsStayOpen-headingOne"
                     >
-                      <i className="bi bi-layout-text-window text-xs text-black ml-2"></i>
-                      محصولات
-                    </a>
-                  </h2>
+                      <a
+                        className="text-xs collapsed text-slate-600"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseOne"
+                        aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseOne"
+                      >
+                        <i className="bi bi-layout-text-window text-xs text-black ml-2"></i>
+                        محصولات
+                      </a>
+                    </h2>
                   </div>
                   <div
                     id="panelsStayOpen-collapseOne"
@@ -208,7 +203,10 @@ const MarketingLayout = ({children}) => {
                           </svg>
                         </span>
                         <Link href="/marketing/products/add">
-                          <a className="mr-1 text-[12px] text-slate-600">
+                          <a
+                            className="mr-1 text-[12px] text-slate-600"
+                            role={"button"}
+                          >
                             ۱. افزودن محصول
                           </a>
                         </Link>
@@ -263,11 +261,11 @@ const MarketingLayout = ({children}) => {
                   </div>
                 </div>
               </div>
-
+              {/* Ta inje Mahsoulat */}
               <div className="px-4 mb-1 bg-white rounded-md business-nav-item nav-item">
                 <div className="flex items-center w-full h-full nav-item-flex">
                   <i className="bi bi-diagram-3 text-sm text-black"></i>
-                  <Link href="/marketing/dashboard">
+                  <Link href="#">
                     <a
                       className="business-nav-link nav-link text-xs text-black mr-1"
                       aria-current="page"
@@ -277,29 +275,33 @@ const MarketingLayout = ({children}) => {
                   </Link>
                 </div>
               </div>
-              <div className="accordion mb-1 border-none" id="accordionPanelsStayOpenOrders">
-                
+              <div
+                className="accordion mb-1 border-none"
+                id="accordionPanelsStayOpenOrders"
+              >
                 <div className="w-full accordion-item border-none relative ">
-                  <div className="cursor-pointer"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#panelsStayOpen-collapseOneOrders"
-                      aria-expanded="true"
-                      aria-controls="panelsStayOpen-collapseOneOrders">
-                  <h2
-                    className="accordion-header px-4 py-2"
-                    id="panelsStayOpen-headingOne"
+                  <div
+                    className="cursor-pointer"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseOneOrders"
+                    aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseOneOrders"
                   >
-                    <a
-                      className="text-xs collapsed text-slate-600"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#panelsStayOpen-collapseOneOrders"
-                      aria-expanded="false"
-                      aria-controls="panelsStayOpen-collapseOneOrders"
+                    <h2
+                      className="accordion-header px-4 py-2"
+                      id="panelsStayOpen-headingOne"
                     >
-                      <i className="bi bi-person-lines-fill text-sm text-black ml-2"></i>
-                      سفارش ها
-                    </a>
-                  </h2>
+                      <a
+                        className="text-xs collapsed text-slate-600"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseOneOrders"
+                        aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseOneOrders"
+                      >
+                        <i className="bi bi-person-lines-fill text-sm text-black ml-2"></i>
+                        سفارش ها
+                      </a>
+                    </h2>
                   </div>
                   <div
                     id="panelsStayOpen-collapseOneOrders"
@@ -357,7 +359,7 @@ const MarketingLayout = ({children}) => {
                   </div>
                 </div>
               </div>
-              <div className="px-4 mb-1 bg-white rounded-md business-nav-item nav-item">
+              {/* <div className="px-4 mb-1 bg-white rounded-md business-nav-item nav-item">
                 <div className="flex items-center w-full h-full nav-item-flex">
                   <i className="bi bi-person-lines-fill text-sm text-black"></i>
                   <Link href="/">
@@ -369,7 +371,7 @@ const MarketingLayout = ({children}) => {
                     </a>
                   </Link>
                 </div>
-              </div>
+              </div> */}
               <div className="px-4 mb-1 bg-white rounded-md business-nav-item nav-item">
                 <div className="flex items-center w-full h-full nav-item-flex">
                   <i className="bi bi-cart2 text-sm text-black"></i>

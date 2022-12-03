@@ -72,11 +72,11 @@ const agreement = () => {
         setData(data);
         gettingAgreementInfoes();
         // router.push("./social");
-        toast.success("اطلاعات با موفقیت ثبت شد!");
+        toast.success("اطلاعات با موفقیت ثبت شد");
       })
       .catch((error) => {
         setLoading(false);
-        toast.error("عملیات انجام نشد لطفا مجددا سعی نمایید!");
+        toast.error("عملیات انجام نشد لطفا مجددا سعی نمایید");
         console.log(error.message);
       });
   };
@@ -127,10 +127,10 @@ const agreement = () => {
       .then(function (response) {
         modalHandler();
         gettingAgreementInfoes();
-        toast.success("مشخصات قرارداد مورد نظر با موفقیت پاک شد!");
+        toast.success("مشخصات قرارداد مورد نظر با موفقیت پاک شد");
       })
       .catch(function (err) {
-        toast.error("عملیات انجام نشد. لطفا مجددا سعی فرمایید!");
+        toast.error("عملیات انجام نشد. لطفا مجددا سعی فرمایید");
         console.log(err.message);
       });
   };
@@ -147,9 +147,9 @@ const agreement = () => {
               <div className="agreement-form bg-white overflow-hidden roundde-lg shadow-md px-5 mt-[4.5rem]">
                 {loading && (
                   <>
-                    <span className="ml-2 text-primary">...Loading</span>
+                    <span className="ml-2 text-primary">...بارگذاری</span>
                     <div
-                      className="spinner-grow text-primary ml-2"
+                      className="spinner-border text-primary ml-2"
                       role="status"
                     ></div>
                   </>
@@ -163,6 +163,7 @@ const agreement = () => {
                 <div className="agreement">
                   <div className="agreement-grid grid grid-cols-12 gap-3">
                     <div className="agreement-input lg:col-span-3 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-600 px-2 mb-2">
                         موضوع قرارداد
                       </label>
@@ -176,6 +177,7 @@ const agreement = () => {
                       </div>
                     </div>
                     <div className="agreement-select lg:col-span-3 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-600 px-2 mb-2">
                         استان
                       </label>
@@ -195,6 +197,7 @@ const agreement = () => {
                       </select>
                     </div>
                     <div className="agreement-input lg:col-span-3 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-600 px-2 mb-2">
                         نام کارفرما
                       </label>
@@ -208,6 +211,7 @@ const agreement = () => {
                       </div>
                     </div>
                     <div className="agreement-select lg:col-span-3 col-span-12">
+                      <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-600 px-2 mb-2">
                         وضعیت
                       </label>
@@ -307,9 +311,9 @@ const agreement = () => {
                   <div className="next-btn w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center">
                     {loading && (
                       <>
-                        <span className="ml-2 text-primary">...Loading</span>
+                        <span className="ml-2 text-primary">...بارگذاری</span>
                         <div
-                          className="spinner-grow text-primary ml-2"
+                          className="spinner-border text-primary ml-2"
                           role="status"
                         ></div>
                       </>
