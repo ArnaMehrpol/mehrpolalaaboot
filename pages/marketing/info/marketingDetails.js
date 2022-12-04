@@ -42,6 +42,8 @@ const info = () => {
   const [tel2Code, setTel2Code] = useState("");
   const [allAddresses, setAllAddresses] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [account_number, setAccount_number] = useState("");
+  const [sheba_number, setSheba_number] = useState("");
 
   const [regNumber, setRegNumber] = useState("");
   const [economyCode, setEconomyCode] = useState("");
@@ -170,9 +172,7 @@ const info = () => {
         setLoading(false);
         if (response) {
           const data = response.data;
-
           console.log(data);
-
           setBusinessName(data.name);
           setFoundedYear(data.established_year);
           setLogo(data.logo_file);
@@ -186,6 +186,9 @@ const info = () => {
           setNationalBusinessNumber(data.nationalBusinessNumber);
           setMehrpolDomain(data.username);
           setEmail(data.email);
+          setAccount_number(account_number);
+          setSheba_number(sheba_number);
+
           // setBusiness_id(data.business_id);
         } else {
           setLoading(false);
@@ -213,6 +216,8 @@ const info = () => {
           nationalBusinessNumber: nationalBusinessNumber,
           username: mehrpolDomain,
           email: email,
+          account_number: account_number,
+          sheba_number: sheba_number,
         },
         {
           headers: {
@@ -464,6 +469,37 @@ const info = () => {
                         aria-label="Default select example"
                       >
                         <option selected>دسته را انتخاب کنید</option>
+
+                        <option className="text-slate-400 text-sm" value="1">
+                          تولیدی
+                        </option>
+                        <option className="text-slate-400 text-sm" value="2">
+                          فروشگاه
+                        </option>
+                        <option className="text-slate-400 text-sm" value="3">
+                          پیمانکاری
+                        </option>
+                        <option className="text-slate-400 text-sm" value="4">
+                          تامین کننده
+                        </option>
+                        <option className="text-slate-400 text-sm" value="5">
+                          خدمات
+                        </option>
+                      </select>
+                    </div>
+                    {/* ******************************************** */}
+                    <div className="info-input lg:col-span-4 col-span-12">
+                      <sup className="text-danger">*</sup>
+                      <label className="text-sm text-slate-700 px-2 mb-2">
+                        حوزه کسب و کار
+                      </label>
+                      {/* *************************** */}
+                      <select
+                        onChange={(e) => getCategoryChildren(e.target.value)}
+                        className="form-select form-select-text-style py-[0.675rem]"
+                        aria-label="Default select example"
+                      >
+                        <option selected>حوزه را انتخاب کنید</option>
                         {allCategories.map((category) => {
                           return (
                             <option
@@ -475,11 +511,12 @@ const info = () => {
                           );
                         })}
                       </select>
+                      {/* *************************** */}
                     </div>
                     <div className="info-input lg:col-span-4 col-span-12">
                       <sup className="text-danger">*</sup>
                       <label className="text-sm text-slate-700 px-2 mb-2">
-                        حوزه کسب و کار
+                        شاخه کسب و کار
                       </label>
                       <select
                         onChange={(e) => {
@@ -488,7 +525,7 @@ const info = () => {
                         className="form-select form-select-text-style py-[0.675rem]"
                         aria-label="Default select example"
                       >
-                        <option selected>حوزه را انتخاب کنید</option>
+                        <option selected>شاخه را انتخاب کنید</option>
                         {allAreas.map(function (area) {
                           return (
                             <option className="IranSanse" value={area.id}>
@@ -497,13 +534,7 @@ const info = () => {
                           );
                         })}
                       </select>
-                    </div>
-                    <div className="info-input lg:col-span-4 col-span-12">
-                      <sup className="text-danger">*</sup>
-                      <label className="text-sm text-slate-700 px-2 mb-2">
-                        شاخه کسب و کار
-                      </label>
-                      <select
+                      {/* <select
                         onChange={(e) => setSubArea(e.target.value)}
                         className="form-select form-select-text-style py-[0.675rem]"
                         aria-label="Default select example"
@@ -519,7 +550,7 @@ const info = () => {
                             </option>
                           );
                         })}
-                      </select>
+                      </select> */}
                     </div>
                   </div>
                   {/* ************* 11111111111111111 */}
@@ -551,7 +582,7 @@ const info = () => {
                         placeholder={
                           nationalBusinessNumber
                             ? nationalBusinessNumber
-                            : "شناسه ملی کسب و کار"
+                            : "کد اقتصادی را وارد فرمایید"
                         }
                         type="text"
                         className="form-control text-xs myColor "
@@ -565,9 +596,7 @@ const info = () => {
                       <input
                         onChange={(e) => setEconomyCode(e.target.value)}
                         placeholder={
-                          economyCode
-                            ? economyCode
-                            : "کد اقتصادی را وارد فرمایید"
+                          economyCode ? economyCode : "شناسه ملی کسب و کار"
                         }
                         type="text"
                         className="form-control text-xs myColor"
@@ -619,6 +648,52 @@ const info = () => {
                     </div>
                   </div>
                 </div>
+                {/* ******************************** */}
+                <div className="generalinfo-grid grid grid-cols-12 gap-3">
+                  <div className="generalinfo-input lg:col-span-6 col-span-12">
+                    <sup className="text-danger">*</sup>
+                    <label className="text-sm text-slate-700 px-2 mb-2">
+                      حساب بانکی
+                    </label>
+                    <div className="all-input-group input-group mb-3">
+                      <input
+                        onChange={(e) => setAccount_number(e.target.value)}
+                        type="number"
+                        className="form-control"
+                        placeholder={
+                          account_number ? account_number : "شماره حساب"
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="generalinfo-input lg:col-span-6 col-span-12">
+                    <div className="generalinfo-input lg:col-span-6 col-span-12">
+                      <sup className="text-danger">*</sup>
+                      <label className="text-sm text-slate-700 px-2 mb-2">
+                        شماره شبا
+                      </label>
+                      <div className="all-input-group input-group mb-3">
+                        <input
+                          onChange={(e) => setSheba_number(e.target.value)}
+                          type="number"
+                          className="form-control"
+                          placeholder={
+                            sheba_number ? sheba_number : "شماره شبا"
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* ******************************** */}
+                <div className="generalinfo-text my-3">
+                  <p className="text-xs text-slate-600 text-justify">
+                    این شماره صرفا برای واریز مبالغ دریافتی بابت فروش و برگشتی
+                    استفاده می شود و از نظر مهر پل به عنوان حساب مرجع شناخته می
+                    شود.
+                  </p>
+                </div>
+
                 <div className="email mt-2">
                   <div className="next-btn w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center">
                     <button
@@ -900,12 +975,6 @@ const info = () => {
                   </div>
                   <div className="lg:col-span-3 col-span-1"></div>
                 </div>
-                <button
-                  onClick={() => setLoading(true)}
-                  className="btn btn-warning"
-                >
-                  Do it
-                </button>
 
                 <div className="next-btn w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center">
                   {loading && (

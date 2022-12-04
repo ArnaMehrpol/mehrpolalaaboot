@@ -7,6 +7,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import MarketingInfoSide from "../../../components/marketing/layout/MarketingInfoSide";
 import MarketingInfoHeader from "../../../components/marketing/marketingHeader/MarketingInfoHeader";
+import Editor from "../../../components/Editor";
 
 const about = () => {
   const [url, seturl] = useState("https://dfgsdfgsdfgj32gsdg.mehrpol.com/");
@@ -23,17 +24,21 @@ const about = () => {
   const [accessories, setAccessories] = useState("");
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [editorLoaded, setEditorLoaded] = useState(false);
+  const [data, setData] = useState("");
   const cookieSetter = () => {
     setBusiness_id(cookies.get("b-Id"));
   };
-
+  useEffect(() => {
+    setEditorLoaded(true);
+  }, []);
   useEffect(() => {
     setToken(cookies.get("token"));
     gettingAbouteInfos();
   }, []);
   const handleSubmitAbout = (e) => {
     setLoading(true);
+
     e.preventDefault();
     axios
       .post(
@@ -145,7 +150,16 @@ const about = () => {
                     <h5 className="text-base font-semibold">
                       معرفی کسب و کار (حداقل 400 کاراکتر و حداکثر 800 کاراکتر)
                     </h5>
-                    <textarea
+                    <Editor
+                      uiLanguage="fa"
+                      name="description1"
+                      onChange={(data) => setIntroduce(data)}
+                      editorLoaded={editorLoaded}
+                      placeholder={
+                        introduce != "" ? introduce : "معرفی کسب و کار"
+                      }
+                    />
+                    {/* <textarea
                       onChange={(e) => setIntroduce(e.target.value)}
                       placeholder={
                         ok != " " && introduce != ""
@@ -157,14 +171,24 @@ const about = () => {
                       id=""
                       cols="30"
                       rows="10"
-                    ></textarea>
+                    ></textarea> */}
                   </div>
 
                   <div className="about-list-title flex flex-col mb-4">
                     <h5 className="text-base font-semibold">
                       پیام مدیریت (حداقل 200 کاراکتر و حداکثر 600 کاراکتر)
                     </h5>
-                    <textarea
+                    <Editor
+                      name="description2"
+                      onChange={(data) => setManagementMessage(data)}
+                      editorLoaded={editorLoaded}
+                      placeholder={
+                        managementMessage != ""
+                          ? managementMessage
+                          : "پیام مدیریت"
+                      }
+                    />
+                    {/* <textarea
                       onChange={(e) => setManagementMessage(e.target.value)}
                       placeholder={
                         ok != " " && managementMessage != ""
@@ -176,14 +200,20 @@ const about = () => {
                       id=""
                       cols="30"
                       rows="10"
-                    ></textarea>
+                    ></textarea> */}
                   </div>
 
                   <div className="about-list-title flex flex-col mb-4">
                     <h5 className="text-base font-semibold">
                       چشم انداز (حداقل 100 کاراکتر و حداکثر 600 کاراکتر)
                     </h5>
-                    <textarea
+                    <Editor
+                      name="description3"
+                      onChange={(data) => setVision(data)}
+                      editorLoaded={editorLoaded}
+                      placeholder={vision != "" ? vision : "چشم انداز"}
+                    />
+                    {/* <textarea
                       onChange={(e) => setVision(e.target.value)}
                       placeholder={
                         ok != "" && vision != "" ? vision : "چشم انداز"
@@ -193,14 +223,20 @@ const about = () => {
                       id=""
                       cols="30"
                       rows="10"
-                    ></textarea>
+                    ></textarea> */}
                   </div>
 
                   <div className="about-list-title flex flex-col mb-4">
                     <h5 className="text-base font-semibold">
                       ماموریت (حداقل 100 کاراکتر و حداکثر 800 کاراکتر)
                     </h5>
-                    <textarea
+                    <Editor
+                      name="description1"
+                      onChange={(data) => setMission(data)}
+                      editorLoaded={editorLoaded}
+                      placeholder={mission != "" ? mission : "ماموریت"}
+                    />
+                    {/* <textarea
                       onChange={(e) => {
                         setMission(e.target.value);
                       }}
@@ -212,12 +248,20 @@ const about = () => {
                       id=""
                       cols="30"
                       rows="10"
-                    ></textarea>
+                    ></textarea> */}
                   </div>
 
                   <div className="about-list-title flex flex-col mb-4">
                     <h5 className="text-base font-semibold">لوازم و تجهیزات</h5>
-                    <textarea
+                    <Editor
+                      name="description4"
+                      onChange={(data) => setAccessories(data)}
+                      editorLoaded={editorLoaded}
+                      placeholder={
+                        accessories != "" ? accessories : "لوازم و تجهیزات"
+                      }
+                    />
+                    {/* <textarea
                       onChange={(e) => setAccessories(e.target.value)}
                       placeholder={
                         ok != "" && accessories != ""
@@ -229,7 +273,7 @@ const about = () => {
                       id=""
                       cols="30"
                       rows="10"
-                    ></textarea>
+                    ></textarea> */}
                   </div>
 
                   <div className="next-btn mb-2 w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center">

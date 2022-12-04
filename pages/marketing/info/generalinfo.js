@@ -33,8 +33,7 @@ const generalinfo = () => {
   // const [position, setPosition] = useState("");
   const [mobile, setMobile] = useState("");
   const [mobile_2, setMobile_2] = useState("");
-  const [account_number, setAccount_number] = useState("");
-  const [sheba_number, setSheba_number] = useState("");
+
   const [allStates, setAllStates] = useState([]);
   const [allBusiness, setAllBusiness] = useState([]);
   const [business_id, setBusiness_id] = useState(null);
@@ -125,16 +124,14 @@ const generalinfo = () => {
         url + "api/user/3",
         {
           _method: "PUT",
-          name: name,
-          last_name: last_name,
-          national_code: national_code,
-          birthday: enBirthday,
+          // name: name,
+          // last_name: last_name,
+          // national_code: national_code,
+          // birthday: enBirthday,
           birthday_place_id: birthday_place,
-          gender: gender,
-          mobile: mobile,
+          // gender: gender,
+          // mobile: mobile,
           mobile_2: mobile_2,
-          account_number: account_number,
-          sheba_number: sheba_number,
         },
         {
           headers: {
@@ -207,16 +204,16 @@ const generalinfo = () => {
                   <small className="text-slate-500 text-xs mt-0.5">
                     اطلاعات عمومی صاحب کسب و کار را وارد نمایید
                   </small>
-                  <small className="text-red-500 text-xs mt-1">
+                  {/* <small className="text-red-500 text-xs mt-1">
                     اطلاعات کسب و کار می بایست منطبق بر اطلاعات مجوز فعالیت ثبت
                     گردد
-                  </small>
+                  </small> */}
                 </div>
 
                 <div className="generalinfo">
                   <div className="generalinfo-grid grid grid-cols-12 gap-3">
                     <div className="generalinfo-input lg:col-span-4 col-span-12">
-                      <sup className="text-danger">*</sup>
+                      {/* <sup className="text-danger">*</sup> */}
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         نام
                       </label>
@@ -231,7 +228,7 @@ const generalinfo = () => {
                       </div>
                     </div>
                     <div className="generalinfo-input lg:col-span-4 col-span-12">
-                      <sup className="text-danger">*</sup>
+                      {/* <sup className="text-danger">*</sup> */}
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         نام خانوادگی
                       </label>
@@ -246,7 +243,7 @@ const generalinfo = () => {
                       </div>
                     </div>
                     <div className="generalinfo-input lg:col-span-4 col-span-12">
-                      <sup className="text-danger">*</sup>
+                      {/* <sup className="text-danger">*</sup> */}
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         کدملی
                       </label>
@@ -265,7 +262,7 @@ const generalinfo = () => {
                   </div>
                   <div className="generalinfo-grid grid grid-cols-12 gap-3">
                     <div className="generalinfo-input lg:col-span-4 col-span-12">
-                      <sup className="text-danger">*</sup>
+                      {/* <sup className="text-danger">*</sup> */}
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         تاریخ تولد
                       </label>
@@ -320,7 +317,7 @@ const generalinfo = () => {
                       </div>
                     </div>
                     <div className="generalinfo-input lg:col-span-4 col-span-12">
-                      <sup className="text-danger">*</sup>
+                      {/* <sup className="text-danger">*</sup> */}
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         جنسیت
                       </label>
@@ -378,49 +375,6 @@ const generalinfo = () => {
                         />
                       </div>
                     </div>
-                  </div>
-                  <div className="generalinfo-grid grid grid-cols-12 gap-3">
-                    <div className="generalinfo-input lg:col-span-6 col-span-12">
-                      <sup className="text-danger">*</sup>
-                      <label className="text-sm text-slate-700 px-2 mb-2">
-                        حساب بانکی
-                      </label>
-                      <div className="all-input-group input-group mb-3">
-                        <input
-                          onChange={(e) => setAccount_number(e.target.value)}
-                          type="number"
-                          className="form-control"
-                          placeholder={
-                            account_number ? account_number : "شماره حساب"
-                          }
-                        />
-                      </div>
-                    </div>
-                    <div className="generalinfo-input lg:col-span-6 col-span-12">
-                      <div className="generalinfo-input lg:col-span-6 col-span-12">
-                        <sup className="text-danger">*</sup>
-                        <label className="text-sm text-slate-700 px-2 mb-2">
-                          شماره شبا
-                        </label>
-                        <div className="all-input-group input-group mb-3">
-                          <input
-                            onChange={(e) => setSheba_number(e.target.value)}
-                            type="number"
-                            className="form-control"
-                            placeholder={
-                              sheba_number ? sheba_number : "شماره شبا"
-                            }
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="generalinfo-text my-3">
-                    <p className="text-xs text-slate-600 text-justify">
-                      این شماره صرفا برای واریز مبالغ دریافتی بابت فروش و برگشتی
-                      استفاده می شود و از نظر مهر پل به عنوان حساب مرجع شناخته
-                      می شود.
-                    </p>
                   </div>
                 </div>
 

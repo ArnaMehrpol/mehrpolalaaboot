@@ -2,9 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const MarketingLayout = ({ children }) => {
   const router = useRouter();
+  const [showMe, setShowMe] = useState(false);
+  const [showMe2, setShowMe2] = useState(false);
 
   return (
     <div className="col-span-12 business-panel-sibar md:col-span-2">
@@ -168,20 +171,34 @@ const MarketingLayout = ({ children }) => {
                       id="panelsStayOpen-headingOne"
                     >
                       <a
+                        onClick={() => {
+                          setShowMe(!showMe);
+                        }}
                         className="text-xs collapsed text-slate-600"
                         data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseOne"
                         aria-expanded="false"
                         aria-controls="panelsStayOpen-collapseOne"
                       >
-                        <i className="bi bi-layout-text-window text-xs text-black ml-2"></i>
+                        <i
+                          onChange={() => {
+                            setShowMe(!showMe);
+                          }}
+                          className="bi bi-layout-text-window text-xs text-black ml-2"
+                        ></i>
                         محصولات
                       </a>
+                      {showMe ? (
+                        <i className="bi bi-chevron-compact-down mr-11"></i>
+                      ) : (
+                        <i className="bi bi-chevron-compact-left mr-11"></i>
+                      )}
                     </h2>
                   </div>
+
                   <div
                     id="panelsStayOpen-collapseOne"
-                    className="accordion-collapse collapse show bg-[##f3f4f6 ]"
+                    className="accordion-collapse collapse  bg-[##f3f4f6 ]"
                     aria-labelledby="panelsStayOpen-headingOne"
                   >
                     <div className="w-full accordion-body space-y-2 bg-slate-100">
@@ -213,20 +230,7 @@ const MarketingLayout = ({ children }) => {
                       </div>
                       <div className="flex items-center">
                         <span className="flex items-center shadow-lg justify-center w-8 h-8 ml-2 bg-white">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 h-6 text-slate-600"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-                            />
-                          </svg>
+                          <i class="bi bi-list-check"></i>
                         </span>
                         <Link href="/marketing/products/list">
                           <a className="mr-1 text-[12px] text-slate-600">
@@ -292,6 +296,9 @@ const MarketingLayout = ({ children }) => {
                       id="panelsStayOpen-headingOne"
                     >
                       <a
+                        onClick={() => {
+                          setShowMe2(!showMe2);
+                        }}
                         className="text-xs collapsed text-slate-600"
                         data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseOneOrders"
@@ -301,11 +308,16 @@ const MarketingLayout = ({ children }) => {
                         <i className="bi bi-person-lines-fill text-sm text-black ml-2"></i>
                         سفارش ها
                       </a>
+                      {showMe2 ? (
+                        <i className="bi bi-chevron-compact-down mr-10"></i>
+                      ) : (
+                        <i className="bi bi-chevron-compact-left mr-10"></i>
+                      )}
                     </h2>
                   </div>
                   <div
                     id="panelsStayOpen-collapseOneOrders"
-                    className="accordion-collapse collapse show bg-[##f3f4f6 ]"
+                    className="accordion-collapse collapse  bg-[##f3f4f6 ]"
                     aria-labelledby="panelsStayOpen-headingOne"
                   >
                     <div className="w-full accordion-body space-y-2 bg-slate-100">
@@ -334,20 +346,7 @@ const MarketingLayout = ({ children }) => {
                       </div>
                       <div className="flex items-center">
                         <span className="flex items-center shadow-lg justify-center w-8 h-8 ml-2 bg-white">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 h-6 text-slate-600"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-                            />
-                          </svg>
+                          <i class="bi bi-list-check"></i>
                         </span>
                         <Link href="/marketing/orders/Request">
                           <a className="mr-1 text-[12px] text-slate-600">
