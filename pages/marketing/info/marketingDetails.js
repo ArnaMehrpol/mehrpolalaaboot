@@ -62,6 +62,7 @@ const info = () => {
   const [showAddressModal, setShowAddressModal] = useState(false);
 
   const [addressId, setAddressId] = useState(null);
+  const [disabled, setDisabled] = useState(false);
 
   const [token, setToken] = useState("");
   const cookies = new Cookies();
@@ -90,11 +91,11 @@ const info = () => {
         }
       )
       .then(function (response) {
-        toast.success("آدرس مورد نظر با موفقیت پاک شد!");
+        toast.success("آدرس مورد نظر با موفقیت پاک شد");
         gettingAddresses();
       })
       .catch(function (error) {
-        toast.error("حذف آدرس با مشکل مواجه شد!");
+        toast.error("حذف آدرس با مشکل مواجه شد");
         console.log(error.message);
       });
   };
@@ -231,13 +232,28 @@ const info = () => {
         const data = response.data;
         setBusiness_id(data.business.id);
         cookies.set("b-Id", data.business.id, { path: "/" });
-        toast.success("اطلاعات با موفقیت ثبت شد!");
+
         gettingInfos();
+        document.getElementById("locationName").selected;
+        setDescription("");
+        document.getElementById("description").value = "";
+        // document.getElementById("description").style.backgroundColor = "red";
+        setPostal_code("");
+        document.getElementById("postal_code").value = "";
+        setTel1("");
+        document.getElementById("#tel_1").value = "";
+        setTel1Code("");
+        document.getElementById("tel_1_code").value = "";
+        setTel2("");
+        document.getElementById("tel_2").value = "";
+        setTel2Code("");
+        document.getElementById("tel_2_code").value = "";
+        toast.success("اطلاعات با موفقیت ثبت شد");
       })
 
       .catch((error) => {
         setLoadingSubmitInfo(false);
-        toast.error("ثبت اطلاعات با مشکل مواجه شد!");
+        toast.error("ثبت اطلاعات با مشکل مواجه شد");
         console.log(error.message);
       });
   };
@@ -270,13 +286,13 @@ const info = () => {
         }
       )
       .then(function (response) {
-        toast.success("بروز رسانی اطلاعات با موفقیت انجام شد!");
+        toast.success("بروز رسانی اطلاعات با موفقیت انجام شد");
         setLoadingUpdateInfo(false);
         gettingInfos();
       })
 
       .catch((error) => {
-        toast.error("بروز رسانی اطلاعات با مشکل مواجه شد!");
+        toast.error("بروز رسانی اطلاعات با مشکل مواجه شد");
         setLoadingUpdateInfo(false);
         console.log(error.message);
       });
@@ -285,6 +301,7 @@ const info = () => {
   const handleSubmitBusinessAddress = (e) => {
     e.preventDefault();
     setLoadingAddress(true);
+    gettingAddresses();
     console.log(business_id);
     axios
       .post(
@@ -315,7 +332,7 @@ const info = () => {
       .then(function (response) {
         setLoadingAddress(false);
         gettingAddresses();
-        toast.success("آدرس با موفقیت ثبت شد!");
+        toast.success("آدرس با موفقیت ثبت شد");
 
         setplace_id("");
         setLocationName("");
@@ -328,7 +345,7 @@ const info = () => {
       })
       .catch(function (error) {
         setLoadingAddress(false);
-        toast.error("ثبت اطلاعات با مشکل مواجه گردید!");
+        toast.error("ثبت اطلاعات با مشکل مواجه گردید");
         console.log(error.message);
       });
   };
@@ -353,6 +370,9 @@ const info = () => {
       .then(function (response) {
         setLoading(false);
         const data = response.data.data;
+        if (data === []) {
+          setDisabled(true);
+        }
         setAllAddresses(response.data.data);
         setLocationName(data.name);
         setplace_id(data.place_id);
@@ -751,17 +771,14 @@ const info = () => {
                         >
                           کارخانه
                         </option>
-                        <option
-                          className="text-slate-400 text-sm"
-                          value="شعبات"
-                        >
-                          شعبات
+                        <option className="text-slate-400 text-sm" value="شعبه">
+                          شعبه
                         </option>
                         <option
                           className="text-slate-400 text-sm"
-                          value="نمایندگی ها"
+                          value="نمایندگی"
                         >
-                          نمایندگی ها
+                          نمایندگی
                         </option>
                         <option
                           className="text-slate-400 text-sm"
@@ -950,16 +967,20 @@ const info = () => {
                   </div>
                   <div className="lg:col-span-2 col-span-3 ">
                     <div className="save-btn flex justify-end items-end mt-2">
-                      <button
-                        type="button"
-                        className="text-white myButton text-md px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6"
-                        onClick={(e) => {
-                          setShowAddressModal(!showAddressModal);
-                          gettingAddresses();
-                        }}
-                      >
-                        نمایش آدرس
-                      </button>
+                      {disabled ? (
+                        ""
+                      ) : (
+                        <button
+                          type="button"
+                          className="text-white myButton text-md px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6"
+                          onClick={(e) => {
+                            setShowAddressModal(!showAddressModal);
+                            gettingAddresses();
+                          }}
+                        >
+                          نمایش آدرس
+                        </button>
+                      )}
 
                       {showAddressModal ? (
                         <AddressModal

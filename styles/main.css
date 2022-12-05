@@ -22,7 +22,7 @@ input[type="number"]{
   position: absolute;
   top: 0;
   left: 0;
- z-index: 99;
+ z-index: 90;
  background-color: rgba(0, 0, 0, .5);
 }
 .mySpan{
@@ -74,20 +74,24 @@ input[type="number"]{
   justify-content: center;
   text-align: center;
   left: 15%;  
-  top: 30%;
-  height: 50vh;
-  max-height: 170vh;
+  /* top: 0; */
+  height: 70vh;
+  /* max-height: 170vh; */
   overflow-y: scroll;
 
+}
+.panel-addresses{
+  /* top: 0; */
 }
 .partOndeAddressModal{
   display: flex;
   flex-flow: column;
   justify-content: center;
   text-align: center;  
-  width: 100%;
+  width: 70%;
   /* left: 15%; */
-  height: 7vh;
+  /* height: 1vh; */
+ 
   
   margin-top: 20vh;
 }
