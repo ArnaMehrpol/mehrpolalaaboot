@@ -80,6 +80,12 @@ input[type="number"]{
   overflow-y: scroll;
 
 }
+.hesab{
+  background-color: rgb(187, 176, 176);
+  width: 13vh !important;
+  height:40px !important;
+ 
+}
 .panel-addresses{
   /* top: 0; */
 }

@@ -278,6 +278,25 @@ const info = () => {
     // console.log(convertToEn(date));
     // console.log(fixNumbersEnglish(birthdateUser.gregorian + ""));
     // console.log(fixNumbersEnglish(changeInfoUser.national_code));
+    if (changeInfoUser.first_name == "") {
+      document.getElementById("name").style.borderBlockColor = "red";
+      return false;
+    }
+    if (changeInfoUser.last_name == "") {
+      document.getElementById("last_name").style.borderBlockColor = "red";
+    }
+    if (changeInfoUser.mobile == "") {
+      document.getElementById("mobile").style.borderBlockColor = "red";
+    }
+    if (changeInfoUser.gender == "") {
+      document.getElementById("gender").style.borderBlockColor = "red";
+    }
+    if (changeInfoUser.birthday_place_id == "") {
+      document.getElementById("birthday_place").style.borderBlockColor = "red";
+    }
+    if (changeInfoUser.birthday_place_id == "") {
+      document.getElementById("birthday_place").style.borderBlockColor = "red";
+    }
 
     axios
       .post(
@@ -293,7 +312,7 @@ const info = () => {
           gender: changeInfoUser.gender,
           birthday_place_id: changeInfoUser.birthday_place_id,
           birthday: fixNumbersEnglish(birthdateUser.gregorian + ""),
-          picture: changeInfoUser.picture,
+          // picture: changeInfoUser.picture,
         },
         {
           headers: {
@@ -396,9 +415,10 @@ const info = () => {
     // }).then(res => setResUpdateInfoUser(res))
     // .catch(err => setCatchUpdateInfoUser(err))
   };
-  console.log({ changeInfoUser });
-  console.log({ userAddress });
-  console.log({ date });
+  // console.log({ changeInfoUser });
+  // console.log({ userAddress });
+  // console.log({ date });
+
   return (
     <div className=" max-w-screen-2xl bg-light md:px-12 pt-3 mx-auto" dir="rtl">
       <div>
@@ -417,16 +437,21 @@ const info = () => {
             </h6>
           </div>
           <div className="profile-info-box">
-            <div className="profile-info col-span-3 md:col-span-1">
+            <div className="profile-info col-span-3 md:col-span-1 mt-1">
               <label className="text-sm">
                 <sup className="text-danger">*</sup> نام
               </label>
               <input
+                id="name"
                 type="text"
                 name="first_name"
                 value={changeInfoUser.first_name}
                 placeholder="نام را وارد کنید"
-                onChange={changeHandler}
+                onChange={() => {
+                  changeHandler;
+                  document.getElementById("name").style.borderBlockColor =
+                    "white";
+                }}
                 className="border border-slate-100 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-sky-500 overflow-hidden rounded-sm py-2 px-2 text-sm"
               ></input>
             </div>
@@ -435,11 +460,16 @@ const info = () => {
                 <sup className="text-danger">*</sup> نام خانوادگی
               </label>
               <input
+                id="last_name"
                 name="last_name"
                 type="text"
                 value={changeInfoUser.last_name}
                 placeholder="نام خانوادگی را وارد کنید"
-                onChange={changeHandler}
+                onChange={() => {
+                  changeHandler;
+                  document.getElementById("last_name").style.borderBlockColor =
+                    "white";
+                }}
                 className="border border-slate-100 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-sky-500 overflow-hidden rounded-sm py-2 px-2 text-sm"
               ></input>
             </div>
@@ -448,6 +478,7 @@ const info = () => {
                 <sup className="text-danger">*</sup> موبایل
               </label>
               <input
+                id="mobile"
                 readOnly
                 type="text"
                 value={fixNumbers(changeInfoUser.mobile)}
@@ -468,12 +499,16 @@ const info = () => {
                 </p>
               </div>
               <input
+                id="national_code"
                 name="national_code"
                 type="number"
                 value={changeInfoUser.national_code}
                 placeholder="کد ملی خود را وارد کنید"
                 // onChange={checkValidationNationalId}
                 onChange={(e) => {
+                  document.getElementById(
+                    "national_code"
+                  ).style.borderBlockColor = "white";
                   changeHandler(e);
                   checkValidationNationalId(e);
                 }}
@@ -504,11 +539,11 @@ const info = () => {
                 <DatePicker
                   style={{
                     outline: "none",
-                    height: "40px",
+                    height: "36px",
                     border: "none",
                     fontSize: "16px",
                     padding: "3px 10px",
-                    width: "315px",
+                    width: "200px",
                   }}
                   // className="rmdp-mobile"
                   // mobileLabels={{
@@ -538,21 +573,33 @@ const info = () => {
               <lable htmlFor="male" className="text-sm">
                 <sup className="text-danger">*</sup> جنسیت
               </lable>
-              <div className=" border-2 py-[10px] px-2">
+              <div
+                className=" border-2 py-[10px] px-2"
+                style={{
+                  outline: "none",
+                  height: "42px",
+                  // border: "none",
+                  fontSize: "16px",
+                  padding: "3px 10px",
+                  width: "255px",
+                }}
+              >
                 <input
                   id="male"
                   checked={changeInfoUser.gender === "male" ? true : false}
-                  className="py-1 px-2"
+                  className="py-1 px-2 mt-2"
                   type="radio"
                   name="sex"
                   value="male"
                   label="مرد"
-                  onClick={(e) =>
+                  onClick={(e) => {
+                    document.getElementById("mail").style.borderBlockColor =
+                      "white";
                     setChangeInfoUser({
                       ...changeInfoUser,
                       gender: e.target.value,
-                    })
-                  }
+                    });
+                  }}
                 ></input>
                 <label htmlFor="male" className="pr-2 text-slate-400">
                   مرد
@@ -564,12 +611,14 @@ const info = () => {
                   type="radio"
                   name="sex"
                   value="female"
-                  onClick={(e) =>
+                  onClick={(e) => {
+                    document.getElementById("femail").style.borderBlockColor =
+                      "white";
                     setChangeInfoUser({
                       ...changeInfoUser,
                       gender: e.target.value,
-                    })
-                  }
+                    });
+                  }}
                   label=" زن "
                 ></input>
                 <label htmlFor="female" className="text-slate-400 mr-2">
@@ -577,98 +626,9 @@ const info = () => {
                 </label>
               </div>
             </div>
-            <div className="profile-info col-span-3 md:col-span-2 mt-2">
-              <div className="flex justify-start items-end">
-                <lable className="text-xs font-semibold mb-1">
-                  <sup className="text-danger">*</sup> روش بازگرداندن پول
-                </lable>
-                {/* <p hidden={isShabaValidate} className="text-[#9a1515] text-[12px] mr-[30px]">شماره شبا بانکی را صحیح وارد کنید</p> */}
-              </div>
-              <div className="input-group w-100 flex items-center">
-                <select
-                  id="refundType"
-                  className="bg-white border border-slate-100 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-sky-500 overflow-hidden rounded-sm py-2 px-2 text-sm text-slate-400"
-                  onChange={changeHandler}
-                  value={changeInfoUser.refund_type}
-                  name="refund_type"
-                >
-                  <option selected> انتخاب کنید</option>
-                  <option value="sheba_number">شبا</option>
-                  <option value="account_number">حساب </option>
-                  <option value="card_number">کارت</option>
-                </select>
+            {/* Az Inja */}
 
-                <input
-                  type="text"
-                  name="typeReturnMoney"
-                  value={
-                    changeInfoUser.refund_type === "sheba_number"
-                      ? fixNumbers(changeInfoUser.typeReturnMoney.sheba_number)
-                      : changeInfoUser.refund_type === "account_number"
-                      ? fixNumbers(
-                          changeInfoUser.typeReturnMoney.account_number
-                        )
-                      : changeInfoUser.refund_type === "card_number"
-                      ? fixNumbers(changeInfoUser.typeReturnMoney.card_number)
-                      : ""
-                  }
-                  className="form-control text-left rounded-sm border border-slate-100"
-                  aria-label="Text input with dropdown button"
-                  onChange={(e) => {
-                    changeHandler(e);
-                    validationShabaChangeHandler(e);
-                  }}
-                />
-                {changeInfoUser.refund_type === "sheba_number" ? (
-                  <p className="p-[7px] border-y-2 border-l-2 border-slate-300 bg-slate-100">
-                    IR
-                  </p>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-            <div className="profile-info col-span-3 md:col-span-1 mt-[8px]">
-              {/* <lable className="text-sm">
-                <sup className="text-danger">*</sup> افزودن عکس پروفایل
-              </lable> */}
-              {/* <div className="w-full border border-slate-100 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-sky-500 overflow-hidden rounded-sm py-[12px] px-2 text-sm text-black">
-                <label
-                  className="text-slate-400 flex items-center justify-center cursor-pointer hover:text-slate-400 text-xs"
-                  htmlFor="upload-pic-main"
-                >
-                  افزودن عکس پروفایل
-                </label>
-                <input
-                  hidden
-                  onChange={(event) => {
-                    if (event.target.files && event.target.files[0]) {
-                      setChangeInfoUser({
-                        ...changeInfoUser,
-                        picture: event.target.files[0],
-                      });
-
-                      console.log(event.target.files);
-
-                      // var formData = new FormData();
-                      // formData.append("image", event.target.files[0]);
-
-                      // axiosSetup("asd", "post", formData, {
-                      //   'Content-Type': 'multipart/form-data'
-                      // })
-                    }
-                  }}
-                  id="upload-pic-main"
-                  type="file"
-                  multiple
-                />
-                {/* <Link href="/">
-                <a className="text-slate-400 flex items-center justify-center hover:text-slate-400 text-xs">
-                  
-                </a>
-              </Link> */}
-              {/* </div> */}
-            </div>
+            {/* Ta Inja */}
             <div className="profile-info col-span-3 mt-2">
               <lable className="text-xs font-semibold">
                 <sup className="text-danger">*</sup> آدرس
@@ -677,7 +637,7 @@ const info = () => {
             <div className="profile-info col-span-3 md:col-span-1">
               <lable className="text-sm">استان</lable>
               <select
-                id=""
+                id="state"
                 onChange={selectStateChangeHandler}
                 className="bg-white border border-slate-100 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-sky-500 overflow-hidden rounded-sm py-1.5 px-2 text-sm text-slate-400"
               >
@@ -705,7 +665,7 @@ const info = () => {
             <div className="profile-info col-span-3 md:col-span-1">
               <lable className="text-sm">شهر</lable>
               <select
-                id=""
+                id="city"
                 onChange={(e) => {
                   setUserAddress({ ...userAddress, city: +e.target.value });
                   setChangeInfoUser({
@@ -743,7 +703,13 @@ const info = () => {
             <div className="profile-info col-span-3 md:col-span-1">
               <lable className="text-sm">کدپستی</lable>
               <input
-                onChange={ChangeHnadlerAddress}
+                id="poatal_code"
+                onChange={() => {
+                  ChangeHnadlerAddress;
+                  document.getElementById(
+                    "poatal_code"
+                  ).style.borderBlockColor = "white";
+                }}
                 name="postalCode"
                 type="number"
                 value={userAddress.postalCode}
@@ -754,7 +720,12 @@ const info = () => {
 
             <div className="profile-info col-span-3 md:col-span-3">
               <input
-                onChange={ChangeHnadlerAddress}
+                id="address"
+                onChange={() => {
+                  ChangeHnadlerAddress;
+                  document.getElementById("address").style.borderBlockColor =
+                    "white";
+                }}
                 type="text"
                 name="address"
                 placeholder="آدرس"
@@ -762,21 +733,98 @@ const info = () => {
                 className="border border-slate-100 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-sky-500 overflow-hidden rounded-sm py-2 px-2 text-sm text-black"
               />
             </div>
-            {/* <button onClick={saveAddresses}>
-            ثبت آدرس
-          </button> */}
-
-            {/* <div className="profile-info col-span-3 md:col-span-3">
-              <div className="w-full align-middle text-center h-70 border border-slate-100 rounded-sm">
-                <Image src={picMap} width="1000px" height="400px" />
+            <div className="profile-info col-span-3 md:col-span-2 mt-2">
+              <div className="flex justify-start items-end">
+                <lable className="text-xs font-semibold mb-1">
+                  روش بازگرداندن پول
+                </lable>
+                {/* <p hidden={isShabaValidate} className="text-[#9a1515] text-[12px] mr-[30px]">شماره شبا بانکی را صحیح وارد کنید</p> */}
               </div>
-            </div> */}
+              <div className="input-group w-100 flex items-center">
+                <select
+                  id="refundType"
+                  className="  bg-white border border-y-2 border-l-2 border-slate-300 
+                   focus:outline-none focus:border-slate-400 focus:ring-1
+                    focus:ring-sky-500 overflow-hidden rounded-sm py-2 px-2 text-sm hesab"
+                  onChange={changeHandler}
+                  value={changeInfoUser.refund_type}
+                  name="refund_type"
+                >
+                  <option selected>انتخاب</option>
+                  <option value="sheba_number">شبا</option>
+                  <option value="account_number">حساب </option>
+                  <option value="card_number">کارت</option>
+                </select>
+
+                <input
+                  id="refound_value"
+                  type="text"
+                  name="typeReturnMoney"
+                  value={
+                    changeInfoUser.refund_type === "sheba_number"
+                      ? fixNumbers(changeInfoUser.typeReturnMoney.sheba_number)
+                      : changeInfoUser.refund_type === "account_number"
+                      ? fixNumbers(
+                          changeInfoUser.typeReturnMoney.account_number
+                        )
+                      : changeInfoUser.refund_type === "card_number"
+                      ? fixNumbers(changeInfoUser.typeReturnMoney.card_number)
+                      : ""
+                  }
+                  className="form-control text-left rounded-sm border border-slate-100"
+                  aria-label="Text input with dropdown button"
+                  onChange={(e) => {
+                    changeHandler(e);
+                    validationShabaChangeHandler(e);
+                  }}
+                />
+                {changeInfoUser.refund_type === "sheba_number" ? (
+                  <p className="p-[5px] border-y-2 border-l-2 border-slate-300  bg-gray-300">
+                    IR
+                  </p>
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
+            <div className="profile-info col-span-3 md:col-span-1 mt-[8px]">
+              <lable className="text-sm">افزودن عکس پروفایل</lable>
+              <div className="w-full border border-slate-100 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-sky-500 overflow-hidden rounded-sm py-[12px] px-2 text-sm text-black">
+                <label
+                  className="text-slate-400 flex items-center justify-center cursor-pointer hover:text-slate-400 text-xs"
+                  htmlFor="upload-pic-main"
+                >
+                  افزودن عکس پروفایل
+                </label>
+                <input
+                  hidden
+                  onChange={(event) => {
+                    if (event.target.files && event.target.files[0]) {
+                      setChangeInfoUser({
+                        ...changeInfoUser,
+                        picture: event.target.files[0],
+                      });
+
+                      console.log(event.target.files);
+
+                      // var formData = new FormData();
+                      // formData.append("image", event.target.files[0]);
+
+                      // axiosSetup("asd", "post", formData, {
+                      //   'Content-Type': 'multipart/form-data'
+                      // })
+                    }
+                  }}
+                  id="upload-pic-main"
+                  type="file"
+                  multiple
+                />
+                <Link href="/">
+                  <a className="text-slate-400 flex items-center justify-center hover:text-slate-400 text-xs"></a>
+                </Link>
+              </div>
+            </div>
             <div className="w-full col-span-3 flex justify-end space-x-2 rtl:space-x-reverse">
-              {/* <div className="profile-seen-btn col-span-3 md:col-span-3 flex justify-end items-end mt-2">
-                <button className="px-4 py-2 bg-blue-500 hover:bg-blue-400 rounded-md">
-                  <span className="text-white text-xs">نمایش آدر س ها</span>
-                </button>
-            </div> */}
               <div className="profile-save-btn col-span-3 md:col-span-3 flex justify-end items-end mt-2">
                 <button
                   onClick={(e) => {
@@ -790,7 +838,7 @@ const info = () => {
                       className="spinner-border text-xs px-2 py-1 text-white"
                       role="status"
                     >
-                      <span className="sr-only">Loading...</span>
+                      <span className="sr-only">بارگذاری...</span>
                     </div>
                   ) : (
                     <span className="text-white text-xs">ثبت</span>
