@@ -118,14 +118,14 @@ const info = () => {
   //   day: userData && userData.birthday && userData.birthday.slice(9,2)
   // })
 
-  console.log({ birthdateUser });
+  // console.log({ birthdateUser });
   useEffect(() => {
     dataInCookies.userData = cookies.get("dataUser");
     dataInCookies.tokenId = cookies.get("token");
 
     axiosSetup(address, method, header, "", getResult);
     function getResult(data) {
-      console.log({ data });
+      // console.log({ data });
       setLoadStates(data);
     }
   }, []);
@@ -256,11 +256,11 @@ const info = () => {
     // setIsShabaValidate(shabaValidate(fixNumbersEnglish(e.target.value)));
     let num = e.target.value;
     let temp = +num % 97;
-    console.log(num.length);
-    console.log({ temp });
+    // console.log(num.length);
+    // console.log({ temp });
   };
 
-  console.log({ isShabaValidate });
+  // console.log({ isShabaValidate });
 
   const checkValidationNationalId = (e) => {
     if (e.target.value.length > 10) {
@@ -275,9 +275,9 @@ const info = () => {
     let address = `/user`;
     let method = "post";
 
-    console.log(convertToEn(date));
-    console.log(fixNumbersEnglish(birthdateUser.gregorian + ""));
-    console.log(fixNumbersEnglish(changeInfoUser.national_code));
+    // console.log(convertToEn(date));
+    // console.log(fixNumbersEnglish(birthdateUser.gregorian + ""));
+    // console.log(fixNumbersEnglish(changeInfoUser.national_code));
 
     axios
       .post(
@@ -320,7 +320,7 @@ const info = () => {
 
   useEffect(() => {
     if (resUpdateInfoUser.status === 200) {
-      toast.success("اطلاعات با موفقیت بروزرسانی شد");
+      toast.success("اطلاعات با موفقیت ثبت شد");
       cookies.set("dataUser", resUpdateInfoUser.data.user, { path: "/" });
       saveAddresses();
       setLoadingSpinner(false);
@@ -329,7 +329,7 @@ const info = () => {
         toast.error("اتصال به اینترنت را بررسی کنید");
         setLoadingSpinner(false);
       } else {
-        toast.error("بروز رسانی با مشکل مواجه شده است، لطفا دوباره تلاش کنید");
+        toast.error("ثبت اطلاعات با مشکل مواجه شده است، لطفا دوباره تلاش کنید");
         setLoadingSpinner(false);
       }
     }
@@ -629,10 +629,10 @@ const info = () => {
               </div>
             </div>
             <div className="profile-info col-span-3 md:col-span-1 mt-[8px]">
-              <lable className="text-sm">
+              {/* <lable className="text-sm">
                 <sup className="text-danger">*</sup> افزودن عکس پروفایل
-              </lable>
-              <div className="w-full border border-slate-100 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-sky-500 overflow-hidden rounded-sm py-[12px] px-2 text-sm text-black">
+              </lable> */}
+              {/* <div className="w-full border border-slate-100 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-sky-500 overflow-hidden rounded-sm py-[12px] px-2 text-sm text-black">
                 <label
                   className="text-slate-400 flex items-center justify-center cursor-pointer hover:text-slate-400 text-xs"
                   htmlFor="upload-pic-main"
@@ -667,15 +667,15 @@ const info = () => {
                   
                 </a>
               </Link> */}
-              </div>
+              {/* </div> */}
             </div>
             <div className="profile-info col-span-3 mt-2">
-              <lable className="text-xs font-semibold">آدرس</lable>
+              <lable className="text-xs font-semibold">
+                <sup className="text-danger">*</sup> آدرس
+              </lable>
             </div>
             <div className="profile-info col-span-3 md:col-span-1">
-              <lable className="text-sm">
-                <sup className="text-danger">*</sup> استان
-              </lable>
+              <lable className="text-sm">استان</lable>
               <select
                 id=""
                 onChange={selectStateChangeHandler}
@@ -703,9 +703,7 @@ const info = () => {
               </select>
             </div>
             <div className="profile-info col-span-3 md:col-span-1">
-              <lable className="text-sm">
-                <sup className="text-danger">*</sup> شهر
-              </lable>
+              <lable className="text-sm">شهر</lable>
               <select
                 id=""
                 onChange={(e) => {
@@ -743,9 +741,7 @@ const info = () => {
               </select>
             </div>
             <div className="profile-info col-span-3 md:col-span-1">
-              <lable className="text-sm">
-                <sup className="text-danger">*</sup> کدپستی
-              </lable>
+              <lable className="text-sm">کدپستی</lable>
               <input
                 onChange={ChangeHnadlerAddress}
                 name="postalCode"
@@ -770,11 +766,11 @@ const info = () => {
             ثبت آدرس
           </button> */}
 
-            <div className="profile-info col-span-3 md:col-span-3">
+            {/* <div className="profile-info col-span-3 md:col-span-3">
               <div className="w-full align-middle text-center h-70 border border-slate-100 rounded-sm">
                 <Image src={picMap} width="1000px" height="400px" />
               </div>
-            </div>
+            </div> */}
             <div className="w-full col-span-3 flex justify-end space-x-2 rtl:space-x-reverse">
               {/* <div className="profile-seen-btn col-span-3 md:col-span-3 flex justify-end items-end mt-2">
                 <button className="px-4 py-2 bg-blue-500 hover:bg-blue-400 rounded-md">
