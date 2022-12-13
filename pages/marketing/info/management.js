@@ -59,6 +59,11 @@ const management = () => {
         // setBusiness_id(data.business.id);
         gettingManagerInfoes();
         toast.success("اطلاعات با موفقیت ثبت شد");
+        document.getElementById("managerName").value = null;
+        document.getElementById("managerLastname").value = null;
+        document.getElementById("managerMobile").value = null;
+        document.getElementById("managerPosition").value = null;
+        document.getElementById("managerPic").value = null;
       })
       .catch((error) => {
         setLoading(false);
@@ -201,7 +206,7 @@ const management = () => {
                             <input
                               onChange={(e) => setManagerMobile(e.target.value)}
                               type="text"
-                              className="form-control"
+                              className="form-control IranSanse"
                               placeholder="شماره همراه"
                               id="managerMobile"
                             />
@@ -233,7 +238,7 @@ const management = () => {
                             </option>
                             <option
                               className="text-slate-400 text-sm"
-                              value="تایب رئیس هیات مدیره"
+                              value="نایب رئیس هیات مدیره"
                             >
                               تایب رئیس هیات مدیره
                             </option>
@@ -331,7 +336,10 @@ const management = () => {
                       {managerAllInfos.map(function (managerAllInfo) {
                         return (
                           <tr className="text-center">
-                            <th scope="row" className="text-slate-600">
+                            <th
+                              scope="row"
+                              className="text-slate-600 IranSanse"
+                            >
                               {(count = count + 1)}
                             </th>
                             <td>{managerAllInfo.first_name}</td>
@@ -344,7 +352,11 @@ const management = () => {
                               }}
                               id="manager_id"
                             >
-                              {managerAllInfo.picture}
+                              <img
+                                className="tableManagerPic"
+                                src={managerAllInfo.picture_link}
+                                alt="مهر پل"
+                              />
                             </td>
                             <td className="w-full h-full flex justify-center items-center">
                               {/* <Link href="/">

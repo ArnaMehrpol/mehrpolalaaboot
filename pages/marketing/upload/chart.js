@@ -204,9 +204,9 @@ const slides = () => {
                       onClick={() => {
                         setShow(true);
                       }}
-                      className="fs-5 text-slate-400 mr-2"
+                      className="fs-6 btn btn-primary text-white-400 mr-2"
                     >
-                      افزودن اسلاید
+                      افزودن نمودار
                       <i className="bi bi-cloud-arrow-up fs-5 mr-2"></i>
                     </button>
                   </div>
@@ -297,14 +297,14 @@ const slides = () => {
                   )}
                   <button
                     onClick={InsertIntoPermission}
-                    className="text-white bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse  font-bold ml-2 "
+                    className="text-white text-sm bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse   ml-2 "
                     type="submit"
                   >
-                    ثبت
+                    ثبت و مرحله بعد
                   </button>
-                  <button className="text-white bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse  font-bold ml-2">
+                  {/* <button className="text-white bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse  font-bold ml-2">
                     مرحله بعد
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </section>

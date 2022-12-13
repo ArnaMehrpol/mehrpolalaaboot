@@ -32,7 +32,9 @@ input[type="number"]{
  z-index: 90;
  background-color: rgba(0, 0, 0, .5);
 }
-
+.grayBackground{
+  background-color: #eae8ef;
+}
 .backdropVideo{
   width: 88%;
   height: 80%;
@@ -144,6 +146,12 @@ input[type="number"]{
   width: 100% !important;
   
 }
+.tableManagerPic{
+  width: 3vh;
+  height: 6vh;
+}
+
+
 
 .iranNastaliq{
   font-family: 'irannastaliq';
@@ -2683,10 +2691,16 @@ input[type="number"]{
   background-repeat: no-repeat;
   background-size: cover;
 }
+.pdfP{
+  width: 100px;
+}
 .myAudioCard{  
   width: 310px !important;
   height: auto; 
   margin: 10vh auto 0 auto;
+}
+.audioP{
+  width: 310px;
 }
 .myDel{
 margin: 0 auto !important;
@@ -2695,7 +2709,9 @@ margin: 0 auto !important;
 .myVideoCard{
 min-width: 200px !important;
 min-height: 120px !important;
-
+}
+.videoP{
+  width: 200px;
 }
 
 /* .myTutorialContainer{

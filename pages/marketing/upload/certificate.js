@@ -198,7 +198,7 @@ const certificate = () => {
                 <div className="certificate-title flex flex-col my-4">
                   <h5 className="text-base font-semibold">گواهینامه ها</h5>
                   <small className="text-slate-600 text-xs mt-0.5">
-                    مجوز مرتبط با کسب و کار در این قسمت وارد کنید
+                    گواهینامه مرتبط با کسب و کار در این قسمت وارد کنید
                   </small>
                 </div>
                 <div className="certificate-flex flex flex-col">
@@ -207,9 +207,9 @@ const certificate = () => {
                       onClick={() => {
                         setShow(true);
                       }}
-                      className="fs-5 text-slate-400 mr-2"
+                      className="fs-6 btn btn-primary text-white-400 mr-2"
                     >
-                      افزودن مجوز
+                      افزودن گواهینامه
                       <i className="bi bi-cloud-arrow-up fs-5 mr-2"></i>
                     </button>
                   </div>
@@ -280,14 +280,14 @@ const certificate = () => {
                   )}
                   <button
                     onClick={InsertIntoPermission}
-                    className="text-white bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse  font-bold ml-2"
+                    className="text-white text-sm bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse ml-2"
                     type="submit"
                   >
-                    ثبت
+                    ثبت و مرحله بعد
                   </button>
-                  <button className="text-white bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse  font-bold ml-2">
+                  {/* <button className="text-white bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse  font-bold ml-2">
                     مرحله بعد
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </section>

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import MarketingInfoSide from "../../../components/marketing/layout/MarketingInfoSide";
 import MarketingInfoHeader from "../../../components/marketing/marketingHeader/MarketingInfoHeader";
 import Editor from "../../../components/Editor";
@@ -83,7 +83,6 @@ const about = () => {
         setLoading(false);
         const data = response.data;
         console.log(data);
-        setOk("ok");
         setIntroduce(data.about);
         setManagementMessage(data.message_from_management);
         setVision(data.vision);
@@ -96,6 +95,64 @@ const about = () => {
         console.log(token);
       });
   };
+
+  const countChar1 = (e) => {
+    const i = document.getElementById("introduce").value.length;
+    document.getElementById("i1").innerHTML = i;
+  };
+  const minChar1 = (e) => {
+    const i = document.getElementById("introduce").value.length;
+
+    if (i < 400) {
+      toast.error("تعداد کاراکتر نباید از 400 کمتر باشد");
+
+      document.getElementById("introduce").focus();
+    }
+    return false;
+  };
+  const countChar2 = (e) => {
+    const i2 = document.getElementById("manager_message").value.length;
+    document.getElementById("i2").innerHTML = i2;
+  };
+  const minChar2 = (e) => {
+    const i2 = document.getElementById("manager_message").value.length;
+
+    if (i2 < 200) {
+      toast.error("تعداد کاراکتر نباید از 200 کمتر باشد");
+
+      document.getElementById("manager_message").focus();
+    }
+    return false;
+  };
+  const countChar3 = (e) => {
+    const i3 = document.getElementById("vision").value.length;
+    document.getElementById("i3").innerHTML = i3;
+  };
+  const minChar3 = (e) => {
+    const i3 = document.getElementById("vision").value.length;
+
+    if (i3 < 100) {
+      toast.error("تعداد کاراکتر نباید از 100 کمتر باشد");
+
+      document.getElementById("vision").focus();
+    }
+    return false;
+  };
+  const countChar4 = (e) => {
+    const i4 = document.getElementById("mission").value.length;
+    document.getElementById("i4").innerHTML = i4;
+  };
+  const minChar4 = (e) => {
+    const i4 = document.getElementById("mission").value.length;
+
+    if (i4 < 100) {
+      toast.error("تعداد کاراکتر نباید از 100 کمتر باشد");
+
+      document.getElementById("mission").focus();
+    }
+    return false;
+  };
+
   return (
     <div className="mx-auto">
       <div className="business-panel-container">
@@ -142,15 +199,21 @@ const about = () => {
                       ></div>
                     </>
                   )}
-                  <h5 className="text-base font-semibold">درباره ما</h5>
+                  <h5 className="text-[24px] font-semibold">درباره ما</h5>
                   <small className="text-slate-500 text-xs mt-0.5"></small>
                 </div>
                 <div className="about-list-tabele-content">
                   <div className="about-list-title flex flex-col mb-4">
-                    <h5 className="text-base font-semibold">
+                    <h5 className="text-sm text-slate-800 mb-1">
                       معرفی کسب و کار (حداقل 400 کاراکتر و حداکثر 800 کاراکتر)
+                      <span className="text-[9px] ml-2 mr-1">
+                        تعداد کاراکتر استفاده شده
+                      </span>
+                      <span className="mr-2" id="i1">
+                        0
+                      </span>
                     </h5>
-                    <Editor
+                    {/* <Editor
                       uiLanguage="fa"
                       name="description1"
                       onChange={(data) => setIntroduce(data)}
@@ -158,27 +221,36 @@ const about = () => {
                       placeholder={
                         introduce != "" ? introduce : "معرفی کسب و کار"
                       }
-                    />
-                    {/* <textarea
-                      onChange={(e) => setIntroduce(e.target.value)}
-                      placeholder={
-                        ok != " " && introduce != ""
-                          ? introduce
-                          : "معرفی کسب و کار"
-                      }
-                      className="myBg"
+                    /> */}
+                    <textarea
+                      maxLength={800}
+                      minLength={400}
+                      onBlur={minChar1}
+                      onChange={(e) => {
+                        setIntroduce(e.target.value);
+                        countChar1();
+                      }}
+                      value={introduce && introduce}
+                      placeholder={"معرفی کسب و کار"}
+                      className="bg-yellow-100 rounded p-2 text-sm"
                       name="introduce"
-                      id=""
+                      id="introduce"
                       cols="30"
                       rows="10"
-                    ></textarea> */}
+                    ></textarea>
                   </div>
 
                   <div className="about-list-title flex flex-col mb-4">
-                    <h5 className="text-base font-semibold">
+                    <h5 className="text-sm text-slate-800 mb-1">
                       پیام مدیریت (حداقل 200 کاراکتر و حداکثر 600 کاراکتر)
+                      <span className="text-[9px] ml-2 mr-1">
+                        تعداد کاراکتر استفاده شده
+                      </span>
+                      <span className="mr-2" id="i2">
+                        0
+                      </span>
                     </h5>
-                    <Editor
+                    {/* <Editor
                       name="description2"
                       onChange={(data) => setManagementMessage(data)}
                       editorLoaded={editorLoaded}
@@ -187,94 +259,116 @@ const about = () => {
                           ? managementMessage
                           : "پیام مدیریت"
                       }
-                    />
-                    {/* <textarea
-                      onChange={(e) => setManagementMessage(e.target.value)}
-                      placeholder={
-                        ok != " " && managementMessage != ""
-                          ? managementMessage
-                          : "پیام مدیریت"
-                      }
-                      className="myBg"
-                      name="introduce"
-                      id=""
+                    /> */}
+                    <textarea
+                      minLength={200}
+                      maxLength={600}
+                      onChange={(e) => {
+                        setManagementMessage(e.target.value);
+                        countChar2();
+                      }}
+                      onBlur={minChar2}
+                      value={managementMessage && managementMessage}
+                      placeholder={"پیام مدیریت"}
+                      className="bg-yellow-100 rounded p-2 text-sm"
+                      name="manager_message"
+                      id="manager_message"
                       cols="30"
                       rows="10"
-                    ></textarea> */}
+                    ></textarea>
                   </div>
 
                   <div className="about-list-title flex flex-col mb-4">
-                    <h5 className="text-base font-semibold">
+                    <h5 className="text-sm text-slate-800 mb-1">
                       چشم انداز (حداقل 100 کاراکتر و حداکثر 600 کاراکتر)
+                      <span className="text-[9px] ml-2 mr-1">
+                        تعداد کاراکتر استفاده شده
+                      </span>
+                      <span className="mr-2" id="i3">
+                        0
+                      </span>
                     </h5>
-                    <Editor
+                    {/* <Editor
                       name="description3"
                       onChange={(data) => setVision(data)}
                       editorLoaded={editorLoaded}
                       placeholder={vision != "" ? vision : "چشم انداز"}
-                    />
-                    {/* <textarea
-                      onChange={(e) => setVision(e.target.value)}
-                      placeholder={
-                        ok != "" && vision != "" ? vision : "چشم انداز"
-                      }
-                      className="myBg"
-                      name="introduce"
-                      id=""
+                    /> */}
+                    <textarea
+                      minLength={100}
+                      maxLength={600}
+                      onChange={(e) => {
+                        setVision(e.target.value);
+                        countChar3();
+                      }}
+                      onBlur={minChar3}
+                      value={vision && vision}
+                      placeholder={"چشم انداز"}
+                      className="bg-yellow-100 rounded p-2 text-sm"
+                      name="vision"
+                      id="vision"
                       cols="30"
                       rows="10"
-                    ></textarea> */}
+                    ></textarea>
                   </div>
 
                   <div className="about-list-title flex flex-col mb-4">
-                    <h5 className="text-base font-semibold">
+                    <h5 className="text-sm text-slate-800 mb-1">
                       ماموریت (حداقل 100 کاراکتر و حداکثر 800 کاراکتر)
+                      <span className="text-[9px] ml-2 mr-1f">
+                        تعداد کاراکتر استفاده شده
+                      </span>
+                      <span className="mr-2" id="i4">
+                        0
+                      </span>
                     </h5>
-                    <Editor
+                    {/* <Editor
                       name="description1"
                       onChange={(data) => setMission(data)}
                       editorLoaded={editorLoaded}
                       placeholder={mission != "" ? mission : "ماموریت"}
-                    />
-                    {/* <textarea
+                    /> */}
+                    <textarea
+                      minLength={100}
+                      maxLength={800}
                       onChange={(e) => {
                         setMission(e.target.value);
+                        countChar4();
                       }}
-                      placeholder={
-                        ok != "" && mission != "" ? mission : "ماموریت"
-                      }
-                      className="myBg"
-                      name="introduce"
-                      id=""
+                      onBlur={minChar4}
+                      value={mission && mission}
+                      placeholder={"ماموریت"}
+                      className="bg-yellow-100 rounded p-2 text-sm"
+                      name="mission"
+                      id="mission"
                       cols="30"
                       rows="10"
-                    ></textarea> */}
+                    ></textarea>
                   </div>
 
-                  <div className="about-list-title flex flex-col mb-4">
-                    <h5 className="text-base font-semibold">لوازم و تجهیزات</h5>
-                    <Editor
+                  {/* <div className="about-list-title flex flex-col mb-4">
+                    <h5 className="text-sm text-slate-800 mb-1">
+                      لوازم و تجهیزات
+                    </h5> */}
+                  {/* <Editor
                       name="description4"
                       onChange={(data) => setAccessories(data)}
                       editorLoaded={editorLoaded}
                       placeholder={
                         accessories != "" ? accessories : "لوازم و تجهیزات"
                       }
-                    />
-                    {/* <textarea
+                    /> */}
+                  {/* <textarea
                       onChange={(e) => setAccessories(e.target.value)}
-                      placeholder={
-                        ok != "" && accessories != ""
-                          ? accessories
-                          : "لوازم و تجهیزات"
-                      }
-                      className="myBg"
-                      name="introduce"
-                      id=""
+                      value={accessories && accessories}
+                      placeholder={"لوازم و تجهیزات"}
+                      className=" bg-yellow-100 rounded p-2 text-sm"
+                      name="equipments"
+                      id="equipments"
                       cols="30"
                       rows="10"
                     ></textarea> */}
-                  </div>
+                  {/* </div> */}
 
                   <div className="next-btn mb-2 w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center">
                     {loading && (
@@ -292,14 +386,14 @@ const about = () => {
                     >
                       ثبت و مرحله بعد
                     </button>
-                    <button
+                    {/* <button
                       onClick={() => {
                         router.push("/marketing/info/management");
                       }}
                       className="text-white me-2 font-semibold btn btn-primary"
                     >
                       مرحله بعد
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>

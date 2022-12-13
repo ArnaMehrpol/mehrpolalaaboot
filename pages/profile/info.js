@@ -77,6 +77,7 @@ const info = () => {
   const [reloadStateList, setReloadStateList] = useState(false);
   const [loadingSpinner, setLoadingSpinner] = useState(false);
   const [birthdateUser, setBirthdateUser] = useState({ format: "YYYY-MM-DD" });
+
   // const userData = cookies.get('dataUser');
   // const tokenId = cookies.get('token')
   const [userAddress, setUserAddress] = useState({
@@ -447,8 +448,8 @@ const info = () => {
                 name="first_name"
                 value={changeInfoUser.first_name}
                 placeholder="نام را وارد کنید"
-                onChange={() => {
-                  changeHandler;
+                onChange={(e) => {
+                  changeHandler(e);
                   document.getElementById("name").style.borderBlockColor =
                     "white";
                 }}
@@ -465,8 +466,8 @@ const info = () => {
                 type="text"
                 value={changeInfoUser.last_name}
                 placeholder="نام خانوادگی را وارد کنید"
-                onChange={() => {
-                  changeHandler;
+                onChange={(e) => {
+                  changeHandler(e);
                   document.getElementById("last_name").style.borderBlockColor =
                     "white";
                 }}
@@ -593,7 +594,7 @@ const info = () => {
                   value="male"
                   label="مرد"
                   onClick={(e) => {
-                    document.getElementById("mail").style.borderBlockColor =
+                    document.getElementById("male").style.borderBlockColor =
                       "white";
                     setChangeInfoUser({
                       ...changeInfoUser,
@@ -612,7 +613,7 @@ const info = () => {
                   name="sex"
                   value="female"
                   onClick={(e) => {
-                    document.getElementById("femail").style.borderBlockColor =
+                    document.getElementById("female").style.borderBlockColor =
                       "white";
                     setChangeInfoUser({
                       ...changeInfoUser,
@@ -703,17 +704,16 @@ const info = () => {
             <div className="profile-info col-span-3 md:col-span-1">
               <lable className="text-sm">کدپستی</lable>
               <input
-                id="poatal_code"
+                id="postalCode"
                 onChange={() => {
                   ChangeHnadlerAddress;
-                  document.getElementById(
-                    "poatal_code"
-                  ).style.borderBlockColor = "white";
+                  document.getElementById("postalCode").style.borderBlockColor =
+                    "white";
                 }}
                 name="postalCode"
                 type="number"
-                value={userAddress.postalCode}
-                placeholder="۱۳۶۱۶۱۳۲۴۵"
+                value={userAddress.postalCode ? userAddress.postalCode : null}
+                placeholder="کد پستی را وارد نمایید"
                 className="border border-slate-100 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-sky-500 overflow-hidden rounded-sm py-2 px-2 text-sm text-black"
               />
             </div>
@@ -729,7 +729,7 @@ const info = () => {
                 type="text"
                 name="address"
                 placeholder="آدرس"
-                value={userAddress.address}
+                value={userAddress.address ? userAddress.address : null}
                 className="border border-slate-100 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-sky-500 overflow-hidden rounded-sm py-2 px-2 text-sm text-black"
               />
             </div>

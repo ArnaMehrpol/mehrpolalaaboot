@@ -340,6 +340,11 @@ const educational = () => {
     setChooseFiles(null);
   };
 
+  const showCharNumber = (e) => {
+    var i = document.getElementById("fileDescription").value.length;
+    document.getElementById("i").innerHTML = i;
+  };
+
   return (
     <div>
       {show && (
@@ -403,6 +408,29 @@ const educational = () => {
                           placeholder="نام فایل وارد کنید"
                         />
                       </div>
+                      <sup className="text-danger">*</sup>
+                      <label className="text-sm text-slate-700 px-2 mb-2">
+                        توضیحات
+                      </label>
+                      <span className="text-[9px] ml-1">حداکثر 25 کاراکتر</span>
+                      <span className="text-[9px] ml-1">
+                        تعداد کاراکتر استفاده شده:{" "}
+                      </span>
+                      <span className="text-[10px] mr-1" id="i">
+                        0
+                      </span>
+
+                      <textarea
+                        maxLength={25}
+                        tabIndex={2}
+                        class="form-control  mb-3"
+                        id="fileDescription"
+                        rows="1"
+                        onChange={(e) => {
+                          setDescription(e.target.value);
+                          showCharNumber();
+                        }}
+                      ></textarea>
                     </div>
                     <div className="btn-add">
                       <button
@@ -410,7 +438,7 @@ const educational = () => {
                         onClick={() => {
                           setShow(true);
                         }}
-                        className="fs-5 text-slate-400 mr-2"
+                        className="fs-6 btn btn-primary text-white-400 "
                       >
                         بارگذاری فایل
                         <i className="bi bi-cloud-arrow-up fs-5 mr-2"></i>
@@ -418,20 +446,6 @@ const educational = () => {
                     </div>
                   </div>
                   <div className="lg:col-span-2 col-span-6">
-                    <sup className="text-danger">*</sup>
-                    <label className="text-sm text-slate-700 px-2 mb-2">
-                      توضیحات
-                    </label>
-
-                    <textarea
-                      tabIndex={2}
-                      class="form-control pt-[17px]"
-                      id="fileDescription"
-                      rows="4"
-                      onChange={(e) => {
-                        setDescription(e.target.value);
-                      }}
-                    ></textarea>
                     {loading && (
                       <>
                         <span className="ml-2 text-primary flex justify-center mt-3">
@@ -449,7 +463,7 @@ const educational = () => {
                     <button
                       tabIndex={4}
                       onClick={InsertIntoFile}
-                      className="text-white bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse  font-bold ml-6 "
+                      className="text-white text-sm  bg-blue-600 btn btn-primary  hover:bg-blue-700 rounded-md IranSanse mb-2 ml-6 "
                       type="submit"
                       disabled={
                         fileName == "" || description == "" ? true : false
@@ -462,7 +476,7 @@ const educational = () => {
                 {/* Video */}
                 <div className="   video-grid grid grid-cols-5 border border-slate-200 rounded-md p-2 mt-4">
                   <div className=" w-full h-full lg:col-span-1 md:col-span-2 col-span-5 flex flex-col items-center justify-evenly md:pb-0 pb-4">
-                    <h5 className="text-slate-600 text-lg font-semibold text-center md:-mt-9   overflow-hidden -mt-5">
+                    <h5 className="text-slate-600 text-lg font-semibold text-center md:-mt-3   overflow-hidden -mt-5">
                       <div>
                         <i class="bi bi-webcam text-9xl  text-slate-500 md:mt-2"></i>
                       </div>
@@ -529,7 +543,7 @@ const educational = () => {
                               <h2 className="text-center bold mt-1 ">
                                 {file.name}
                               </h2>
-                              <p className="text-center mt-1 ">
+                              <p className="text-center mt-1 videoP">
                                 {file.description}
                               </p>
                             </div>
@@ -612,7 +626,7 @@ const educational = () => {
                             <h2 className="text-center bold mt-1 ">
                               {file.name}
                             </h2>
-                            <p className="text-center mt-1 ">
+                            <p className="text-center mt-1 audioP">
                               {file.description}
                             </p>
                           </div>
@@ -698,7 +712,7 @@ const educational = () => {
                             <h2 className="text-center bold mt-1 ">
                               {file.name}
                             </h2>
-                            <p className="text-center mt-1 ">
+                            <p className="text-center mt-1 pdfP">
                               {file.description}
                             </p>
                           </div>

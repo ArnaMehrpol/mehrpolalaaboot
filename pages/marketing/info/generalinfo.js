@@ -69,8 +69,6 @@ const generalinfo = () => {
       .then((response) => {
         setAllBusiness(response.data.data);
         if (response) {
-          console.log(response.data.data);
-          console.log("داده ها دریافت شدند");
         } else {
           console.log("بیزنسی ثبت نشده");
         }
@@ -82,6 +80,7 @@ const generalinfo = () => {
   //Gettin generalInfos
   const gettingGeneralInfos = () => {
     setLoading(true);
+    console.log("مشخصات عمومی");
     axios
       .get(url + "api/user", {
         headers: {
@@ -91,8 +90,9 @@ const generalinfo = () => {
       .then(function (response) {
         const data = response.data;
         setLoading(false);
+        console.log("اینها داده های کار بر هستند");
+        console.log(data);
         if (response) {
-          // setOk("ok");
           setName(data.user.name);
           setLast_name(data.user.last_name);
           setNational_code(data.user.national_code);
@@ -100,16 +100,16 @@ const generalinfo = () => {
           setMobile_2(data.user.mobile_2);
           setEnBirthday(data.user.birthday);
           setBirthday_place_id(data.user.birthday_place_id);
-
+          // getUserBirth_placeState(data.user.birthday_place_id);
           setGender(data.user.gender);
           setAccount_number(data.user.account_number);
           setSheba_number(data.user.sheba_number);
         } else {
-          console.log("داده های بیزنس دریافت نشد!");
+          console.log("داده های عمومی دریافت نشد!");
         }
       })
       .catch(function (error) {
-        console.log("not ok");
+        console.log("مشخصات عمومی دریافت نشدند");
         setLoading(false);
       });
   };
@@ -117,6 +117,14 @@ const generalinfo = () => {
   //submit
   const handleSubmitGeneralInfo = (e) => {
     e.preventDefault();
+
+    if (birthday_place == "") {
+      document.getElementById("birthday_place").style.borderBlockColor = "red";
+      toast.error("لطفا فیلدهای خالی را پر کنید");
+      return false;
+    }
+    console.log(birthday_place);
+
     setLoading(true);
 
     axios
@@ -163,11 +171,13 @@ const generalinfo = () => {
       .then((res) => setAllStates(res.data.place));
   };
 
-  const getUserBirth_placeState = async (birthday_place_id) => {
-    await axios.get(url + "api/public/place/" + birthday_place_id);
-
-    var place = response.data.place;
-    setBirthday_place(place);
+  const getUserBirth_placeState = (birthday_place_id) => {
+    axios
+      .get(url + "api/public/place/" + birthday_place_id)
+      .then(function (response) {
+        var place = response.data.Place.name;
+        setBirthday_place(place);
+      });
   };
 
   useEffect(() => {
@@ -219,11 +229,13 @@ const generalinfo = () => {
                       </label>
                       <div className="all-input-group input-group mb-3">
                         <input
+                          id="name"
                           readOnly
                           onChange={(e) => setName(e.target.value)}
                           type="text"
-                          className="form-control"
-                          placeholder={name ? name : "نام"}
+                          className="form-control grayBackground "
+                          value={name && name}
+                          placeholder="نام"
                         />
                       </div>
                     </div>
@@ -232,13 +244,14 @@ const generalinfo = () => {
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         نام خانوادگی
                       </label>
-                      <div className="all-input-group input-group mb-3">
+                      <div className="all-input-group input-group mb-3 grayBackground">
                         <input
                           readOnly
                           onChange={(e) => setLast_name(e.target.value)}
                           type="text"
-                          className="form-control"
-                          placeholder={last_name ? last_name : "نام خانوادگی"}
+                          className="form-control grayBackground"
+                          value={last_name && last_name}
+                          placeholder={"نام خانوادگی"}
                         />
                       </div>
                     </div>
@@ -254,8 +267,9 @@ const generalinfo = () => {
                             setNational_code(e.currentTarget.value)
                           }
                           type="text"
-                          className="form-control"
-                          placeholder={national_code ? national_code : "کد ملی"}
+                          className="form-control grayBackground"
+                          value={national_code && national_code}
+                          placeholder={"کد ملی"}
                         />
                       </div>
                     </div>
@@ -267,28 +281,19 @@ const generalinfo = () => {
                         تاریخ تولد
                       </label>
                       <div className="text-sm ">
-                        <DtPicker
-                          className="text-center IranSanse "
-                          onChange={(date) => {
-                            setDate(date);
-                            handleCalendar(date);
-                          }}
-                          local="fa"
-                          showWeekend={true}
-                          inputId="calender"
-                          placeholder={
-                            enBirthday
-                              ? enBirthday
-                              : "تاریخ تولد خود را انتخاب فرمایید"
-                          }
+                        <input
+                          type="text"
+                          className="form-control grayBackground"
+                          value={enBirthday && enBirthday}
+                          placeholder={"تاریخ تولد"}
                         />
 
-                        <input
+                        {/* <input
                           hidden={false}
                           id="enBirthday"
                           type="text"
                           value={convertToEn(date, "-")}
-                        />
+                        /> */}
                       </div>
                     </div>
                     <div className="generalinfo-input lg:col-span-4 col-span-12">
@@ -298,12 +303,21 @@ const generalinfo = () => {
                       </label>
                       <div className="all-input-group input-group mb-3">
                         <select
-                          onChange={(e) => setBirthday_place(e.target.value)}
-                          id="birthState"
+                          onChange={(e) => {
+                            setBirthday_place(e.target.value);
+                            document.getElementById(
+                              "birthday_place"
+                            ).style.borderBlockColor = "white";
+                          }}
+                          id="birthday_place"
                           className="form-select"
                           aria-label="Default select example"
                         >
-                          <option value="0">انتخاب کنید</option>
+                          {birthday_place ? (
+                            <option>{birthday_place}</option>
+                          ) : (
+                            <option value="0">انتخاب کنید</option>
+                          )}
                           {allStates
                             ? allStates.map(function (allStates) {
                                 return (
@@ -321,19 +335,15 @@ const generalinfo = () => {
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         جنسیت
                       </label>
-                      <select
-                        className="form-select form-select-text-style  py-[0.575rem]"
-                        aria-label="Default select example"
-                        onChange={(e) => setGender(e.target.value)}
-                      >
-                        {/* <option selected>{gender ? gender : "جنسیت"}</option> */}
-                        <option className="text-slate-400 text-sm" value="مرد">
-                          مرد
-                        </option>
-                        <option className="text-slate-400 text-sm" value="زن">
-                          زن
-                        </option>
-                      </select>
+                      <div className="all-input-group input-group mb-3">
+                        <input
+                          readOnly
+                          type="number"
+                          className="form-control grayBackground"
+                          value={gender && gender}
+                          placeholder={"جنسیت"}
+                        />
+                      </div>
                     </div>
                   </div>
                   <div className="generalinfo-grid grid grid-cols-12 gap-3">
@@ -345,7 +355,7 @@ const generalinfo = () => {
                       <input
                         type="text"
                         value={"صاحب کسب و کار"}
-                        className="form-control"
+                        className="form-control grayBackground"
                       />
                     </div>
                     <div className="generalinfo-input lg:col-span-4 col-span-12">
@@ -357,8 +367,9 @@ const generalinfo = () => {
                           readOnly
                           onChange={(e) => setMobile(e.target.value)}
                           type="number"
-                          className="form-control"
-                          placeholder={mobile ? mobile : "شماره همراه"}
+                          className="form-control grayBackground"
+                          value={mobile && mobile}
+                          placeholder={"شماره همراه"}
                         />
                       </div>
                     </div>
@@ -371,7 +382,8 @@ const generalinfo = () => {
                           onChange={(e) => setMobile_2(e.target.value)}
                           type="number"
                           className="form-control"
-                          placeholder={mobile_2 ? mobile_2 : "2 شماره همراه"}
+                          value={mobile_2 && mobile_2}
+                          placeholder={"2 شماره همراه"}
                         />
                       </div>
                     </div>
@@ -395,20 +407,6 @@ const generalinfo = () => {
                     className="text-white myButton text-md px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6"
                   >
                     ثبت و مرحله بعد
-                  </button>
-                  <button
-                    className="text-white  myButton text-md px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6 me-2"
-                    onClick={() => {
-                      if (business_id == null) {
-                        toast.error(
-                          "لطفا کسب و کار خود را انتخاب کرده و دکمه ست را بزنید"
-                        );
-                      } else {
-                        router.push("/marketing/info/marketingDetails");
-                      }
-                    }}
-                  >
-                    مرحله بعد
                   </button>
                 </div>
               </div>

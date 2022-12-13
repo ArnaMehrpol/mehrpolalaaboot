@@ -41,11 +41,16 @@ const social = () => {
 
   //Social Networks
 
-  const handelNewNetwork = (e) => {
+  const handelNewNetwork = () => {
     setType(newNetwork);
-    console.log(newNetwork);
   };
-
+  // const showSocialNetwork = () => {
+  //   var sNetwork = document.getElementById("socialNetwork");
+  //   sNetwork.addEventListener("change", handelNewNetwork());
+  // };
+  useEffect(() => {
+    handelNewNetwork();
+  }, [newNetwork]);
   //submit
   const handleSubmitSocial = (e) => {
     setLoading(true);
@@ -172,6 +177,8 @@ const social = () => {
                 </label>
                 <div className="d-flex justify-between">
                   <select
+                    id="socialNetwork"
+                    name="socialNetwork"
                     onChange={(e) => {
                       setNewNetwork(e.target.value);
                     }}
@@ -189,13 +196,13 @@ const social = () => {
                     <option value="twitter">twitter</option>
                     <option value="skype">skype</option>
                   </select>
-                  <button
+                  {/* <button
                     onClick={handelNewNetwork}
                     className="btn btn-primary mr-5"
                     disabled={newNetwork == "" ? true : false}
                   >
                     اضافه
-                  </button>
+                  </button> */}
                 </div>
                 {/* ********************************************************** */}
                 {type == "" && ""}

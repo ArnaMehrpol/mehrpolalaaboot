@@ -18,16 +18,22 @@ const info = () => {
   const [foundedYear, setFoundedYear] = useState("");
   const [logo, setLogo] = useState("");
   const [logoLink, setLogoLink] = useState("");
+
   const [category, setCategory] = useState("");
   const [allCategories, setAllCategories] = useState([]);
+  const [aria, setAria] = useState("");
   const [subArea, setSubArea] = useState("");
   const [allAreas, setAllAreas] = useState([]);
   const [subAreas, setSubAreas] = useState([]);
-  const [category_id, setCategory_id] = useState(null);
-  const [area_id, setArea_id] = useState(null);
-  const [subArea_id, setSubArea_id] = useState(null);
-  const [exclusiveDomain, setExclusiveDomain] = useState("");
-  const [mehrpolDomain, setMehrpolDomain] = useState("");
+  const [category_id, setCategory_id] = useState([]);
+  const [area_id, setArea_id] = useState([]);
+  const [subArea_id, setSubArea_id] = useState([]);
+  const [areaAndSubarea, setAreaAndSubarea] = useState([]);
+
+  const [addressState, setAddressState] = useState("");
+
+  // const [exclusiveDomain, setExclusiveDomain] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [locationName, setLocationName] = useState("");
   const [state, setState] = useState(null);
@@ -67,10 +73,14 @@ const info = () => {
   const [token, setToken] = useState("");
   const cookies = new Cookies();
 
+  const areaAndSubAreaFunc = () => {
+    setAreaAndSubarea([8, 5]);
+  };
+
   const logoHandler = (files) => {
     setLogo(files[0]);
   };
-
+  console.log(logo);
   //Delete Address
   const handelDelete = (addressId) => {
     // e.preventDefault();
@@ -144,7 +154,7 @@ const info = () => {
     );
 
     var places = response.data;
-
+    setCategory_id(id);
     setAllAreas(places);
     callback(places);
   };
@@ -173,22 +183,23 @@ const info = () => {
         setLoading(false);
         if (response) {
           const data = response.data;
-          console.log(data);
+
           setBusinessName(data.name);
           setFoundedYear(data.established_year);
-          setLogo(data.logo_file);
+          setLogo(data.logo);
           setLogoLink(data.logo_link);
-          // setCategory_id(data.id);
-          // setArea_id("");
-          // setSubArea_id("");
+          setCategory(data.category);
+          setCategory_id(data.id);
+          setArea_id("");
+          setSubArea_id("");
           // setExclusiveDomain(data.domain);
-          setRegNumber(data.regNumber);
-          setEconomyCode(data.economyCode);
-          setNationalBusinessNumber(data.nationalBusinessNumber);
-          setMehrpolDomain(data.username);
+          setRegNumber(data.reg_number);
+          setEconomyCode(data.economy_code);
+          setNationalBusinessNumber(data.national_business_number);
+          setUsername(data.username);
           setEmail(data.email);
-          setAccount_number(account_number);
-          setSheba_number(sheba_number);
+          setAccount_number(data.account_number);
+          setSheba_number(data.sheba_number);
 
           // setBusiness_id(data.business_id);
         } else {
@@ -203,6 +214,7 @@ const info = () => {
   const handleSubmitInfo = (e) => {
     e.preventDefault();
     setLoadingSubmitInfo(true);
+
     axios
       .post(
         url + "api/businesses",
@@ -210,12 +222,12 @@ const info = () => {
           name: businessName,
           established_year: foundedYear,
           logo: logo,
-          parent_id: subArea,
-          // domain: exclusiveDomain,
-          regNumber: regNumber,
-          economyCode: economyCode,
-          nationalBusinessNumber: nationalBusinessNumber,
-          username: mehrpolDomain,
+          category: category,
+          category_id: JSON.stringify([Number(subArea_id), Number(area_id)]), // areaAndSubarea,
+          reg_number: regNumber,
+          economy_code: economyCode,
+          national_business_number: nationalBusinessNumber,
+          username: username,
           email: email,
           account_number: account_number,
           sheba_number: sheba_number,
@@ -230,27 +242,12 @@ const info = () => {
       .then(function (response) {
         setLoadingSubmitInfo(false);
         const data = response.data;
-        setBusiness_id(data.business.id);
-        cookies.set("b-Id", data.business.id, { path: "/" });
-
-        gettingInfos();
-        document.getElementById("locationName").selected;
-        setDescription("");
-        document.getElementById("description").value = "";
-        // document.getElementById("description").style.backgroundColor = "red";
-        setPostal_code("");
-        document.getElementById("postal_code").value = "";
-        setTel1("");
-        document.getElementById("#tel_1").value = "";
-        setTel1Code("");
-        document.getElementById("tel_1_code").value = "";
-        setTel2("");
-        document.getElementById("tel_2").value = "";
-        setTel2Code("");
-        document.getElementById("tel_2_code").value = "";
-        toast.success("اطلاعات با موفقیت ثبت شد");
+        if (response.status === 200 || response.status === 201) {
+          setBusiness_id(data.business.id);
+          cookies.set("b-Id", data.business.id, { path: "/" });
+          toast.success("اطلاعات با موفقیت ثبت شد");
+        }
       })
-
       .catch((error) => {
         setLoadingSubmitInfo(false);
         toast.error("ثبت اطلاعات با مشکل مواجه شد");
@@ -259,46 +256,92 @@ const info = () => {
   };
   //End Submit
   //Update
-  const handelUpdateInfos = (e) => {
-    e.preventDefault();
-    setLoadingUpdateInfo(true);
-    axios
-      .post(
-        url + "api/businesses/" + business_id,
-        {
-          _method: "PUT",
-          name: businessName,
-          established_year: foundedYear,
-          logo: logo,
-          parent_id: subArea,
-          // domain: exclusiveDomain,
-          regNumber: regNumber,
-          economyCode: economyCode,
-          nationalBusinessNumber: nationalBusinessNumber,
-          username: mehrpolDomain,
-          email: email,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${cookies.get("token")}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then(function (response) {
-        toast.success("بروز رسانی اطلاعات با موفقیت انجام شد");
-        setLoadingUpdateInfo(false);
-        gettingInfos();
-      })
+  // const handelUpdateInfos = (e) => {
+  //   e.preventDefault();
+  //   setLoadingUpdateInfo(true);
+  //   axios
+  //     .post(
+  //       url + "api/businesses/" + business_id,
+  //       {
+  //         _method: "PUT",
+  //         name: businessName,
+  //         established_year: foundedYear,
+  //         logo: logo,
+  //         parent_id: subArea,
+  //         // domain: exclusiveDomain,
+  //         regNumber: regNumber,
+  //         economyCode: economyCode,
+  //         nationalBusinessNumber: nationalBusinessNumber,
+  //         username: username,
+  //         email: email,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${cookies.get("token")}`,
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       }
+  //     )
+  //     .then(function (response) {
+  //       toast.success("بروز رسانی اطلاعات با موفقیت انجام شد");
+  //       setLoadingUpdateInfo(false);
+  //       gettingInfos();
+  //     })
 
-      .catch((error) => {
-        toast.error("بروز رسانی اطلاعات با مشکل مواجه شد");
-        setLoadingUpdateInfo(false);
-        console.log(error.message);
-      });
-  };
+  //     .catch((error) => {
+  //       toast.error("بروز رسانی اطلاعات با مشکل مواجه شد");
+  //       setLoadingUpdateInfo(false);
+  //       console.log(error.message);
+  //     });
+  // };
   // End Update
   const handleSubmitBusinessAddress = (e) => {
+    if (locationName == "") {
+      document.getElementById("locationName").style.borderBlockColor = "red";
+      toast.error("لطفا محل را انتخاب نمایید");
+      return false;
+    }
+    if (addressState == "") {
+      document.getElementById("addressState").style.borderBlockColor = "red";
+      toast.error("لطفا استان را انتخاب نمایید");
+      return false;
+    }
+    if (place_id == "") {
+      document.getElementById("city_option").style.borderBlockColor = "red";
+      toast.error("لطفا شهر را انتخاب نمایید");
+      return false;
+    }
+    if (description == "") {
+      document.getElementById("description").style.borderBlockColor = "red";
+      toast.error("لطفا آدرس پستی را پر نمایید");
+      return false;
+    }
+    if (postal_code == null) {
+      document.getElementById("postal_code").style.borderBlockColor = "red";
+      toast.error("لطفا کد پستی را پر نمایید");
+      return false;
+    }
+    if (tel1 == "") {
+      document.getElementById("tel1").style.borderBlockColor = "red";
+      toast.error("لطفا تلفن اول را پر نمایید");
+      return false;
+    }
+    if (tel1Code == "") {
+      document.getElementById("tel1Code").style.borderBlockColor = "red";
+      toast.error("لطفا تلفن کداول را پر نمایید");
+      return false;
+    }
+    if (tel2 == "") {
+      document.getElementById("tel2").style.borderBlockColor = "red";
+      toast.error("لطفا تلفن دوم را پر نمایید");
+      return false;
+    }
+    if (tel2Code == "") {
+      document.getElementById("tel2Code").style.borderBlockColor = "red";
+      toast.error("لطفا کد تلفن دوم را پر نمایید");
+      return false;
+    }
+
     e.preventDefault();
     setLoadingAddress(true);
     gettingAddresses();
@@ -318,7 +361,7 @@ const info = () => {
           postal_code: postal_code,
           tel_1: tel1,
           tel_2: tel2,
-          tel_2_code: tel1Code,
+          tel_1_code: tel1Code,
           tel_2_code: tel2Code,
           business_id: business_id,
         },
@@ -373,6 +416,7 @@ const info = () => {
         if (data === []) {
           setDisabled(true);
         }
+
         setAllAddresses(response.data.data);
         setLocationName(data.name);
         setplace_id(data.place_id);
@@ -424,7 +468,7 @@ const info = () => {
                     اطلاعات کسب و کار
                   </h5>
                   <small className="text-slate-500 text-xs mt-0.5">
-                    اطلاعات کسب و کار خود را در این قسمت وارد کنید{" "}
+                    اطلاعات کسب و کار خود را در این قسمت وارد کنید
                   </small>
                 </div>
                 <div className="info">
@@ -436,12 +480,14 @@ const info = () => {
                       </label>
                       <div className="all-input-group input-group mb-3">
                         <input
-                          onChange={(e) => setBusinessName(e.target.value)}
+                          id="businessName"
+                          onChange={(e) => {
+                            setBusinessName(e.target.value);
+                          }}
                           type="text"
-                          className="form-control"
-                          placeholder={
-                            businessName ? businessName : "نام کسب و کار"
-                          }
+                          className="form-control text-sm myColor"
+                          value={businessName && businessName}
+                          placeholder={"نام کسب و کار"}
                         />
                       </div>
                     </div>
@@ -452,10 +498,17 @@ const info = () => {
                       </label>
                       <div className="all-input-group input-group mb-3">
                         <input
-                          onChange={(e) => setFoundedYear(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          placeholder={foundedYear ? foundedYear : "سال تاسیس"}
+                          id="foundedYear"
+                          onChange={(e) => {
+                            setFoundedYear(e.target.value);
+                            document.getElementById(
+                              "foundedYear"
+                            ).style.borderBlockColor = "white";
+                          }}
+                          type="number"
+                          className="form-control text-sm myColor"
+                          value={foundedYear && foundedYear}
+                          placeholder={"سال تاسیس"}
                         />
                       </div>
                     </div>
@@ -466,10 +519,12 @@ const info = () => {
                       </label>
                       <div className="all-input-group input-group">
                         <input
-                          onChange={(e) => logoHandler(e.target.value)}
+                          id="logoHandler"
+                          onChange={(e) => {
+                            logoHandler(e.target.value);
+                          }}
                           type="file"
-                          id="formFile"
-                          className="form-control info-form-control"
+                          className="form-control info-form-control myColor"
                           lang="fa"
                           placeholder={logo ? logo : "بارگذاری لوگو"}
                         />
@@ -484,27 +539,34 @@ const info = () => {
                         دسته کسب و کار
                       </label>
                       <select
-                        onChange={(e) => getCategoryChildren(e.target.value)}
-                        className="form-select form-select-text-style py-[0.675rem]"
+                        id="category"
+                        onChange={(e) => {
+                          setCategory(e.target.value);
+                        }}
+                        className="form-select text-sm myColor form-select-text-style py-[0.675rem]"
                         aria-label="Default select example"
                       >
-                        <option selected>دسته را انتخاب کنید</option>
-
-                        <option className="text-slate-400 text-sm" value="1">
+                        {category ? (
+                          <option selected>{category}</option>
+                        ) : (
+                          <option selected>دسته را انتخاب کنید</option>
+                        )}
+                        {/* <option selected>دسته را انتخاب کنید</option> */}
+                        <option className="myColor text-sm" value="productive">
                           تولیدی
                         </option>
-                        <option className="text-slate-400 text-sm" value="2">
+                        <option className="myColor text-sm" value="store">
                           فروشگاه
                         </option>
-                        <option className="text-slate-400 text-sm" value="3">
+                        {/* <option className="myColor text-sm" value="3">
                           پیمانکاری
-                        </option>
-                        <option className="text-slate-400 text-sm" value="4">
+                        </option> */}
+                        <option className="myColor text-sm" value="supplier">
                           تامین کننده
                         </option>
-                        <option className="text-slate-400 text-sm" value="5">
+                        {/* <option className="myColor text-sm" value="5">
                           خدمات
-                        </option>
+                        </option> */}
                       </select>
                     </div>
                     {/* ******************************************** */}
@@ -515,8 +577,13 @@ const info = () => {
                       </label>
                       {/* *************************** */}
                       <select
-                        onChange={(e) => getCategoryChildren(e.target.value)}
-                        className="form-select form-select-text-style py-[0.675rem]"
+                        id="area"
+                        onChange={(e) => {
+                          getCategoryChildren(e.target.value);
+                          setArea_id(e.target.value);
+                          areaAndSubAreaFunc();
+                        }}
+                        className="form-select form-select-text-style text-sm myColor py-[0.675rem]"
                         aria-label="Default select example"
                       >
                         <option selected>حوزه را انتخاب کنید</option>
@@ -534,47 +601,32 @@ const info = () => {
                       {/* *************************** */}
                     </div>
                     <div className="info-input lg:col-span-4 col-span-12">
-                      <sup className="text-danger">*</sup>
-                      <label className="text-sm text-slate-700 px-2 mb-2">
-                        شاخه کسب و کار
-                      </label>
+                      <label className=" px-2 mb-2">شاخه کسب و کار</label>
                       <select
+                        id="subAria"
                         onChange={(e) => {
                           getCategoryChildren2(e.target.value);
+                          setSubArea_id(e.target.value);
+                          areaAndSubAreaFunc();
                         }}
-                        className="form-select form-select-text-style py-[0.675rem]"
+                        className="form-select form-select-text-style text-sm myColor py-[0.675rem]"
                         aria-label="Default select example"
                       >
                         <option selected>شاخه را انتخاب کنید</option>
                         {allAreas.map(function (area) {
                           return (
-                            <option className="IranSanse" value={area.id}>
-                              {area.name}
-                            </option>
+                            <>
+                              {/* <input type="checkbox" value={area.id} /> */}
+                              <option className="IranSanse" value={area.id}>
+                                {area.name}
+                              </option>
+                            </>
                           );
                         })}
                       </select>
-                      {/* <select
-                        onChange={(e) => setSubArea(e.target.value)}
-                        className="form-select form-select-text-style py-[0.675rem]"
-                        aria-label="Default select example"
-                      >
-                        <option selected>شاخه را انتخاب کنید</option>
-                        {subAreas.map(function (subArea) {
-                          return (
-                            <option
-                              className="text-slate-400 text-sm"
-                              value={subArea.id}
-                            >
-                              {subArea.name}
-                            </option>
-                          );
-                        })}
-                      </select> */}
                     </div>
                   </div>
-                  {/* ************* 11111111111111111 */}
-                  {/* *************** 222222222222222 */}
+
                   <div className="info-grid grid grid-cols-12 gap-3">
                     <div className="info-input lg:col-span-4 col-span-12 ">
                       <sup className="text-danger">*</sup>
@@ -582,12 +634,14 @@ const info = () => {
                         شماره ثبت / پروانه کسب
                       </label>
                       <input
-                        onChange={(e) => setRegNumber(e.target.value)}
-                        placeholder={
-                          regNumber ? regNumber : "شماره ثبت را وارد فرمایید"
-                        }
+                        id="regNumber"
+                        onChange={(e) => {
+                          setRegNumber(e.target.value);
+                        }}
+                        value={regNumber && regNumber}
+                        placeholder="شماره ثبت را وارد فرمایید"
                         type="text"
-                        className=" form-control text-xs myColor"
+                        className=" form-control text-xs myColor h-[38px]"
                       />
                     </div>
                     <div className="info-input lg:col-span-4 col-span-12">
@@ -596,16 +650,17 @@ const info = () => {
                         کد اقتصادی
                       </label>
                       <input
-                        onChange={(e) =>
-                          setNationalBusinessNumber(e.target.value)
-                        }
-                        placeholder={
-                          nationalBusinessNumber
-                            ? nationalBusinessNumber
-                            : "کد اقتصادی را وارد فرمایید"
-                        }
+                        id="economyCode"
+                        onChange={(e) => {
+                          setEconomyCode(e.target.value);
+                          document.getElementById(
+                            "economyCode"
+                          ).style.borderBlockColor = "white";
+                        }}
+                        value={economyCode && economyCode}
+                        placeholder={"کد اقتصادی را وارد فرمایید"}
                         type="text"
-                        className="form-control text-xs myColor "
+                        className="form-control text-xs h-[38px] myColor "
                       />
                     </div>
                     <div className="info-input lg:col-span-4 col-span-12">
@@ -614,16 +669,17 @@ const info = () => {
                         شناسه ملی کسب و کار
                       </label>
                       <input
-                        onChange={(e) => setEconomyCode(e.target.value)}
-                        placeholder={
-                          economyCode ? economyCode : "شناسه ملی کسب و کار"
-                        }
+                        id="nationalBusinessNumber"
+                        onChange={(e) => {
+                          setNationalBusinessNumber(e.target.value);
+                        }}
+                        value={nationalBusinessNumber && nationalBusinessNumber}
+                        placeholder="شناسه ملی کسب و کار"
                         type="text"
-                        className="form-control text-xs myColor"
+                        className="form-control text-xs h-[38px]  myColor"
                       />
                     </div>
                   </div>
-                  {/* *************** 222222222222222 */}
                 </div>
                 <div className="domain mt-4">
                   <div className="domain-title flex flex-col mb-2">
@@ -643,26 +699,34 @@ const info = () => {
                     <div className="domain-input lg:col-span-6 col-span-12">
                       <div className="alls-input-group input-group mb-3">
                         <input
-                          onChange={(e) => setMehrpolDomain(e.target.value)}
+                          id="username"
+                          onChange={(e) => {
+                            setUsername(e.target.value);
+                            document.getElementById(
+                              "username"
+                            ).style.borderBlockColor = "white";
+                          }}
                           type="text"
-                          className="form-control"
-                          placeholder={
-                            mehrpolDomain
-                              ? mehrpolDomain
-                              : "/----WWW.MEHRPOL.COM"
-                          }
+                          className="form-control text-sm myColor"
+                          value={username && username}
+                          placeholder={" مثال: mehrpol "}
                         />
                       </div>
                     </div>
                     <div className="domain-input lg:col-span-6 col-span-12">
                       <div className="alls-input-group input-group mb-3">
                         <input
-                          onChange={(e) => setEmail(e.target.value)}
+                          id="email"
+                          onChange={(e) => {
+                            setEmail(e.target.value);
+                            document.getElementById(
+                              "email"
+                            ).style.borderBlockColor = "white";
+                          }}
                           type="email"
-                          className="form-control"
-                          placeholder={
-                            email ? email : "Ex: mehrpol@mehrpol.com"
-                          }
+                          className="form-control text-sm myColor"
+                          value={email && email}
+                          placeholder={"مثال: mehrpol@mehrpol.com"}
                         />
                       </div>
                     </div>
@@ -677,12 +741,14 @@ const info = () => {
                     </label>
                     <div className="all-input-group input-group mb-3">
                       <input
-                        onChange={(e) => setAccount_number(e.target.value)}
+                        id="account_number"
+                        onChange={(e) => {
+                          setAccount_number(e.target.value);
+                        }}
                         type="number"
-                        className="form-control"
-                        placeholder={
-                          account_number ? account_number : "شماره حساب"
-                        }
+                        className="form-control text-sm myColor"
+                        value={account_number && account_number}
+                        placeholder={"شماره حساب"}
                       />
                     </div>
                   </div>
@@ -694,12 +760,14 @@ const info = () => {
                       </label>
                       <div className="all-input-group input-group mb-3">
                         <input
-                          onChange={(e) => setSheba_number(e.target.value)}
+                          id="sheba_number"
+                          onChange={(e) => {
+                            setSheba_number(e.target.value);
+                          }}
                           type="number"
-                          className="form-control"
-                          placeholder={
-                            sheba_number ? sheba_number : "شماره شبا"
-                          }
+                          className="form-control text-sm myColor"
+                          value={sheba_number && sheba_number}
+                          placeholder={"شماره شبا"}
                         />
                       </div>
                     </div>
@@ -716,7 +784,7 @@ const info = () => {
 
                 <div className="email mt-2">
                   <div className="next-btn w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center">
-                    <button
+                    {/* <button
                       id="btnGeneralInfo"
                       name="btnGeneralInfo"
                       onClick={handelUpdateInfos}
@@ -729,9 +797,25 @@ const info = () => {
                         ></span>
                       )}
                       بروز رسانی اطلاعات
-                    </button>
+                    </button> */}
                     <button
                       id="btnGeneralInfo"
+                      // disabled={
+                      //   businessName == "" ||
+                      //   foundedYear == "" ||
+                      //   logo == null ||
+                      //   // category == "" ||
+                      //   // area == "" ||
+                      //   regNumber == null ||
+                      //   economyCode == null ||
+                      //   nationalBusinessNumber == null ||
+                      //   username == null ||
+                      //   email == null ||
+                      //   account_number == null ||
+                      //   sheba_number == null
+                      //     ? true
+                      //     : ""
+                      // }
                       name="btnGeneralInfo"
                       onClick={handleSubmitInfo}
                       className=" me-2 text-white myButton text-md px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6"
@@ -748,13 +832,20 @@ const info = () => {
                 </div>
                 <div className="panel-address mt-2">
                   <div className="panel-address-title flex flex-col mb-2">
+                    <sup className="text-danger">*</sup>
                     <h5 className="text-base font-semibold">آدرس</h5>
                   </div>
-                  <div className="panel-address-grid grid grid-cols-12 gap-3 mb-3">
-                    <div className="panel-address-input lg:col-span-4 col-span-12">
+                  <div className="flex justify-between mb-2">
+                    {/* <div className="panel-address-grid grid grid-cols-12 gap-3 mb-3 "> */}
+                    <div className="panel-address-input lg:col-span-4 col-span-12 w-[200px]">
                       <select
                         id="locationName"
-                        onChange={(e) => setLocationName(e.target.value)}
+                        onChange={(e) => {
+                          setLocationName(e.target.value);
+                          document.getElementById(
+                            "locationName"
+                          ).style.borderBlockColor = "white";
+                        }}
                         className="form-select form-select-text-style py-[0.675rem]"
                         aria-label="Default select example"
                       >
@@ -788,13 +879,17 @@ const info = () => {
                         </option>
                       </select>
                     </div>
-                    <div className="panel-address-input lg:col-span-2 col-span-12">
+                    <div className="panel-address-input  lg:col-span-2 col-span-12 w-[200px]">
                       <select
-                        id="states"
+                        id="addressState"
                         onChange={(e) => {
                           getStateChildren(e.target.value);
+                          setAddressState(e.target.value);
+                          document.getElementById(
+                            "addressState"
+                          ).style.borderBlockColor = "white";
                         }}
-                        className="form-select form-select-text-style py-[0.675rem]"
+                        className="form-select form-select-text-style py-[0.675rem] "
                       >
                         <option className="IranSanse"> استان</option>
                         {allStates.map(function (place) {
@@ -806,13 +901,16 @@ const info = () => {
                         })}
                       </select>
                     </div>
-                    <div className="panel-address-input lg:col-span-2 col-span-12">
+                    <div className="panel-address-input lg:col-span-2 col-span-12 w-[200px] mr-1">
                       <select
                         className="form-select form-select-text-style py-[0.675rem]"
                         id="city_option"
                         onChange={(e) => {
                           // setcity(e.target.value);
                           setplace_id(e.target.value);
+                          document.getElementById(
+                            "city_option"
+                          ).style.borderBlockColor = "white";
                         }}
                       >
                         <option id="city" className="IranSanse">
@@ -827,15 +925,16 @@ const info = () => {
                         })}
                       </select>
                     </div>
-                    <div className="panel-address-btn lg:col-span-4 col-span-12 border border-slate-500 overflow-hidden rounded-md">
-                      <Link href="/">
+                    {/* <div className="panel-address-btn lg:col-span-4 col-span-12 border border-slate-500 overflow-hidden rounded-md"> */}
+                    {/* <Link href="/">
                         <a
                           className="h-full panel-address-link rounded-md flex items-center justify-center"
                           type="button"
                           data-bs-toggle="modal"
                           data-bs-target="#staticBackdrop"
+                          disabled
                         >
-                          <span className="text-xs text-slate-400">
+                          <span disabled className="text-xs text-slate-400">
                             ثبت موقعیت مکانی روی نقشه
                           </span>
                           <svg
@@ -845,6 +944,7 @@ const info = () => {
                             viewBox="0 0 24 24"
                             stroke="currentColor"
                             strokeWidth={2}
+                            disabled
                           >
                             <path
                               strokeLinecap="round"
@@ -853,8 +953,9 @@ const info = () => {
                             />
                           </svg>
                         </a>
-                      </Link>
-                    </div>
+                      </Link> */}
+                    {/* </div> */}
+                    {/* </div> */}
                   </div>
                   <div className="panel-address-grid grid grid-cols-12 gap-3">
                     <div className="panel-address-input lg:col-span-9 col-span-12">
@@ -863,6 +964,9 @@ const info = () => {
                           id="description"
                           onChange={(e) => {
                             setDescription(e.target.value);
+                            document.getElementById(
+                              "description"
+                            ).style.borderBlockColor = "white";
                           }}
                           type="text"
                           className="form-control"
@@ -876,6 +980,9 @@ const info = () => {
                           id="postal_code"
                           onChange={(e) => {
                             setPostal_code(e.target.value);
+                            document.getElementById(
+                              "postal_code"
+                            ).style.borderBlockColor = "white";
                           }}
                           type="number"
                           className="form-control"
@@ -891,9 +998,12 @@ const info = () => {
                     <div className="panel-phone-input lg:col-span-3 col-span-5">
                       <div className="all-input-group input-group">
                         <input
-                          id="tel_1"
+                          id="tel1"
                           onChange={(e) => {
                             setTel1(e.target.value);
+                            document.getElementById(
+                              "tel1"
+                            ).style.borderBlockColor = "white";
                           }}
                           type="number"
                           className="form-control"
@@ -904,9 +1014,12 @@ const info = () => {
                     <div className="panel-phone-input lg:col-span-3 col-span-5">
                       <div className="all-input-group input-group">
                         <input
-                          id="tel_1_code"
+                          id="tel1Code"
                           onChange={(e) => {
                             setTel1Code(e.target.value);
+                            document.getElementById(
+                              "tel1"
+                            ).style.borderBlockColor = "white";
                           }}
                           type="number"
                           className="form-control"
@@ -919,9 +1032,12 @@ const info = () => {
                     <div className="panel-phone-input lg:col-span-3 col-span-5">
                       <div className="all-input-group input-group">
                         <input
-                          id="tel_2"
+                          id="tel2"
                           onChange={(e) => {
                             setTel2(e.target.value);
+                            document.getElementById(
+                              "tel2"
+                            ).style.borderBlockColor = "white";
                           }}
                           type="number"
                           className="form-control"
@@ -932,9 +1048,12 @@ const info = () => {
                     <div className="panel-phone-input lg:col-span-3 col-span-5">
                       <div className="all-input-group input-group">
                         <input
-                          id="tel_2_code"
+                          id="tel2Code"
                           onChange={(e) => {
                             setTel2Code(e.target.value);
+                            document.getElementById(
+                              "tel2Code"
+                            ).style.borderBlockColor = "white";
                           }}
                           type="number"
                           className="form-control"
@@ -947,10 +1066,23 @@ const info = () => {
                 {/* *********** End Phone *********** */}
 
                 <div className="col-span-7 flex lg:mr-auto lg:mt-0 -mt-8">
-                  <div className="lg:col-span-2 col-span-3 ml-3">
-                    <div className="save-btn flex justify-end items-end mt-2">
+                  <div className="lg:col-span-2 col-span-3 w-full  ">
+                    <div className="save-btn flex justify-end  items-end mt-2">
                       <button
                         id="btnGeneralInfo"
+                        disabled={
+                          locationName == "" ||
+                          addressState == "" ||
+                          place_id == "" ||
+                          description == "" ||
+                          postal_code == "" ||
+                          tel1 == "" ||
+                          tel1Code == "" ||
+                          tel2 == "" ||
+                          tel2Code == ""
+                            ? true
+                            : false
+                        }
                         name="btnGeneralInfo"
                         onClick={handleSubmitBusinessAddress}
                         className="text-white myButton text-md px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6"
@@ -964,8 +1096,82 @@ const info = () => {
                         ثبت آدرس
                       </button>
                     </div>
+
+                    <table
+                      border
+                      class="table table-center table-striped management-list-tabele w-full h-full  table-bordered rounded-md mb-8"
+                    >
+                      <thead dir="rtl">
+                        <tr className=" bg-blue-200 text-center text-slate-600 font-semibold text-xs">
+                          <th
+                            className="text-sm text-slat-100 text-center"
+                            scope="col"
+                          >
+                            ردیف
+                          </th>
+                          <th
+                            className="text-sm text-slat-100 text-center w-[45px]"
+                            scope="col"
+                          >
+                            محل
+                          </th>
+
+                          <th
+                            className="text-sm text-slat-100 text-center"
+                            scope="col"
+                          >
+                            استان
+                          </th>
+                          <th
+                            className="text-sm text-slat-100 w-[200px] text-center"
+                            scope="col"
+                          >
+                            آدرس پستی
+                          </th>
+                          <th
+                            className="text-sm text-slat-100 text-center"
+                            scope="col"
+                          >
+                            تلفن اول
+                          </th>
+                          <th
+                            className="text-sm text-slat-100 text-center"
+                            scope="col"
+                          >
+                            کد اول
+                          </th>
+                          <th
+                            className="text-sm text-slat-100 text-center"
+                            scope="col"
+                          >
+                            تلفن دوم
+                          </th>
+                          <th
+                            className="text-sm text-slat-100 text-center"
+                            scope="col"
+                          >
+                            کد دوم
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {allAddresses &&
+                          allAddresses.map((address) => {
+                            <>
+                              <tr>1</tr>
+                              <tr>{address.locationName}</tr>
+                              <tr>{address.description}</tr>
+                              <tr>{address.postal_code}</tr>
+                              <tr>{address.tel1}</tr>
+                              <tr>{address.tel1Code}</tr>
+                              <tr>{address.tel2}</tr>
+                              <tr>{address.tel2Code}</tr>
+                            </>;
+                          })}
+                      </tbody>
+                    </table>
                   </div>
-                  <div className="lg:col-span-2 col-span-3 ">
+                  {/* <div className="lg:col-span-2 col-span-3 ">
                     <div className="save-btn flex justify-end items-end mt-2">
                       {disabled ? (
                         ""
@@ -993,8 +1199,8 @@ const info = () => {
                         ""
                       )}
                     </div>
-                  </div>
-                  <div className="lg:col-span-3 col-span-1"></div>
+                  </div> */}
+                  {/* <div className="lg:col-span-3 col-span-1"></div> */}
                 </div>
 
                 <div className="next-btn w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center">
