@@ -204,14 +204,8 @@ const about = () => {
                 </div>
                 <div className="about-list-tabele-content">
                   <div className="about-list-title flex flex-col mb-4">
-                    <h5 className="text-sm text-slate-800 mb-1">
-                      معرفی کسب و کار (حداقل 400 کاراکتر و حداکثر 800 کاراکتر)
-                      <span className="text-[9px] ml-2 mr-1">
-                        تعداد کاراکتر استفاده شده
-                      </span>
-                      <span className="mr-2" id="i1">
-                        0
-                      </span>
+                    <h5 className="text-sm text-slate-800 mb-2">
+                      معرفی کسب و کار
                     </h5>
                     {/* <Editor
                       uiLanguage="fa"
@@ -231,25 +225,25 @@ const about = () => {
                         countChar1();
                       }}
                       value={introduce && introduce}
-                      placeholder={"معرفی کسب و کار"}
-                      className="bg-yellow-100 rounded p-2 text-sm"
+                      placeholder="حداقل 400 کاراکتر و حداکثر 800 کاراکتر"
+                      className="aboutusBox rounded p-2 text-sm"
                       name="introduce"
                       id="introduce"
                       cols="30"
-                      rows="10"
+                      rows="5"
                     ></textarea>
-                  </div>
-
-                  <div className="about-list-title flex flex-col mb-4">
-                    <h5 className="text-sm text-slate-800 mb-1">
-                      پیام مدیریت (حداقل 200 کاراکتر و حداکثر 600 کاراکتر)
+                    <div className="mt-2">
                       <span className="text-[9px] ml-2 mr-1">
                         تعداد کاراکتر استفاده شده
                       </span>
-                      <span className="mr-2" id="i2">
+                      <span className="mr-2 text-[12px]" id="i1">
                         0
                       </span>
-                    </h5>
+                    </div>
+                  </div>
+
+                  <div className="about-list-title flex flex-col mb-4">
+                    <h5 className="text-sm text-slate-800 mb-2">پیام مدیریت</h5>
                     {/* <Editor
                       name="description2"
                       onChange={(data) => setManagementMessage(data)}
@@ -269,25 +263,25 @@ const about = () => {
                       }}
                       onBlur={minChar2}
                       value={managementMessage && managementMessage}
-                      placeholder={"پیام مدیریت"}
-                      className="bg-yellow-100 rounded p-2 text-sm"
+                      placeholder="حداقل 200 کاراکتر و حداکثر 600 کاراکتر"
+                      className="aboutusBox rounded p-2 text-sm"
                       name="manager_message"
                       id="manager_message"
                       cols="30"
-                      rows="10"
+                      rows="5"
                     ></textarea>
-                  </div>
-
-                  <div className="about-list-title flex flex-col mb-4">
-                    <h5 className="text-sm text-slate-800 mb-1">
-                      چشم انداز (حداقل 100 کاراکتر و حداکثر 600 کاراکتر)
+                    <div className="mt-2">
                       <span className="text-[9px] ml-2 mr-1">
                         تعداد کاراکتر استفاده شده
                       </span>
-                      <span className="mr-2" id="i3">
+                      <span className="mr-2 text-[12px]" id="i2">
                         0
                       </span>
-                    </h5>
+                    </div>
+                  </div>
+
+                  <div className="about-list-title flex flex-col mb-4">
+                    <h5 className="text-sm text-slate-800 mb-2">چشم انداز</h5>
                     {/* <Editor
                       name="description3"
                       onChange={(data) => setVision(data)}
@@ -303,25 +297,25 @@ const about = () => {
                       }}
                       onBlur={minChar3}
                       value={vision && vision}
-                      placeholder={"چشم انداز"}
-                      className="bg-yellow-100 rounded p-2 text-sm"
+                      placeholder="حداقل 100 کاراکتر و حداکثر 600 کاراکتر"
+                      className="aboutusBox rounded p-2 text-sm"
                       name="vision"
                       id="vision"
                       cols="30"
-                      rows="10"
+                      rows="5"
                     ></textarea>
+                    <div className="mt-2">
+                      <span className="text-[9px] ml-2 mr-1">
+                        تعداد کاراکتر استفاده شده
+                      </span>
+                      <span className="mr-2 text-[12px]" id="i3">
+                        0
+                      </span>
+                    </div>
                   </div>
 
                   <div className="about-list-title flex flex-col mb-4">
-                    <h5 className="text-sm text-slate-800 mb-1">
-                      ماموریت (حداقل 100 کاراکتر و حداکثر 800 کاراکتر)
-                      <span className="text-[9px] ml-2 mr-1f">
-                        تعداد کاراکتر استفاده شده
-                      </span>
-                      <span className="mr-2" id="i4">
-                        0
-                      </span>
-                    </h5>
+                    <h5 className="text-sm text-slate-800 mb-2">ماموریت</h5>
                     {/* <Editor
                       name="description1"
                       onChange={(data) => setMission(data)}
@@ -337,38 +331,22 @@ const about = () => {
                       }}
                       onBlur={minChar4}
                       value={mission && mission}
-                      placeholder={"ماموریت"}
-                      className="bg-yellow-100 rounded p-2 text-sm"
+                      placeholder="حداقل 100 کاراکتر و حداکثر 800 کاراکتر"
+                      className="aboutusBox rounded p-2 text-sm"
                       name="mission"
                       id="mission"
                       cols="30"
-                      rows="10"
+                      rows="5"
                     ></textarea>
+                    <div className="mt-2">
+                      <span className="text-[9px] ml-2 mr-1f">
+                        تعداد کاراکتر استفاده شده
+                      </span>
+                      <span className="mr-2 text-[12px]" id="i4">
+                        0
+                      </span>
+                    </div>
                   </div>
-
-                  {/* <div className="about-list-title flex flex-col mb-4">
-                    <h5 className="text-sm text-slate-800 mb-1">
-                      لوازم و تجهیزات
-                    </h5> */}
-                  {/* <Editor
-                      name="description4"
-                      onChange={(data) => setAccessories(data)}
-                      editorLoaded={editorLoaded}
-                      placeholder={
-                        accessories != "" ? accessories : "لوازم و تجهیزات"
-                      }
-                    /> */}
-                  {/* <textarea
-                      onChange={(e) => setAccessories(e.target.value)}
-                      value={accessories && accessories}
-                      placeholder={"لوازم و تجهیزات"}
-                      className=" bg-yellow-100 rounded p-2 text-sm"
-                      name="equipments"
-                      id="equipments"
-                      cols="30"
-                      rows="10"
-                    ></textarea> */}
-                  {/* </div> */}
 
                   <div className="next-btn mb-2 w-full h-full border-t-2 border-dotted border-slate-100 flex justify-end items-center">
                     {loading && (
@@ -382,18 +360,10 @@ const about = () => {
                     )}
                     <button
                       onClick={handleSubmitAbout}
-                      className="text-white  font-semibold btn btn-primary"
+                      className="text-white  text-[12px]  btn btn-primary"
                     >
                       ثبت و مرحله بعد
                     </button>
-                    {/* <button
-                      onClick={() => {
-                        router.push("/marketing/info/management");
-                      }}
-                      className="text-white me-2 font-semibold btn btn-primary"
-                    >
-                      مرحله بعد
-                    </button> */}
                   </div>
                 </div>
               </div>

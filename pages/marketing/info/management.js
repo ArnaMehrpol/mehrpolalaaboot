@@ -8,7 +8,8 @@ import { toast } from "react-toastify";
 import Modal from "../../../components/Modal";
 import MarketingInfoHeader from "../../../components/marketing/marketingHeader/MarketingInfoHeader";
 import MarketingInfoSide from "../../../components/marketing/layout/MarketingInfoSide";
-
+import MainRoot from "../../../components/marketing/fileManager/components/MainRoot";
+import ModalSoftDelete from "../../../components/ModalSoftDelete";
 const management = () => {
   const [url, seturl] = useState("https://dfgsdfgsdfgj32gsdg.mehrpol.com/");
   const cookies = new Cookies();
@@ -26,12 +27,28 @@ const management = () => {
   const [loading, setLoading] = useState(false);
   const [loadingNext, setLoadingNext] = useState(false);
 
+  const [show, setShow] = useState(false);
+  const [rootFilesAddress, setrootFilesAddress] = useState();
+  const [chooseFiles, setChooseFiles] = useState([]);
+  const [softDeleteModal, setSoftDeleteModal] = useState(false);
+
+  const [managerHidden, setManagerHidden] = useState(false);
+  const [managerDelHidden, setManagerDelHidden] = useState(false);
   const router = useRouter();
 
+  const closeMainRoot = () => {
+    setShow(false);
+    // setShowDelete(false);
+  };
   const managerPicHandler = (file) => {
     setManagerPic(file[0]);
   };
-
+  const rootFilesAddressFunc = (rootFilesAddress) => {
+    setrootFilesAddress(rootFilesAddress);
+  };
+  const chooseFileFromMainRootFunc = (chooseFile) => {
+    setChooseFiles(chooseFile);
+  };
   const handleSubmitManagerInfo = (e) => {
     setLoading(true);
     e.preventDefault();
@@ -44,7 +61,7 @@ const management = () => {
           last_name: managerLastname,
           role: managerPosition,
           mobile: managerMobile,
-          picture: managerPic,
+          filemanager_item_id: chooseFiles[0].id,
         },
         {
           headers: {
@@ -63,13 +80,17 @@ const management = () => {
         document.getElementById("managerLastname").value = null;
         document.getElementById("managerMobile").value = null;
         document.getElementById("managerPosition").value = null;
-        document.getElementById("managerPic").value = null;
+        showPicFrame();
       })
       .catch((error) => {
         setLoading(false);
         toast.error("ثبت اطلاعات با مشکل مواجه شد");
         console.log(error.message);
       });
+  };
+  const showPicFrame = (e) => {
+    setManagerHidden(!managerHidden);
+    setManagerDelHidden(!managerDelHidden);
   };
   //Gettin Manager Infos
   const gettingManagerInfoes = () => {
@@ -86,6 +107,8 @@ const management = () => {
         console.log(AllDatas);
 
         setManagerAllInfos(AllDatas);
+        console.log("Heare");
+        console.log(AllDatas);
       })
       .catch(function (error) {
         setLoading(false);
@@ -96,7 +119,6 @@ const management = () => {
   // ****************************************
   const modalHandler = () => {
     setShowModal(!showModal);
-    console.log(manager_id);
   };
   // *****************************************
   const deleteManager = (e) => {
@@ -127,14 +149,72 @@ const management = () => {
         console.log(err.message);
       });
   };
-
+  const showSoftDeleteModal = () => {
+    setSoftDeleteModal(!softDeleteModal);
+  };
+  const softDeleteModalHandler = () => {
+    setChooseFiles(null);
+    setSoftDeleteModal(!softDeleteModal);
+  };
+  // const DeleteHandler = () => {
+  //   console.log(slideId);
+  //   setDeLeteLoading(true);
+  //   axios
+  //     .post(
+  //       url +
+  //         "api/businesses/" +
+  //         cookies.get("b-Id") +
+  //         "/documents/" +
+  //         dbSlideId,
+  //       {
+  //         _method: "DELETE",
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${cookies.get("token")}`,
+  //         },
+  //       }
+  //     )
+  //     .then(function (response) {
+  //       if (response) {
+  //         toast.success("تصویر مورد نظر با موفقیت پاک شد");
+  //         setDeLeteLoading(false);
+  //         gettingSlides();
+  //         setShowModal(false);
+  //       } else {
+  //         toast.error("عملیات انجام نشد. مجددا سعی نمایید");
+  //         setDeLeteLoading(false);
+  //       }
+  //     })
+  //     .catch(function (error) {
+  //       toast.error("متاسفانه سرور جواب نمی دهد");
+  //       console.log(error.message);
+  //       setDeLeteLoading(false);
+  //     });
+  // };
   useEffect(() => {
     setToken(cookies.get("token"));
     gettingManagerInfoes();
   }, []);
+  useEffect(() => {
+    setChooseFiles(null);
+  }, [managerHidden]);
 
   return (
     <div className="mx-auto">
+      {show && (
+        <MainRoot
+          closeMainRoot={closeMainRoot}
+          rootFilesAddress={rootFilesAddressFunc}
+          chooseFileFromMainRoot={chooseFileFromMainRootFunc}
+        />
+      )}
+      {softDeleteModal && (
+        <ModalSoftDelete
+          modalHandler={showSoftDeleteModal}
+          delete={softDeleteModalHandler}
+        />
+      )}
       <div className="business-panel-container">
         <div className="business-panel-cols flex grid-cols-12 bg-slate-100 ">
           <div>
@@ -165,14 +245,14 @@ const management = () => {
                       <div className="grid grid-cols-6 gap-2">
                         <div className="col-span-3">
                           <sup className="text-danger">*</sup>
-                          <label className="text-sm text-slate-600 px-2 mb-2">
+                          <label className="text-[12px] text-slate-600 px-2 mb-2">
                             نام
                           </label>
                           <div className="all-input-group input-group">
                             <input
                               onChange={(e) => setManagerName(e.target.value)}
                               type="text"
-                              className="form-control"
+                              className="form-control text-[12px] h-[38px]"
                               placeholder="نام"
                               id="managerName"
                             />
@@ -180,7 +260,7 @@ const management = () => {
                         </div>
                         <div className="col-span-3">
                           <sup className="text-danger">*</sup>
-                          <label className="text-sm text-slate-600 px-2 mb-2">
+                          <label className="text-[12px] text-slate-600 px-2 mb-2">
                             نام خانوادگی
                           </label>
                           <div className="all-input-group input-group">
@@ -189,7 +269,7 @@ const management = () => {
                                 setManagerLastname(e.target.value)
                               }
                               type="text"
-                              className="form-control"
+                              className="form-control text-[12px] h-[38px]"
                               placeholder="نام خانوادگی"
                               id="managerLastname"
                             />
@@ -199,14 +279,14 @@ const management = () => {
                       <div className="grid grid-cols-6 gap-2 mt-[1.25rem]">
                         <div className="col-span-3">
                           <sup className="text-danger">*</sup>
-                          <label className="text-sm text-slate-600 px-2 mb-2">
+                          <label className="text-[12px] text-slate-600 px-2 mb-2">
                             شماره همراه
                           </label>
                           <div className="all-input-group input-group">
                             <input
                               onChange={(e) => setManagerMobile(e.target.value)}
-                              type="text"
-                              className="form-control IranSanse"
+                              type="number"
+                              className="form-control IranSanse text-[12px] h-[38px]"
                               placeholder="شماره همراه"
                               id="managerMobile"
                             />
@@ -214,7 +294,7 @@ const management = () => {
                         </div>
                         <div className="col-span-3">
                           <sup className="text-danger">*</sup>
-                          <label className="text-sm text-slate-600 px-2 mb-2">
+                          <label className="text-[12px] text-slate-600 px-2 mb-2">
                             سمت
                           </label>
                           <select
@@ -225,43 +305,43 @@ const management = () => {
                           >
                             <option selected>انتخاب کنید</option>
                             <option
-                              className="text-slate-400 text-sm"
+                              className="text-slate-400 text-[12px]"
                               value="مدیر عامل"
                             >
                               مدیر عامل
                             </option>
                             <option
-                              className="text-slate-400 text-sm"
+                              className="text-slate-400 text-[12px]"
                               value="رئیس هیات مدیره"
                             >
                               رئیس هیات مدیره
                             </option>
                             <option
-                              className="text-slate-400 text-sm"
+                              className="text-slate-400 text-[12px]"
                               value="نایب رئیس هیات مدیره"
                             >
                               تایب رئیس هیات مدیره
                             </option>
                             <option
-                              className="text-slate-400 text-sm"
+                              className="text-slate-400 text-[12px]"
                               value="معاون"
                             >
                               معاون
                             </option>
                             <option
-                              className="text-slate-400 text-sm"
+                              className="text-slate-400 text-[12px]"
                               value="مدیر"
                             >
                               مدیر
                             </option>
                             <option
-                              className="text-slate-400 text-sm"
+                              className="text-slate-400 text-[12px]"
                               value="مسئول"
                             >
                               مسئول
                             </option>
                             <option
-                              className="text-slate-400 text-sm"
+                              className="text-slate-400 text-[12px]"
                               value="سایر"
                             >
                               سایر
@@ -271,17 +351,50 @@ const management = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="lg:col-span-2 col-span-6">
-                    <label className="text-sm text-slate-600 pr-3 mb-2">
-                      تصویر
-                    </label>
-                    <input
-                      onChange={(e) => managerPicHandler(e.target.value)}
-                      type="file"
-                      name="managerPic"
-                      id="managerPic"
+                  <div className="lg:col-span-2 col-span-6 mt-1">
+                    {/* <label className="text-[12px] text-slate-600 pr-3 mb-2"></label> */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShow(true);
+                      }}
                       placeholder="عکس را انتخاب نمایید"
-                    />
+                      className=" text-whitemyButton text-[12px] px-2 py-1 bg-blue-500 hover:bg-blue-400 text-white rounded mt-4 mr-7"
+                    >
+                      افزودن تصویر
+                    </button>
+                    {chooseFiles &&
+                      chooseFiles.map((file) => (
+                        <>
+                          <div
+                            id="myElement"
+                            key={file.id}
+                            className="m-1 relative"
+                          >
+                            <div className="mySlideCard overflow-hidden silideScale ">
+                              <img
+                                name="managerPic"
+                                id="managerPic"
+                                onChange={(e) => {
+                                  setSlideId(file.id);
+                                }}
+                                src={
+                                  chooseFiles &&
+                                  `${rootFilesAddress}/${file.name}`
+                                }
+                                className="rounded-md managerImg  "
+                              />
+                            </div>
+                            <div
+                              id="delPic"
+                              onClick={showSoftDeleteModal}
+                              className="absolute mr-8 mt-1 myPointer"
+                            >
+                              <i class="bi bi-x-circle text-danger"></i>
+                            </div>
+                          </div>
+                        </>
+                      ))}
                   </div>
                 </div>
 
@@ -302,13 +415,12 @@ const management = () => {
                     id="btnGeneralInfo"
                     name="btnGeneralInfo"
                     onClick={handleSubmitManagerInfo}
-                    className="text-white myButton text-md px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6"
+                    className="text-white myButton text-[12px] px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6"
                     disabled={
                       managerName == "" ||
                       managerLastname == "" ||
                       managerMobile == "" ||
-                      managerPosition == "" ||
-                      managerPic == ""
+                      managerPosition == ""
                         ? true
                         : false
                     }
@@ -338,15 +450,24 @@ const management = () => {
                           <tr className="text-center">
                             <th
                               scope="row"
-                              className="text-slate-600 IranSanse"
+                              className="text-slate-600 IranSanse text-[12px]"
                             >
                               {(count = count + 1)}
                             </th>
-                            <td>{managerAllInfo.first_name}</td>
-                            <td>{managerAllInfo.last_name}</td>
-                            <td>{managerAllInfo.role}</td>
-                            <td>{managerAllInfo.mobile}</td>
+                            <td className="text-[12px]">
+                              {managerAllInfo.first_name}
+                            </td>
+                            <td className="text-[12px]">
+                              {managerAllInfo.last_name}
+                            </td>
+                            <td className="text-[12px]">
+                              {managerAllInfo.role}
+                            </td>
+                            <td className="text-[12px]">
+                              {managerAllInfo.mobile}
+                            </td>
                             <td
+                              className="text-[12px]  "
                               value={() => {
                                 setManager_id(managerAllInfo.id);
                               }}
@@ -354,34 +475,16 @@ const management = () => {
                             >
                               <img
                                 className="tableManagerPic"
-                                src={managerAllInfo.picture_link}
+                                src={managerAllInfo.full_link}
                                 alt="مهر پل"
                               />
                             </td>
                             <td className="w-full h-full flex justify-center items-center">
-                              {/* <Link href="/">
-                                <a className="border-l border-slate-200">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="w-5 h-5 ml-3 text-slate-400 "
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                                    />
-                                  </svg>
-                                </a>
-                              </Link> */}
                               <button
                                 type="button"
                                 onClick={(e) => {
                                   setManager_id(managerAllInfo.id);
-                                  console.log(managerAllInfo.id);
+
                                   modalHandler();
                                 }}
                               >
@@ -409,6 +512,8 @@ const management = () => {
                         ></div>
                       </>
                     )}
+                  </div>
+                  <div className="flex justify-end w-full">
                     <button
                       id="btnGeneralInfo"
                       name="btnGeneralInfo"
@@ -416,7 +521,7 @@ const management = () => {
                         setLoadingNext(true);
                         router.push("/marketing/info/agreement");
                       }}
-                      className="text-white myButton text-md px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6"
+                      className="text-white left-0  myButton text-[12px] px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6"
                     >
                       مرحله بعد
                     </button>

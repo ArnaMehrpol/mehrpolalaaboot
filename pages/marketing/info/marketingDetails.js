@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import AddressModal from "../../../components/AddressModal";
 import MarketingInfoHeader from "../../../components/marketing/marketingHeader/MarketingInfoHeader";
 import MarketingInfoSide from "../../../components/marketing/layout/MarketingInfoSide";
+import Modal from "../../../components/Modal";
 
 const info = () => {
   const [url, seturl] = useState("https://dfgsdfgsdfgj32gsdg.mehrpol.com/");
@@ -32,6 +33,7 @@ const info = () => {
 
   const [addressState, setAddressState] = useState("");
 
+  const [showModal, setShowModal] = useState(false);
   // const [exclusiveDomain, setExclusiveDomain] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -44,7 +46,7 @@ const info = () => {
   const [postal_code, setPostal_code] = useState(null);
   const [tel1, setTel1] = useState("");
   const [tel2, setTel2] = useState("");
-  const [tel1Code, setTel1Code] = useState("");
+  // const [tel1Code, setTel1Code] = useState("");
   const [tel2Code, setTel2Code] = useState("");
   const [allAddresses, setAllAddresses] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -82,8 +84,10 @@ const info = () => {
   };
   console.log(logo);
   //Delete Address
-  const handelDelete = (addressId) => {
-    // e.preventDefault();
+
+  const handelDelete = (e) => {
+    console.log("اینحا");
+    console.log(addressId);
     axios
       .post(
         url +
@@ -103,17 +107,20 @@ const info = () => {
       .then(function (response) {
         toast.success("آدرس مورد نظر با موفقیت پاک شد");
         gettingAddresses();
+        modalHandler();
       })
       .catch(function (error) {
         toast.error("حذف آدرس با مشکل مواجه شد");
         console.log(error.message);
+        modalHandler();
       });
   };
 
-  //AddressModal
-  const modalHandler = (e) => {
-    setShowAddressModal(!showAddressModal);
+  // ****************************************
+  const modalHandler = () => {
+    setShowModal(!showModal);
   };
+  // *****************************************
   //Cookie
   const bId = () => {
     setBusiness_id(cookies.get("b-Id"));
@@ -190,9 +197,9 @@ const info = () => {
           setLogoLink(data.logo_link);
           setCategory(data.category);
           setCategory_id(data.id);
-          setArea_id("");
+          setArea_id(data.category_id);
           setSubArea_id("");
-          // setExclusiveDomain(data.domain);
+
           setRegNumber(data.reg_number);
           setEconomyCode(data.economy_code);
           setNationalBusinessNumber(data.national_business_number);
@@ -200,12 +207,30 @@ const info = () => {
           setEmail(data.email);
           setAccount_number(data.account_number);
           setSheba_number(data.sheba_number);
-
-          // setBusiness_id(data.business_id);
         } else {
           setLoading(false);
           toast.error("هنوز کسب و کاری ثبت نشده است");
         }
+      });
+  };
+
+  //setArea
+  const settingarea = (category_id) => {
+    axios
+      .get(url + "api/public/categories?parent_id=" + category_id)
+      .then(function (response) {
+        var theArea = response.data.category;
+        setAria(theArea);
+      });
+  };
+
+  //setSubArea
+  const settingSubarea = (category_id) => {
+    axios
+      .get(url + "api/public/categories?parent_id=" + category_id)
+      .then(function (response) {
+        var theArea = response.data.category;
+        setAria(theArea);
       });
   };
 
@@ -326,11 +351,11 @@ const info = () => {
       toast.error("لطفا تلفن اول را پر نمایید");
       return false;
     }
-    if (tel1Code == "") {
-      document.getElementById("tel1Code").style.borderBlockColor = "red";
-      toast.error("لطفا تلفن کداول را پر نمایید");
-      return false;
-    }
+    // if (tel1Code == "") {
+    //   document.getElementById("tel1Code").style.borderBlockColor = "red";
+    //   toast.error("لطفا تلفن کداول را پر نمایید");
+    //   return false;
+    // }
     if (tel2 == "") {
       document.getElementById("tel2").style.borderBlockColor = "red";
       toast.error("لطفا تلفن دوم را پر نمایید");
@@ -361,7 +386,7 @@ const info = () => {
           postal_code: postal_code,
           tel_1: tel1,
           tel_2: tel2,
-          tel_1_code: tel1Code,
+          // tel_1_code: tel1Code,
           tel_2_code: tel2Code,
           business_id: business_id,
         },
@@ -383,7 +408,7 @@ const info = () => {
         setPostal_code("");
         setTel1("");
         setTel2("");
-        setTel1Code("");
+        // setTel1Code("");
         setTel2Code("");
       })
       .catch(function (error) {
@@ -418,22 +443,53 @@ const info = () => {
         }
 
         setAllAddresses(response.data.data);
-        setLocationName(data.name);
-        setplace_id(data.place_id);
+        console.log("اینحا");
+        console.log(allAddresses);
+        setLocationName(response.data.data.name);
+        setplace_id(response.data.data.place_id);
         // setLocationLat(latitude);
         // setLocationLon(longitude);
-        setDescription(data.description);
-        setPostal_code(data.postal_code);
-        setTel1(data.tel_1);
-        setTel2(data.tel_2);
-        setTel1Code(data.tel1Code);
-        setTel2Code(data.tel_2_code);
+        setDescription(response.data.data.description);
+        setPostal_code(response.data.data.postal_code);
+        setTel1(response.data.data.tel_1);
+        setTel2(response.data.data.tel_2);
+        // setTel1Code(response.data.data.tel1Code);
+        setTel2Code(response.data.data.tel_2_code);
+        setAddressId(response.data.data.id);
       })
       .catch(function (error) {
         setLoading(false);
         console.log(error.message);
       });
   };
+  // const deleteAddress = (e) => {
+  //   e.preventDefault();
+  //   axios
+  //     .post(
+  //       url +
+  //         "api/businesses/" +
+  //         cookies.get("b-Id") +
+  //         "/addresses/" +
+  //         addressId,
+  //       {
+  //         _method: "DELETE",
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${cookies.get("token")}`,
+  //         },
+  //       }
+  //     )
+  //     .then(function (response) {
+  //       modalHandler();
+  //       gettingManagerInfoes();
+  //       toast.success("مشخصات مدیر مورد نظر با موفقیت پاک شد");
+  //     })
+  //     .catch(function (err) {
+  //       toast.error("عملیات انجام نشد. لطفا مجددا سعی فرمایید");
+  //       console.log(err.message);
+  //     });
+  // };
 
   //useEffect
   useEffect(() => {
@@ -442,9 +498,16 @@ const info = () => {
     gettingInfos();
     gettingAddresses();
     bId();
+    settingarea();
+    settingSubarea();
   }, []);
   return (
     <div className="mx-auto">
+      {/* Delete Modal  */}
+      {showModal ? (
+        <Modal delete={handelDelete} modalHandler={modalHandler} />
+      ) : null}
+      {/* ********************************************************** */}
       <div className="business-panel-container">
         <div className="business-panel-cols flex grid-cols-12 bg-slate-100 ">
           <div>
@@ -586,7 +649,11 @@ const info = () => {
                         className="form-select form-select-text-style text-sm myColor py-[0.675rem]"
                         aria-label="Default select example"
                       >
-                        <option selected>حوزه را انتخاب کنید</option>
+                        {aria ? (
+                          <option selected>{area}</option>
+                        ) : (
+                          <option selected>حوزه را انتخاب کنید</option>
+                        )}
                         {allCategories.map((category) => {
                           return (
                             <option
@@ -612,7 +679,11 @@ const info = () => {
                         className="form-select form-select-text-style text-sm myColor py-[0.675rem]"
                         aria-label="Default select example"
                       >
-                        <option selected>شاخه را انتخاب کنید</option>
+                        {subArea ? (
+                          <option selected>{subArea}</option>
+                        ) : (
+                          <option selected>شاخه را انتخاب کنید</option>
+                        )}
                         {allAreas.map(function (area) {
                           return (
                             <>
@@ -818,11 +889,11 @@ const info = () => {
                       // }
                       name="btnGeneralInfo"
                       onClick={handleSubmitInfo}
-                      className=" me-2 text-white myButton text-md px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6"
+                      className=" me-2 text-white myButton text-[12px] px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6"
                     >
                       {loadingSubmitInfo && (
                         <span
-                          className="spinner-border spinner-border-sm  ms-1"
+                          className="spinner-border spinner-border-sm text-sm  ms-1"
                           role="status"
                         ></span>
                       )}
@@ -996,7 +1067,7 @@ const info = () => {
                 <div className="panel-phone-grid grid grid-cols-12 gap-5 mb-3">
                   <div className="lg:col-span-5 col-span-12 gap-3 flex">
                     <div className="panel-phone-input lg:col-span-3 col-span-5">
-                      <div className="all-input-group input-group">
+                      <div className="all-input-group input-group ">
                         <input
                           id="tel1"
                           onChange={(e) => {
@@ -1006,24 +1077,8 @@ const info = () => {
                             ).style.borderBlockColor = "white";
                           }}
                           type="number"
-                          className="form-control"
+                          className="form-control "
                           placeholder="تلفن اول ..."
-                        />
-                      </div>
-                    </div>
-                    <div className="panel-phone-input lg:col-span-3 col-span-5">
-                      <div className="all-input-group input-group">
-                        <input
-                          id="tel1Code"
-                          onChange={(e) => {
-                            setTel1Code(e.target.value);
-                            document.getElementById(
-                              "tel1"
-                            ).style.borderBlockColor = "white";
-                          }}
-                          type="number"
-                          className="form-control"
-                          placeholder="کد تلفن اول..."
                         />
                       </div>
                     </div>
@@ -1040,7 +1095,7 @@ const info = () => {
                             ).style.borderBlockColor = "white";
                           }}
                           type="number"
-                          className="form-control"
+                          className="form-control myFControl"
                           placeholder="تلفن دوم..."
                         />
                       </div>
@@ -1056,8 +1111,8 @@ const info = () => {
                             ).style.borderBlockColor = "white";
                           }}
                           type="number"
-                          className="form-control"
-                          placeholder="کد تلفن دوم..."
+                          className="form-control myFCode"
+                          placeholder="کد شهر..."
                         />
                       </div>
                     </div>
@@ -1065,7 +1120,7 @@ const info = () => {
                 </div>
                 {/* *********** End Phone *********** */}
 
-                <div className="col-span-7 flex lg:mr-auto lg:mt-0 -mt-8">
+                <div className="col-span-7 flex lg:mr-auto lg:mt-0 mb-20 ">
                   <div className="lg:col-span-2 col-span-3 w-full  ">
                     <div className="save-btn flex justify-end  items-end mt-2">
                       <button
@@ -1077,7 +1132,7 @@ const info = () => {
                           description == "" ||
                           postal_code == "" ||
                           tel1 == "" ||
-                          tel1Code == "" ||
+                          // tel1Code == "" ||
                           tel2 == "" ||
                           tel2Code == ""
                             ? true
@@ -1085,11 +1140,11 @@ const info = () => {
                         }
                         name="btnGeneralInfo"
                         onClick={handleSubmitBusinessAddress}
-                        className="text-white myButton text-md px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6"
+                        className="text-white myButton text-[12px] px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6"
                       >
                         {loadingAddress && (
                           <span
-                            className="spinner-border spinner-border-sm  ms-1"
+                            className="spinner-border spinner-border-sm text-sm ms-1"
                             role="status"
                           ></span>
                         )}
@@ -1099,78 +1154,128 @@ const info = () => {
 
                     <table
                       border
-                      class="table table-center table-striped management-list-tabele w-full h-full  table-bordered rounded-md mb-8"
+                      class="table table-center table-striped management-list-tabele w-full  table-bordered rounded-md "
                     >
                       <thead dir="rtl">
-                        <tr className=" bg-blue-200 text-center text-slate-600 font-semibold text-xs">
+                        <tr className=" bg-blue-200 text-center text-slate-600 font-semibold">
                           <th
-                            className="text-sm text-slat-100 text-center"
+                            className="text-[9px] text-slat-100 text-center w-[20px] "
                             scope="col"
                           >
                             ردیف
                           </th>
                           <th
-                            className="text-sm text-slat-100 text-center w-[45px]"
+                            className="text-[9px] text-slat-100 text-center w-[55px] "
                             scope="col"
                           >
                             محل
                           </th>
 
                           <th
-                            className="text-sm text-slat-100 text-center"
+                            className="text-[9px] text-slat-100 text-center w-[100px] "
                             scope="col"
                           >
                             استان
                           </th>
                           <th
-                            className="text-sm text-slat-100 w-[200px] text-center"
+                            className="text-[9px] text-slat-100 text-center  w-[55px]"
+                            scope="col"
+                          >
+                            شهر
+                          </th>
+                          <th
+                            className="text-[9px] text-slat-100 w-[130px]  text-center"
                             scope="col"
                           >
                             آدرس پستی
                           </th>
                           <th
-                            className="text-sm text-slat-100 text-center"
+                            className="text-[9px] text-slat-100 w-[30px]  text-center"
+                            scope="col"
+                          >
+                            کد پستی
+                          </th>
+
+                          <th
+                            className="text-[9px] text-slat-100 text-center w-[20px] "
                             scope="col"
                           >
                             تلفن اول
                           </th>
-                          <th
-                            className="text-sm text-slat-100 text-center"
+                          {/* <th
+                            className="text-[9px] text-slat-100 text-center w-[15px] "
                             scope="col"
                           >
                             کد اول
-                          </th>
+                          </th> */}
                           <th
-                            className="text-sm text-slat-100 text-center"
+                            className="text-[9px] text-slat-100 text-center w-[20px] "
                             scope="col"
                           >
                             تلفن دوم
                           </th>
                           <th
-                            className="text-sm text-slat-100 text-center"
+                            className="text-[9px] text-slat-100 text-center w-[15px] "
                             scope="col"
                           >
-                            کد دوم
+                            کد
+                          </th>
+                          <th
+                            className="text-[9px] text-slat-100 text-center w-[15px] "
+                            scope="col"
+                          >
+                            <i class="bi bi-trash text-danger text-[12px]"></i>
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         {allAddresses &&
-                          allAddresses.map((address) => {
-                            <>
-                              <tr>1</tr>
-                              <tr>{address.locationName}</tr>
-                              <tr>{address.description}</tr>
-                              <tr>{address.postal_code}</tr>
-                              <tr>{address.tel1}</tr>
-                              <tr>{address.tel1Code}</tr>
-                              <tr>{address.tel2}</tr>
-                              <tr>{address.tel2Code}</tr>
-                            </>;
+                          allAddresses.map(function (address) {
+                            return (
+                              <>
+                                <tr>
+                                  <td className="text-[9px]">1</td>
+                                  <td className="text-[9px]">{address.name}</td>
+                                  <td className="text-[9px]">
+                                    {address.place.parent.name}
+                                  </td>
+                                  <td className="text-[9px]">
+                                    {address.place.name}
+                                  </td>
+                                  <td className="text-[9px]">
+                                    {address.description}
+                                  </td>
+                                  <td className="text-[9px]">
+                                    {address.postal_code}
+                                  </td>
+                                  <td className="text-[9px]">
+                                    {address.tel_1}
+                                  </td>
+                                  <td className="text-[9px]">
+                                    {address.tel_2}
+                                  </td>
+                                  <td className="text-[9px]">
+                                    {address.tel_2_code}
+                                  </td>
+                                  <td className="text-[9px]">
+                                    <button
+                                      type="button"
+                                      onClick={(e) => {
+                                        setAddressId(address.id);
+                                        modalHandler();
+                                      }}
+                                    >
+                                      <i class="bi bi-trash text-danger text-[12px] myPointer"></i>
+                                    </button>
+                                  </td>
+                                </tr>
+                              </>
+                            );
                           })}
                       </tbody>
                     </table>
                   </div>
+
                   {/* <div className="lg:col-span-2 col-span-3 ">
                     <div className="save-btn flex justify-end items-end mt-2">
                       {disabled ? (
@@ -1213,6 +1318,8 @@ const info = () => {
                       ></div>
                     </>
                   )}
+                </div>
+                <div className=" flex justify-end ">
                   <button
                     id="btnGeneralInfo"
                     name="btnGeneralInfo"
@@ -1220,7 +1327,7 @@ const info = () => {
                       router.push("/marketing/info/aboutUs");
                       setLoadingNextLevel(true);
                     }}
-                    className="text-white myButton text-md px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6"
+                    className="text-white  text-[12px] myButton px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md mb-2"
                   >
                     مرحله بعد
                   </button>

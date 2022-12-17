@@ -172,9 +172,7 @@ const social = () => {
                   </small>
                 </div>
                 <div className="social-inputs"></div>
-                <label className="text-xs text-primary mb-3">
-                  افزودن سایر شبکه های اجتماعی
-                </label>
+
                 <div className="d-flex justify-between">
                   <select
                     id="socialNetwork"
@@ -182,7 +180,7 @@ const social = () => {
                     onChange={(e) => {
                       setNewNetwork(e.target.value);
                     }}
-                    className="form-select"
+                    className="form-select text-[12px]"
                     aria-label="Default select example"
                   >
                     <option selected>انتخاب کنید</option>
@@ -226,11 +224,11 @@ const social = () => {
                       />
 
                       <div
-                        className="input-group-text input-group-text-whatsapp bg-slate-50 text-xs text-slate-400 flex relative"
+                        className=" w-[90px] justify-center input-group-text input-group-text-whatsapp bg-slate-50 text-xs text-slate-400 flex relative"
                         id="basic-addon3"
                       >
                         <div className="absolute right-[-36px]">۹۸ +</div>
-                        <span className="text-slate-500">whatsapp</span>
+                        <span className="text-slate-500 ">whatsapp</span>
 
                         {/* <button className="text-danger me-2 fs-6">
                           <i class="bi bi-trash"></i>
@@ -257,14 +255,10 @@ const social = () => {
                       />
 
                       <div
-                        className="input-group-text bg-slate-50 text-xs text-slate-400 flex relative"
+                        className="w-[90px] justify-center input-group-text bg-slate-50 text-xs text-slate-400 flex relative"
                         id="basic-addon3"
                       >
                         <span className="text-slate-500">instagram</span>
-
-                        {/* <button className="text-danger me-2 fs-6">
-                          <i class="bi bi-trash"></i>
-                        </button> */}
                       </div>
                     </div>
                   </div>
@@ -284,16 +278,10 @@ const social = () => {
                         placeholder="لینک پروفایل Linkedin خود را وارد فرمایید"
                       />
                       <div
-                        className="input-group-text bg-slate-50 text-xs text-slate-400  flex relative"
+                        className="w-[90px] justify-center input-group-text bg-slate-50 text-xs text-slate-400  flex relative"
                         id="basic-addon3"
                       >
-                        <span className="text-slate-500 mr-[22px]">
-                          linkdin
-                        </span>
-
-                        {/* <button className="text-danger me-2 fs-6">
-                          <i class="bi bi-trash"></i>
-                        </button> */}
+                        <span className="text-slate-500 ">linkedin</span>
                       </div>
                     </div>
                   </div>
@@ -314,16 +302,12 @@ const social = () => {
                       />
 
                       <div
-                        className="input-group-text bg-slate-50 text-xs text-slate-400  flex relative"
+                        className=" w-[90px] justify-center input-group-text bg-slate-50 text-xs text-slate-400  flex relative"
                         id="basic-addon3"
                       >
                         <span className="text-slate-500 mr-[8px]">
                           telegram
                         </span>
-
-                        {/* <button className="text-danger me-2 fs-6">
-                          <i class="bi bi-trash"></i>
-                        </button> */}
                       </div>
                     </div>
                   </div>
@@ -344,14 +328,10 @@ const social = () => {
                       />
 
                       <div
-                        className="input-group-text bg-slate-50 text-xs text-slate-400 flex relative"
+                        className="w-[90px] justify-center input-group-text bg-slate-50 text-xs text-slate-400 flex relative"
                         id="basic-addon3"
                       >
                         <span className="text-slate-500">facebook</span>
-
-                        {/* <button className="text-danger me-2 fs-6">
-                          <i class="bi bi-trash"></i>
-                        </button> */}
                       </div>
                     </div>
                   </div>
@@ -372,14 +352,10 @@ const social = () => {
                       />
 
                       <div
-                        className="input-group-text bg-slate-50 text-xs text-slate-400 flex relative"
+                        className="w-[90px] justify-center input-group-text bg-slate-50 text-xs text-slate-400 flex relative"
                         id="basic-addon3"
                       >
                         <span className="text-slate-500">aparat</span>
-
-                        {/* <button className="text-danger me-2 fs-6">
-                          <i class="bi bi-trash"></i>
-                        </button> */}
                       </div>
                     </div>
                   </div>
@@ -400,14 +376,10 @@ const social = () => {
                       />
 
                       <div
-                        className="input-group-text bg-slate-50 text-xs text-slate-400  flex relative"
+                        className="w-[90px] justify-center input-group-text bg-slate-50 text-xs text-slate-400  flex relative"
                         id="basic-addon3"
                       >
-                        <span className="text-slate-500 mr-[8px]">youtybe</span>
-
-                        {/* <button className="text-danger me-2 fs-6">
-                          <i class="bi bi-trash"></i>
-                        </button> */}
+                        <span className="text-slate-500 mr-[8px]">youtube</span>
                       </div>
                     </div>
                   </div>
@@ -428,14 +400,10 @@ const social = () => {
                       />
 
                       <div
-                        className="input-group-text bg-slate-50 text-xs text-slate-400  flex relative"
+                        className="w-[90px] justify-center input-group-text bg-slate-50 text-xs text-slate-400  flex relative"
                         id="basic-addon3"
                       >
-                        <span className="text-slate-500 mr-[8px]">twitter</span>
-
-                        {/* <button className="text-danger me-2 fs-6">
-                          <i class="bi bi-trash"></i>
-                        </button> */}
+                        <span className="text-slate-500 ">twitter</span>
                       </div>
                     </div>
                   </div>
@@ -456,14 +424,10 @@ const social = () => {
                       />
 
                       <div
-                        className="input-group-text bg-slate-50 text-xs text-slate-400  flex relative"
+                        className="w-[90px] justify-center input-group-text bg-slate-50 text-xs text-slate-400  flex relative"
                         id="basic-addon3"
                       >
-                        <span className="text-slate-500 mr-[8px]">skype</span>
-
-                        {/* <button className="text-danger me-2 fs-6">
-                          <i class="bi bi-trash"></i>
-                        </button> */}
+                        <span className="text-slate-500 ">skype</span>
                       </div>
                     </div>
                   </div>

@@ -147,8 +147,9 @@ input[type="number"]{
   
 }
 .tableManagerPic{
-  width: 3vh;
+  width: 5vh;
   height: 6vh;
+  margin: 0 auto !important;
 }
 
 
@@ -2723,6 +2724,13 @@ min-height: 120px !important;
 .myPointer{
   cursor: pointer;
 }
+.myFControl{
+  width: 250px !important;
+  margin-right: -50px;
+}
+.myFCode{
+  width: 85px !important;
+}
 .silideScale{
   width:20vh;
   height:12vh;  
@@ -2738,8 +2746,15 @@ min-height: 120px !important;
 }
 
 .mySpan{
-  width: 10vh;
-  
+  width: 10vh;  
+}
+.aboutusBox{
+  border: 1px solid black;
+}
+.managerImg{
+  width: 70px;
+  height: 90px;
+  margin-right: 24px;
 }
 .myButtons{
   width: 125px !important;  

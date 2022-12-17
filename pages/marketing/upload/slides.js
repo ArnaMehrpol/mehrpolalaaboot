@@ -1,9 +1,9 @@
 import React from "react";
 import MarketingUploadSide from "../../../components/marketing/layout/MarketingUploadSide";
 import MarketingInfoHeader from "../../../components/marketing/marketingHeader/MarketingInfoHeader";
+import MainRoot from "../../../components/marketing/fileManager/components/MainRoot";
 
 import { useState, useEffect } from "react";
-import MainRoot from "../../../components/marketing/fileManager/components/MainRoot";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
@@ -206,7 +206,7 @@ const slides = () => {
                       onClick={() => {
                         setShow(true);
                       }}
-                      className="fs-6 btn btn-primary text-white-400 mr-2"
+                      className="text-[12px] btn btn-primary text-white-400 mr-2"
                     >
                       افزودن اسلاید
                       <i className="bi bi-cloud-arrow-up fs-5 mr-2"></i>

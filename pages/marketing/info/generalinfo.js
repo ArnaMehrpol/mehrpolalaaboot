@@ -80,7 +80,7 @@ const generalinfo = () => {
   //Gettin generalInfos
   const gettingGeneralInfos = () => {
     setLoading(true);
-    console.log("مشخصات عمومی");
+
     axios
       .get(url + "api/user", {
         headers: {
@@ -90,8 +90,8 @@ const generalinfo = () => {
       .then(function (response) {
         const data = response.data;
         setLoading(false);
-        console.log("اینها داده های کار بر هستند");
-        console.log(data);
+        // console.log("اینها داده های کار بر هستند");
+        // console.log(data);
         if (response) {
           setName(data.user.name);
           setLast_name(data.user.last_name);
@@ -227,13 +227,13 @@ const generalinfo = () => {
                       <label className="text-sm text-slate-700 px-2 mb-2">
                         نام
                       </label>
-                      <div className="all-input-group input-group mb-3">
+                      <div className="all-input-group input-group  mb-3">
                         <input
                           id="name"
                           readOnly
                           onChange={(e) => setName(e.target.value)}
                           type="text"
-                          className="form-control grayBackground "
+                          className="form-control grayBackground text-[12px] text-slate-700"
                           value={name && name}
                           placeholder="نام"
                         />
@@ -249,7 +249,7 @@ const generalinfo = () => {
                           readOnly
                           onChange={(e) => setLast_name(e.target.value)}
                           type="text"
-                          className="form-control grayBackground"
+                          className="form-control grayBackground text-[12px] text-slate-700"
                           value={last_name && last_name}
                           placeholder={"نام خانوادگی"}
                         />
@@ -267,7 +267,7 @@ const generalinfo = () => {
                             setNational_code(e.currentTarget.value)
                           }
                           type="text"
-                          className="form-control grayBackground"
+                          className="form-control grayBackground text-[12px] text-slate-700"
                           value={national_code && national_code}
                           placeholder={"کد ملی"}
                         />
@@ -283,7 +283,7 @@ const generalinfo = () => {
                       <div className="text-sm ">
                         <input
                           type="text"
-                          className="form-control grayBackground"
+                          className="form-control grayBackground text-[12px] text-slate-700"
                           value={enBirthday && enBirthday}
                           placeholder={"تاریخ تولد"}
                         />
@@ -310,7 +310,7 @@ const generalinfo = () => {
                             ).style.borderBlockColor = "white";
                           }}
                           id="birthday_place"
-                          className="form-select"
+                          className="form-select text-[12px] text-slate-700"
                           aria-label="Default select example"
                         >
                           {birthday_place ? (
@@ -355,7 +355,7 @@ const generalinfo = () => {
                       <input
                         type="text"
                         value={"صاحب کسب و کار"}
-                        className="form-control grayBackground"
+                        className="form-control text-[12px] text-slate-700 grayBackground"
                       />
                     </div>
                     <div className="generalinfo-input lg:col-span-4 col-span-12">
@@ -367,7 +367,7 @@ const generalinfo = () => {
                           readOnly
                           onChange={(e) => setMobile(e.target.value)}
                           type="number"
-                          className="form-control grayBackground"
+                          className="form-control text-sm grayBackground text-[12px] text-slate-700"
                           value={mobile && mobile}
                           placeholder={"شماره همراه"}
                         />
@@ -375,15 +375,16 @@ const generalinfo = () => {
                     </div>
                     <div className="generalinfo-input lg:col-span-4 col-span-12">
                       <label className="text-sm text-slate-700 px-2 mb-2">
-                        شماره همراه ۲
+                        شماره همراه دوم
                       </label>
                       <div className="all-input-group input-group mb-3">
                         <input
                           onChange={(e) => setMobile_2(e.target.value)}
                           type="number"
-                          className="form-control"
+                          className="form-control text-[12px] text-slate-700"
                           value={mobile_2 && mobile_2}
-                          placeholder={"2 شماره همراه"}
+                          placeholder={"شماره همراه دوم"}
+                          dir="rtl"
                         />
                       </div>
                     </div>
@@ -404,7 +405,7 @@ const generalinfo = () => {
                     id="btnGeneralInfo"
                     name="btnGeneralInfo"
                     onClick={handleSubmitGeneralInfo}
-                    className="text-white myButton text-md px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6"
+                    className="text-white myButton text-[12px] px-2 py-1 bg-blue-500 hover:bg-blue-400 rounded-md my-6"
                   >
                     ثبت و مرحله بعد
                   </button>

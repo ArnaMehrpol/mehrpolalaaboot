@@ -56,7 +56,7 @@ const login = () => {
         notify("نام کاربری یا رمز عبور صحیح نیست", "error");
       }
     } else if (dataLogin.status === 201) {
-      notify("ورود به پنل کاربری با موفقیت انجام گرفت", "success");
+      notify("ورود به پنل کاربری با موفقیت انجام شد", "success");
 
       if (remmemberme === true) {
         cookies.set(
